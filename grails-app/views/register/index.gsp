@@ -1,5 +1,4 @@
 
-<!--
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +16,7 @@
 
 
     header {
-        background-color: #333;
+        background-color: #8B0000;
         color: #fff;
         display: flex;
         justify-content: space-between;
@@ -154,7 +153,7 @@
 </head>
 <body>
 <header>
-    <h1>My Website</h1>
+    <h1>Linksharing</h1>
     <div class="search-box">
         <input type="text" placeholder="Search...">
         <button>Search</button>
@@ -182,16 +181,16 @@
     <div class="sidebar-right">
         <div class="login-form">
             <h2>Login</h2>
-            <form>
+            <g:form controller="login" action="loginUser">
                 <label for="email">Email/Username:</label>
-                <input type="text" id="email" name="email">
+                <input type="text" id="email_login" name="email">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password">
+                <input type="password" id="password_login" name="password">
                 <div class="form-links">
                     <a href="#">Forgot password?</a>
                     <input type="submit" value="Login">
                 </div>
-            </form>
+            </g:form>
         </div>
 
 
@@ -226,28 +225,3 @@
 </main>
 </body>
 </html>
-
-
-
-
--->
-
-
-<html>
-    <body>
-        <p>
-            Linksharing started
-        </p>
-    </body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
