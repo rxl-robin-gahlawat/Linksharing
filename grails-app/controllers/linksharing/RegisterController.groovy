@@ -8,6 +8,10 @@ class RegisterController {
 
 
     def index() {
+        if(session.LOGGED_IN_USER_ID) {
+            redirect(url: "/dashboard")
+            return
+        }
         render (view : "index")
     }
 
@@ -15,7 +19,6 @@ class RegisterController {
 
         /* Validation Rules:
             Make sure username doesn't have @
-
          */
 
         String isRegistered = RegisterService.registerUser(params);
@@ -28,29 +31,6 @@ class RegisterController {
         }
 
         redirect(url: "/login")
-
-
-        /*
-        Userdetail user = new Userdetail();
-        user.email = params.email
-        user.username = params.username
-        user.firstName = params.firstname
-        user.lastName = params.lastname
-        user.password = params.password
-
-        if(!(user.validate())){
-            // write code for showing message on frontend
-
-        }
-
-
-        user.save(flush: true, failOnError: true)
-
-
-         */
-
-      //  redirect(url:"/login")
-
 
     }
 

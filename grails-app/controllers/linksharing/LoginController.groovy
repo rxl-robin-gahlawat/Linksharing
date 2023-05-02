@@ -8,21 +8,27 @@ class LoginController {
 
     def index() {
 
-        //render "your are logged in"
+        if(session.LOGGED_IN_USER_ID) {
+            redirect(url: "/dashboard")
+            return
+        }
         render(view: "/register/index")
 
-      //  redirect(url:"/dashboard")
     }
 
     def loginUser(){
 
         String userInput = params.email
         Userdetail user = LoginService.checkUserExistence(userInput)
+
         if(!user){
             render "user doesn't exist"
         }
         else{
             //render user.firstName
+            //String st = user + "  ->  " + session
+            session.LOGGED_IN_USER_ID = user.id
+            render session
             redirect(url:"/dashboard")
         }
 
