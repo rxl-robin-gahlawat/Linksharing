@@ -4,6 +4,8 @@ class LoginController {
 
     //static defaultAction = "loginUser"
 
+    def LoginService
+
     def index() {
 
         //render "your are logged in"
@@ -13,28 +15,17 @@ class LoginController {
     }
 
     def loginUser(){
-        // find username/email in
 
         String userInput = params.email
-        if(userInput.contains("@")){
-            Userdetail userByEmail = Userdetail.findByEmail(userInput)
-
-
+        Userdetail user = LoginService.checkUserExistence(userInput)
+        if(!user){
+            render "user doesn't exist"
         }
         else{
-            Userdetail userByUsername = Userdetail.findByUser(userInput)
-
+            //render user.firstName
+            redirect(url:"/dashboard")
         }
 
-
-
-
-
-
-        //   Userdetail.find()
-
-
-        render user.firstName
     }
 
 }
