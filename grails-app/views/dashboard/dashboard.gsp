@@ -9,6 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!--
+
     <style>
     body {
         font-family: Arial, sans-serif;
@@ -145,7 +148,7 @@
     }
 
     </style>
-
+-->
 
 </head>
 
@@ -156,7 +159,7 @@
 
 <body>
 
-<g:render template="/template/header" />
+<g:render template="/template/navbar" />
 
 
 <main>
@@ -182,6 +185,85 @@
         </div>
 
     </div>
+
+
+    <!--
+
+    code for logout button.
+
+    <div class="search-box">
+        <g:form controller="logout" action="index">
+        <button>Logout</button>
+    </g:form>
+    </div>
+
+------------------------------------------------------------------
+    -->
+
+    <div class="sidebar-left">
+
+        <h2>Recent Shares</h2>
+        <div class="status-container">
+            <p>Example status update</p>
+            <p>Another example status update</p>
+        </div>
+
+        <h2>Top Posts</h2>
+        <div class="top-posts">
+            <div class="post">
+                <h3>Example post title</h3>
+                <p>Example post content</p>
+            </div>
+            <div class="post">
+                <h3>Another example post title</h3>
+                <p>Another example post content</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="sidebar-left">
+
+        <h2>Recent Shares</h2>
+        <div class="status-container">
+            <p>Example status update</p>
+            <p>Another example status update</p>
+        </div>
+
+        <h2>Top Posts</h2>
+        <div class="top-posts">
+            <div class="post">
+                <h3>Example post title</h3>
+                <p>Example post content</p>
+            </div>
+            <div class="post">
+                <h3>Another example post title</h3>
+                <p>Another example post content</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="sidebar-left">
+
+        <h2>Recent Shares</h2>
+        <div class="status-container">
+            <p>Example status update</p>
+            <p>Another example status update</p>
+        </div>
+
+        <h2>Top Posts</h2>
+        <div class="top-posts">
+            <div class="post">
+                <h3>Example post title</h3>
+                <p>Example post content</p>
+            </div>
+            <div class="post">
+                <h3>Another example post title</h3>
+                <p>Another example post content</p>
+            </div>
+        </div>
+
+    </div>
+
 
 </main>
 </body>

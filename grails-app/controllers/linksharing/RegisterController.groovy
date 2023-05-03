@@ -17,9 +17,7 @@ class RegisterController {
 
     def registerUser(){
 
-        /* Validation Rules:
-            Make sure username doesn't have @
-         */
+
 
         String isRegistered = RegisterService.registerUser(params);
 
@@ -31,6 +29,8 @@ class RegisterController {
         }
 
         redirect(url: "/login")
+
+
 
     }
 

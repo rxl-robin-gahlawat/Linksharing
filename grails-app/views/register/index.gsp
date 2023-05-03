@@ -16,7 +16,7 @@
 
 
     header {
-        background-color: #8B0000;
+        background-color: #06064b;
         color: #fff;
         display: flex;
         justify-content: space-between;
@@ -197,6 +197,7 @@
         <div class="register-form">
 
             <h2>Register</h2>
+
             <g:form controller="register" action="registerUser">
                 <label for="firstname">First Name:</label>
                 <input type="text" id="firstname" name="firstname"/>
