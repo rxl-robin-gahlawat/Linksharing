@@ -153,6 +153,7 @@
 </head>
 <body>
 <header>
+
     <h1>Linksharing</h1>
     <div class="search-box">
         <input type="text" placeholder="Search...">

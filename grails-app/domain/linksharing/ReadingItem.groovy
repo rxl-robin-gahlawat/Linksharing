@@ -10,5 +10,6 @@ class ReadingItem {
 
 
     static constraints = {
+        isRead nullable: false, blank: false
     }
 }

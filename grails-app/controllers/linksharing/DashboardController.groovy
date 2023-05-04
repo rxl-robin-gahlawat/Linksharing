@@ -2,9 +2,12 @@ package linksharing
 
 import Enum.VisibilityEnum
 
-//import Enum.VisibilityEnum
+
+
 
 class DashboardController {
+
+    def CreateTopicService
 
     def index() {
 
@@ -16,20 +19,14 @@ class DashboardController {
 
     def createTopic(){
 
-        Topic topic = new Topic();
-        topic.name = params.topicName;
-        topic.createdBy = Userdetail.findById(session.LOGGED_IN_USER_ID)
-        //topic.visibility = VisibilityEnum.PUBLIC
-      //  topic.visibility = VisibilityEnum.PRIVATE
-
-        if(params.visibility == "public")
-            topic.visibility = VisibilityEnum.PUBLIC
+        boolean isTopicCreated = CreateTopicService.createTopic(params, session.LOGGED_IN_USER_ID)
+        if(isTopicCreated)
+            redirect(url:"/dashboard")
         else
-            topic.visibility = VisibilityEnum.PRIVATE
+            render "Topic Validation Error"
 
-        redirect(url:"/dashboard")
+    // To do : add data in subscription table.
 
-        //render topic.validate()
     }
 
 

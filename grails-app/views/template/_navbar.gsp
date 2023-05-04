@@ -70,14 +70,6 @@
 
 
 
-                                    %{--                                                                        <g:form controller="dashboard" action="createTopic">--}%
-                                    %{--                                                                            <label for="firstname">First Name:</label>--}%
-                                    %{--                                                                            <input type="text" id="firstname" name="firstname"/>--}%
-                                    %{--                                                                            <label for="lastname">Last Name:</label>--}%
-                                    %{--                                                                            <input type="text" id="lastname" name="lastname"/>--}%
-                                    %{--                                                                            <input type="submit" value="Reg">--}%
-                                    %{--                                                                        </g:form>--}%
-
 
                                         <div class="modal-body">
 
@@ -103,54 +95,6 @@
                                             </g:form>
 
                                         </div>
-
-                                        <!-- Modal Footer -->
-
-
-
-
-
-
-
-
-
-
-%{--                                    <g:form controller="dashboard" action="createTopic">--}%
-
-%{--                                        --}%
-%{--                                        <div class="modal-body">--}%
-%{--                                            <form>--}%
-%{--                                                <div class="mb-3">--}%
-%{--                                                    <label for="topicName" class="form-label">Name</label>--}%
-%{--                                                    <input type="text" class="form-control" id="topicName">--}%
-%{--                                                </div>--}%
-%{--                                                <div class="mb-3">--}%
-%{--                                                    <label for="visibility" class="form-label">Visibility</label>--}%
-%{--                                                    <select class="form-select" id="visibility">--}%
-%{--                                                        <option value="public">Public</option>--}%
-%{--                                                        <option value="private">Private</option>--}%
-%{--                                                    </select>--}%
-%{--                                                </div>--}%
-%{--                                            </form>--}%
-%{--                                        </div>--}%
-
-%{--                                        <!-- Modal Footer -->--}%
-%{--                                        <div class="modal-footer">--}%
-%{--                                            <button type="button" class="btn btn-secondary"--}%
-%{--                                                    data-bs-dismiss="modal">Close</button>--}%
-%{--                                            <button type="submit" class="btn btn-primary">Create</button>--}%
-%{--                                        </div>--}%
-%{--                                        --}%
-%{--                                    </g:form>--}%
-
-
-
-
-
-
-
-
-
 
 
                                 </div>

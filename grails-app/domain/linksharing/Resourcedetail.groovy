@@ -19,5 +19,6 @@ class Resourcedetail {
 
 
     static constraints = {
+        description nullable: false, blank: false
     }
 }

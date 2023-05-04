@@ -14,5 +14,6 @@ class Subscription {
     static belongsTo = [user: Userdetail, topic: Topic]
 
     static constraints = {
+        seriousnes nullable: false, blank:false
     }
 }

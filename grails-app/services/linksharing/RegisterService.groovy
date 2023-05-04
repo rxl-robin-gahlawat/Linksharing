@@ -11,6 +11,7 @@ class RegisterService {
 
     def registerUser(def params){
 
+
         Userdetail user = new Userdetail();
         user.email = params.email
         user.username = params.username
@@ -29,6 +30,8 @@ class RegisterService {
             user.save(flush: true, failOnError: true)
             return "User saved successfully"
         }
+
+
 
 
     }
