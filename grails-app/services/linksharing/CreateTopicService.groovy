@@ -1,5 +1,6 @@
 package linksharing
 
+import Enum.SeriousnessEnum
 import Enum.VisibilityEnum
 import grails.gorm.transactions.Transactional
 
@@ -16,6 +17,7 @@ class CreateTopicService {
             return false
         }
 
+        // change below def to List<String>
         def allTopicNamesByUser = Topic.createCriteria().list{
             projections{
                 property("name")
@@ -27,6 +29,17 @@ class CreateTopicService {
             return false;
         }
         return true;
+    }
+
+    def subscribeTopicCreator(Topic topic, Userdetail user){
+
+        Subscription sub = new Subscription();
+        sub.user = user;
+        sub.topic = topic;
+        //sub.seriousness = "VERY_SERIOUS"
+        sub.seriousness = SeriousnessEnum.VERY_SERIOUS
+        sub.save(flush: true, failOnError:true)
+
     }
 
     def createTopic(def params, def USER_ID){
@@ -46,6 +59,7 @@ class CreateTopicService {
 
         if(topicValidator(topic, user)){
             topic.save(flush:true, failOnError: true)
+            subscribeTopicCreator(topic,user)
             return true
         }
         return false

@@ -14,7 +14,6 @@ class Resourcedetail {
     static hasMany = [readingItems: ReadingItem, resourceRatings: ResourceRating]
 
     static mapping = {
-        tablePerHierarchy false
     }
 
 

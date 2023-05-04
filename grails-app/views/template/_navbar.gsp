@@ -34,7 +34,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse offset-3" id="navbarNav">
+            <div class="collapse navbar-collapse offset-2" id="navbarNav">
 
                 <form class="d-flex " role="search">
                     <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
@@ -49,13 +49,11 @@
 
                     <li class="nav-item">
                         <!-- Button to trigger modal -->
-
                         <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
                                 data-bs-target="#createTopicModal">
-                            <g:img dir="images" file="topic.png" height = "34" width="40"/>
+                            <g:img dir="images" file="Icons/topic_icon.png" height = "34" width="40"/>
                         </button>
-
-                        <!-- Modal -->
+                        <!-- Create Topic Modal -->
                         <div class="modal fade" id="createTopicModal" tabindex="-1"
                              aria-labelledby="createTopicModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -66,13 +64,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
-                                    <!-- Modal Body -->
-
-
-
-
                                         <div class="modal-body">
-
                                             <g:form controller="dashboard" action="createTopic">
                                                 <div class="mb-3">
                                                     <label for="topicName" class="form-label">Topic Name</label>
@@ -85,7 +77,6 @@
                                                         <option value="private">Private</option>
                                                     </select>
                                                 </div>
-
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
@@ -93,14 +84,120 @@
                                                 </div>
 
                                             </g:form>
-
                                         </div>
-
-
                                 </div>
                             </div>
                         </div>
                     </li>
+
+
+
+
+                    <!-- Create Resource Link Modal -->
+                    <li class="nav-item">
+                        <!-- Button to trigger modal -->
+                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                data-bs-target="#createResourceLinkModal">
+                            <g:img dir="images" file="Icons/link_icon.png" height = "36" width="40" style="border-radius: 3px;"/>
+                        </button>
+
+                        <!-- Create Resource Link Modal -->
+                        <div class="modal fade" id="createResourceLinkModal" tabindex="-1"
+                             aria-labelledby="createResourceModalLinkLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createResourceLabel">Create Resource</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="userEmail" class="form-label">Resource*:</label>
+                                                <input type="text" class="form-control" id="resource">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="shareTopic" class="form-label">Topic*:</label>
+                                                <select class="form-select" id="ResourceTopic">
+                                                    <option><a href="#">Topic1</a></option>
+                                                    <option><a href="#">Topic2</a></option>
+                                                    <option><a href="#">Topic3</a></option>
+                                                    <option><a href="#">Topic4</a></option>
+
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Invite</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+                    <!-- Create Resource Document Modal -->
+                    <li class="nav-item">
+                        <!-- Button to trigger modal -->
+                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                data-bs-target="#createResourceModal">
+                            <g:img dir="images" file="Icons/doc_icon.png" height = "36" width="40" style="border-radius: 3px;"/>
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="createResourceModal1" tabindex="-1"
+                             aria-labelledby="createResourceModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createResourceLabel1">Create Resource</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <!-- Modal Body -->
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="userEmail" class="form-label">Resource*:</label>
+                                                <input type="text" class="form-control" id="resource1">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="shareTopic" class="form-label">Topic*:</label>
+                                                <select class="form-select" id="ResourceTopic1">
+                                                    <option><a href="#">Topic1</a></option>
+                                                    <option><a href="#">Topic2</a></option>
+                                                    <option><a href="#">Topic3</a></option>
+                                                    <option><a href="#">Topic4</a></option>
+
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- Modal Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Invite</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+
 
 
                     <!-- Send Invitation Modal -->
@@ -134,59 +231,6 @@
                                                 <select class="form-select" id="shareTopic">
                                                     <option><a href="#">Topic1</a></option>
                                                     <option><a href="#">Topic2</a></option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary">Invite</button>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-
-
-                    <!-- Create Topic Modal -->
-                    <li class="nav-item">
-                        <!-- Button to trigger modal -->
-                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#createResourceModal">
-                            <g:img dir="images" file="resource.png" height = "36" width="40" style="border-radius: 3px;"/>
-                        </button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="createResourceModal" tabindex="-1"
-                             aria-labelledby="createResourceModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="createResourceLabel">Create Resource</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <!-- Modal Body -->
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="userEmail" class="form-label">Resource*:</label>
-                                                <input type="text" class="form-control" id="resource">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="shareTopic" class="form-label">Topic*:</label>
-                                                <select class="form-select" id="ResourceTopic">
-                                                    <option><a href="#">Topic1</a></option>
-                                                    <option><a href="#">Topic2</a></option>
-                                                    <option><a href="#">Topic3</a></option>
-                                                    <option><a href="#">Topic4</a></option>
-
                                                 </select>
                                             </div>
                                         </form>

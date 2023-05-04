@@ -1,8 +1,7 @@
 package linksharing
 
-class DocumentResource {
+class DocumentResource extends Resourcedetail{
 
-    Resourcedetail resource;
     String filePath;
 
     static constraints = {

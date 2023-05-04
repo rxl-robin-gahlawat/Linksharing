@@ -1,8 +1,7 @@
 package linksharing
 
-class LinkResource {
+class LinkResource extends Resourcedetail{
 
-    Resourcedetail resource;
     String url;
 
     static constraints = {
