@@ -1,5 +1,7 @@
 package linksharing
 
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator
+
 class LoginController {
 
     //static defaultAction = "loginUser"
@@ -12,7 +14,22 @@ class LoginController {
             redirect(url: "/dashboard")
             return
         }
+
+        //  def resultMap = ["mylist": r]
+
+//        Map  loggedInMap = ["isLoggedIn" : "No"]
+//
+//        if(session.LOGGED_IN_USER_ID){
+//            loggedInMap = ["isLoggedIn" : "Yes"]
+//        }
+//
+//        loggedInMap = ["isLoggedIn" : "Yes"]
+//
+//        render(view: "/register/index", model: loggedInMap)
+
+
         render(view: "/register/index")
+
 
     }
 

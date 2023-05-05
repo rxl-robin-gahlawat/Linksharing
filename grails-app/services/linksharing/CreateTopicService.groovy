@@ -50,7 +50,6 @@ class CreateTopicService {
         topic.name = params.topicName;
         topic.createdBy = user
 
-
         if(params.visibility == "public")
             topic.visibility = VisibilityEnum.PUBLIC
         else

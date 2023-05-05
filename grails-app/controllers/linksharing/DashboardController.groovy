@@ -1,13 +1,13 @@
 package linksharing
 
 import Enum.VisibilityEnum
-
-
+import grails.converters.JSON
 
 
 class DashboardController {
 
     def CreateTopicService
+    def CreateLinkResourceService
 
     def index() {
 
@@ -25,7 +25,32 @@ class DashboardController {
         else
             render "Topic Validation Error"
 
-    // To do : add data in subscription table.
+    }
+
+    def createLinkResource(){
+
+        render CreateLinkResourceService.createLinkResource(params)
+
+    }
+
+    def loadSubscribedTopics(){
+
+        // there is an issue here, this also select topics which are private
+
+        Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
+
+        List result = Subscription.createCriteria().list{
+            projections{
+                topic{
+                    property("name")
+                }
+            }
+            eq("user",user)
+
+        }
+
+        Map m = [key:result]
+        render m as JSON
 
     }
 

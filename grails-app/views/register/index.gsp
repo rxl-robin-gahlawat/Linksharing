@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,8 +162,9 @@
     </div>
 </header>
 <main>
+
     <div class="sidebar-left">
-        <h2>Recent Status</h2>
+        <h2>Recent Shares</h2>
         <div class="status-container">
             <p>Example status update</p>
             <p>Another example status update</p>
@@ -179,6 +181,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="sidebar-right">
         <div class="login-form">
             <h2>Login</h2>
@@ -199,7 +203,7 @@
 
             <h2>Register</h2>
 
-            <g:form controller="register" action="registerUser">
+            <g:uploadForm controller="register" action="registerUser">
                 <label for="firstname">First Name:</label>
                 <input type="text" id="firstname" name="firstname"/>
                 <label for="lastname">Last Name:</label>
@@ -215,7 +219,9 @@
                 <label for="photo">Photo:</label>
                 <input type="file" id="photo" name="photo">
                 <input type="submit" value="Register">
-            </g:form>
+            </g:uploadForm>
+
+
 
         </div>
 
@@ -227,3 +233,5 @@
 </main>
 </body>
 </html>
+
+
