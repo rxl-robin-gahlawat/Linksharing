@@ -213,16 +213,16 @@
 
 
 
-                    <!-- Create Resource Document Modal -->
+                    <!-- Create Document Document Modal -->
                     <li class="nav-item">
                         <!-- Button to trigger modal -->
                         <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#createResourceModal">
+                                data-bs-target="#createDocumentResourceModal">
                             <g:img dir="images" file="Icons/doc_icon.png" height = "36" width="40" style="border-radius: 3px;"/>
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="createResourceModal1" tabindex="-1"
+                        <div class="modal fade" id="createDocumentResourceModal" tabindex="-1"
                              aria-labelledby="createResourceModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -321,7 +321,7 @@
 
                         <div class="btn-group offset-1">
                             <button type="button" class="btn btn-outline-info  mt-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
-                                User
+                                ${username}
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
@@ -338,9 +338,9 @@
                     <li class="nav-item">
                         <!-- User profile section -->
                         <div class="userProfilePhoto mt-3 offset-10">
-                            <label  class="form-label mt-2">
-                                %{--                                <a href="#"><img src="images/userProfilePhoto.svg" height="30" width="30"></a>--}%
-                                <a style="color: red">Photo</a>
+                            <label  class="form-label mt-1">
+%{--                                height = "36" width="40"--}%
+                                <g:img dir="images" file="${userProfilePicturePath}" height = "36" width="40" style="border-radius: 40%;"/>
                             </label>
                         </div>
                     </li>
@@ -359,17 +359,22 @@
 
 <script>
 
+    // AJAX to load subscribed topics while creating new resources.
     $(document).ready(function(){
         $("#createLinkResourceModalDropdownButton").click(function(){
 
             var selectElement = document.getElementById("availableTopics")
             selectElement.options.length = 0;
             $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
-                    for(let i =0; i< result.key.length; ++i){
-                            var option = document.createElement("option");
-                            option.text = result.key[i];
-                            selectElement.add(option)
+
+                for(let i =0; i< result.key.length; ++i){
+                    var option = document.createElement("option");
+                    option.text = result.key[i][1];
+                    option.value = result.key[i][0];
+                    selectElement.add(option);
                     }
+
+
                 }});
         });
     });

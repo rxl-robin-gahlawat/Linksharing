@@ -7,7 +7,7 @@ class Userdetail {
     String firstName
     String lastName
     String password
-    Byte photo; // Update it
+    String photo // Update it
     Boolean admin = false
     Boolean active = true
     Date dateCreated

@@ -11,9 +11,9 @@ class DashboardController {
 
     def index() {
 
-        //Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
-
-        render(view:"dashboard")
+        Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
+        Map userMap = ["userProfilePicturePath": user.photo.substring(25), "username": user.username]
+        render(view:"dashboard", model: userMap)
 
     }
 
@@ -29,8 +29,13 @@ class DashboardController {
 
     def createLinkResource(){
 
-        render CreateLinkResourceService.createLinkResource(params)
-
+        boolean isSuccessfull =  CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
+        if(isSuccessfull){
+            redirect(url:"/dashboard")
+        }
+        else{
+            render "couldn't add link resource"
+        }
     }
 
     def loadSubscribedTopics(){
@@ -38,10 +43,10 @@ class DashboardController {
         // there is an issue here, this also select topics which are private
 
         Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
-
-        List result = Subscription.createCriteria().list{
+        def result = Subscription.createCriteria().list{
             projections{
                 topic{
+                    property("id")
                     property("name")
                 }
             }
@@ -49,8 +54,8 @@ class DashboardController {
 
         }
 
-        Map m = [key:result]
-        render m as JSON
+        Map subscribersMap = [key:result]
+        render subscribersMap as JSON
 
     }
 

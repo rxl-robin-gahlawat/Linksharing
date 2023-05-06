@@ -41,15 +41,15 @@ class RegisterController {
          */
 
 
-        String isRegistered = RegisterService.registerUser(params);
+        boolean isRegistered = RegisterService.registerUser(params)
         if(isRegistered){
+            redirect(url: "/login")
             // show message and after clicking ok on msg redirect.
         }
         else{
+            render "validation error"
             // show error message
         }
-        redirect(url: "/login")
-
 
 
     }

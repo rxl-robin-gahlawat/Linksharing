@@ -9,7 +9,7 @@ class RegisterService {
 
     }
 
-    def registerUser(def params){
+    def registerUser(Map params){
 
 
         Userdetail user = new Userdetail();
@@ -19,16 +19,30 @@ class RegisterService {
         user.lastName = params.lastname
         user.password = params.password
 
+        if(params.photo){
+            def multipartFile = params.photo
+            def photoExtension = multipartFile.getOriginalFilename().tokenize('.')[-1]
+            def bytes = multipartFile.getBytes()
+            def url = "grails-app/assets/images/profilePicture/${params.username}.${photoExtension}"
+            def newFile = new File("${url}")
+            newFile.createNewFile()
+            newFile.append(bytes)
+            params.photo = url
+            user.photo = params.photo
+        }
+
         // make validator for checking password == confirm password
 
-        if(!(user.validate())){
+        if(!user.validate()){
 
-            return "Validation Error"
+           // return "Validation Error"
+            return false;
 
         }
         else{
             user.save(flush: true, failOnError: true)
-            return "User saved successfully"
+            return true
+           // return "User saved successfully"
         }
 
 
