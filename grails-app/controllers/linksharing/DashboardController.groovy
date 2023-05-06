@@ -8,6 +8,7 @@ class DashboardController {
 
     def CreateTopicService
     def CreateLinkResourceService
+    def CreateDocumentResourceService
 
     def index() {
 
@@ -29,13 +30,20 @@ class DashboardController {
 
     def createLinkResource(){
 
-        boolean isSuccessfull =  CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
-        if(isSuccessfull){
+        boolean isSuccessful =  CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
+        if(isSuccessful)
             redirect(url:"/dashboard")
-        }
-        else{
+        else
             render "couldn't add link resource"
-        }
+
+    }
+
+    def createDocumentResource(){
+        boolean isSuccessful = CreateDocumentResourceService.createDocumentResource(params,session.LOGGED_IN_USER_ID)
+        if(isSuccessful)
+            redirect(url:"/dashboard")
+        else
+            render "couldn't add document resource"
     }
 
     def loadSubscribedTopics(){

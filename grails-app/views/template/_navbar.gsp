@@ -161,107 +161,62 @@
 
 
 
-%{--                    <!-- Create Resource Link Modal -->--}%
-%{--                    <li class="nav-item">--}%
-%{--                        <!-- Button to trigger modal -->--}%
-%{--                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"--}%
-%{--                                data-bs-target="#createLinkResourceModal">--}%
-%{--                            <g:img dir="images" file="Icons/link_icon.png" height = "36" width="40" style="border-radius: 3px;"/>--}%
-%{--                        </button>--}%
 
-%{--                        <!-- Create LinkResource Modal -->--}%
-%{--                        <div class="modal fade" id="createLinkResourceModal" tabindex="-1"--}%
-%{--                             aria-labelledby="createLinkResourceModalLabel" aria-hidden="true">--}%
-%{--                            <div class="modal-dialog">--}%
-%{--                                <div class="modal-content">--}%
-%{--                                    <!-- Modal Header -->--}%
-%{--                                    <div class="modal-header">--}%
-%{--                                        <h5 class="modal-title" id="createLinkResourceLabel">Create Resource</h5>--}%
-%{--                                        <button type="button" class="btn-close" data-bs-dismiss="modal"--}%
-%{--                                                aria-label="Close"></button>--}%
-%{--                                    </div>--}%
-%{--                                    <!-- Modal Body -->--}%
-%{--                                    <div class="modal-body">--}%
-%{--                                        <form>--}%
-%{--                                            <div class="mb-3">--}%
-%{--                                                <label for="userEmail" class="form-label">Resource*:</label>--}%
-%{--                                                <input type="text" class="form-control" id="resource">--}%
-%{--                                            </div>--}%
-%{--                                            <div class="mb-3">--}%
-%{--                                                <label for="shareTopic" class="form-label">Topic*:</label>--}%
-%{--                                                <select class="form-select" id="ResourceTopic">--}%
-%{--                                                    <option><a href="#">Topic1</a></option>--}%
-%{--                                                    <option><a href="#">Topic2</a></option>--}%
-%{--                                                    <option><a href="#">Topic3</a></option>--}%
-%{--                                                    <option><a href="#">Topic4</a></option>--}%
-
-%{--                                                </select>--}%
-%{--                                            </div>--}%
-%{--                                        </form>--}%
-%{--                                    </div>--}%
-%{--                                    <!-- Modal Footer -->--}%
-%{--                                    <div class="modal-footer">--}%
-%{--                                        <button type="button" class="btn btn-secondary"--}%
-%{--                                                data-bs-dismiss="modal">Cancel</button>--}%
-%{--                                        <button type="button" class="btn btn-primary">Invite</button>--}%
-
-%{--                                    </div>--}%
-%{--                                </div>--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
-%{--                    </li>--}%
-
-
-
-                    <!-- Create Document Document Modal -->
                     <li class="nav-item">
-                        <!-- Button to trigger modal -->
-                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#createDocumentResourceModal">
-                            <g:img dir="images" file="Icons/doc_icon.png" height = "36" width="40" style="border-radius: 3px;"/>
+                        <!-- Button to trigger modal id="createDocumentResourceModalDropdownButton"-->
+                        <button type="button" id="createDocumentResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                data-bs-target="#documentResourceModal">
+                            <g:img dir="images" file="Icons/doc_icon.png" height = "34" width="40"/>
                         </button>
 
-                        <!-- Modal -->
-                        <div class="modal fade" id="createDocumentResourceModal" tabindex="-1"
-                             aria-labelledby="createResourceModalLabel" aria-hidden="true">
+                        <!-- Create Document Document Modal -->
+                        <div class="modal fade" id="documentResourceModal" tabindex="-1"
+                             aria-labelledby="documentResourceModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <!-- Modal Header -->
+                                    <!-- modal content -->
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="createResourceLabel1">Create Resource</h5>
+                                        <h5 class="modal-title" id="documentResourceModalLabel">Share Document Resource</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
-                                    <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="userEmail" class="form-label">Resource*:</label>
-                                                <input type="text" class="form-control" id="resource1">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="shareTopic" class="form-label">Topic*:</label>
-                                                <select class="form-select" id="ResourceTopic1">
-                                                    <option><a href="#">Topic1</a></option>
-                                                    <option><a href="#">Topic2</a></option>
-                                                    <option><a href="#">Topic3</a></option>
-                                                    <option><a href="#">Topic4</a></option>
 
-                                                </select>
+                                        <g:uploadForm controller="dashboard" action="createDocumentResource">
+
+                                            <div class="mb-3">
+                                                <label for="linkResourceModal" class="form-label">Document*</label>
+                                                <input type="file" class="form-control" id="resourceDocument" name="resourceDocument" required>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Invite</button>
+
+                                            <div class="mb-3">
+                                                <label for="documentResourceModal" class="form-label">Description*</label>
+                                                <textarea id="resourceDescription"  name="resourceDescription" rows="4" cols="44" required></textarea>
+
+                                            </div>
+
+
+                                            <div class="mb-3">
+                                                <label for="documentResourceModal" class="form-label">Topic</label>
+                                                <select class="form-select" id="availableTopicDoc" name="availableTopicDoc">
+                                                </select>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button id = "closeDocumentResourceButton" type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Share</button>
+                                            </div>
+
+                                        </g:uploadForm>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </li>
+
 
 
 
@@ -366,15 +321,28 @@
             var selectElement = document.getElementById("availableTopics")
             selectElement.options.length = 0;
             $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
-
                 for(let i =0; i< result.key.length; ++i){
                     var option = document.createElement("option");
                     option.text = result.key[i][1];
                     option.value = result.key[i][0];
                     selectElement.add(option);
                     }
+                }});
+        });
+    });
 
+    $(document).ready(function(){
+        $("#createDocumentResourceModalDropdownButton").click(function(){
 
+            var selectElement = document.getElementById("availableTopicDoc")
+            selectElement.options.length = 0;
+            $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
+                    for(let i =0; i< result.key.length; ++i){
+                        var option = document.createElement("option");
+                        option.text = result.key[i][1];
+                        option.value = result.key[i][0];
+                        selectElement.add(option);
+                    }
                 }});
         });
     });
