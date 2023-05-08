@@ -276,7 +276,7 @@
 
                         <div class="btn-group offset-1">
                             <button type="button" class="btn btn-outline-info  mt-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
-                                ${username}
+                                ${user.username}
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">Action</a></li>
@@ -294,8 +294,7 @@
                         <!-- User profile section -->
                         <div class="userProfilePhoto mt-3 offset-10">
                             <label  class="form-label mt-1">
-%{--                                height = "36" width="40"--}%
-                                <g:img dir="images" file="${userProfilePicturePath}" height = "36" width="40" style="border-radius: 40%;"/>
+                                <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
                             </label>
                         </div>
                     </li>

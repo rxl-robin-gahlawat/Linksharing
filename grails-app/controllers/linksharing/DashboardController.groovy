@@ -9,12 +9,18 @@ class DashboardController {
     def CreateTopicService
     def CreateLinkResourceService
     def CreateDocumentResourceService
+    def FindUserSubscriptionAndTopicsService
+    def SubscriptionListService
 
     def index() {
 
         Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
-        Map userMap = ["userProfilePicturePath": user.photo.substring(25), "username": user.username]
-        render(view:"dashboard", model: userMap)
+
+        def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
+        List subscribedTopicList = SubscriptionListService.subscriptionList(user)
+      //  println subscribedTopicList
+        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList]
+        render(view:"dashboard", model: loadMap)
 
     }
 
@@ -48,7 +54,9 @@ class DashboardController {
 
     def loadSubscribedTopics(){
 
-        // there is an issue here, this also select topics which are private
+        // there is an issue here, this also select topics which are private, to solve
+        // this, need to change below query(but should subscribed privated topics be allowed
+        // to add new resources by anyone other than creator of topic?
 
         Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
         def result = Subscription.createCriteria().list{

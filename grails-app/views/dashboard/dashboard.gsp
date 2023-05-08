@@ -26,61 +26,60 @@
 
 <main>
 
-%{--    <div class="sidebar-left">--}%
 
-%{--        <h2>Recent Shares</h2>--}%
-%{--        <div class="status-container">--}%
-%{--            <p>Example status update</p>--}%
-%{--            <p>Another example status update</p>--}%
-%{--        </div>--}%
-
-%{--        <h2>Top Posts</h2>--}%
-%{--        <div class="top-posts">--}%
-%{--            <div class="post">--}%
-%{--                <h3>Example post title</h3>--}%
-%{--                <p>Example post content</p>--}%
-%{--            </div>--}%
-%{--            <div class="post">--}%
-%{--                <h3>Another example post title</h3>--}%
-%{--                <p>Another example post content</p>--}%
-%{--            </div>--}%
-%{--        </div>--}%
-
-%{--    </div>--}%
-
-
-    <div class="container-fluid p-4">
+    <div class="container-fluid p-5">
 
         <div class="row">
-            <div class="container col-sm-5 mb-2">
-                <div class="card p-2">
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
+            <div class="container col-sm-6 mb-2">
+
+                <!-- User Details -->
+
+                <div class="card p-2" style="background-color: #eee">
+                    <div class="container-fluid" >
+                        <div class="row d-flex align-items-center" >
                             <div class="col-sm-4 ">
-                                <img class="card-img-top userImage" src="${resource(dir:'images',file:'user.svg')}" alt="Card image cap">
+                                <g:img dir="images" file="${user.photo.substring(25)}" height = "96" width="100" class="centered" />
                             </div>
-                            <div class="col-sm-1"></div>
+
                             <div class="col-sm-7">
                                 <div class="card-block">
-                                    <h5 class="card-title">User Name</h5>
+                                    <h5 class="card-title">${user.firstName} ${user.lastName} </h5>
                                 </div>
                                 <div class="card-block">
-                                    <p>@Name</p>
+                                    <p>@${user.username}</p>
                                 </div>
                                 <div class="card-block d-flex">
                                     <p class="col-sm-7"> subscriptions</p>
                                     <p class="col-sm-5">topics</p>
                                 </div>
                                 <div class="card-block d-flex">
-                                    <a href="#" class="card-link col-sm-7">no</a>
-                                    <a href="#" class="card-link col-sm-5">no</a>
+                                    <a href="#" class="card-link col-sm-7">${subsMap["subsCount"]}</a>
+                                    <a href="#" class="card-link col-sm-5">${subsMap["topicsCount"]}</a>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Subscriptions -->
+
+
+
+                <g:render template="/template/subscriptionList" />
+
+
+
+
+                <!-- Trending topics -->
+
+
+
+
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Subcriptions</h5>
+                    <h5 class="col-sm-6 text-white">Trending Topics</h5>
                     <p class="col-sm-3"></p>
                     <a class="col-sm-3"> View All</a>
                 </div>
@@ -131,10 +130,17 @@
                 </div>
 
 
+
+
+
+
+
+
             </div>
 
-            <div class="container col-sm-2">
 
+
+            <div class="container col-sm-1">
 
 
             </div>
@@ -145,6 +151,8 @@
 
 
             </div>
+
+
         </div>
 
     </div>
