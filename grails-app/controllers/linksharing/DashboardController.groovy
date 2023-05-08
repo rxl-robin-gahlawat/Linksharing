@@ -22,6 +22,8 @@ class DashboardController {
         Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList]
         render(view:"dashboard", model: loadMap)
 
+
+
     }
 
     def createTopic(){

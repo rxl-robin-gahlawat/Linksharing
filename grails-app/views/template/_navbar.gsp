@@ -228,7 +228,7 @@
                         <!-- Button to trigger modal -->
                         <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
                                 data-bs-target="#sendInvitationModal">
-                            <g:img dir="images" file="invite.png" height = "34" width="40" style="border-radius: 3px;"/>
+                            <g:img dir="images" file="Icons/invite.png" height = "34" width="40" style="border-radius: 3px;"/>
                         </button>
 
                         <!-- Modal -->
