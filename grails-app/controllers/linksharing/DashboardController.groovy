@@ -18,8 +18,10 @@ class DashboardController {
 
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)
+   //     List trendingTopicList = TrendingTopicsService.trendingTopicsList()
       //  println subscribedTopicList
         Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList]
+
         render(view:"dashboard", model: loadMap)
 
 
