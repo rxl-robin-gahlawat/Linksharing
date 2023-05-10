@@ -11,6 +11,7 @@ class DashboardController {
     def CreateDocumentResourceService
     def FindUserSubscriptionAndTopicsService
     def SubscriptionListService
+    def TrendingTopicsService
 
     def index() {
 
@@ -18,9 +19,9 @@ class DashboardController {
 
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)
-   //     List trendingTopicList = TrendingTopicsService.trendingTopicsList()
-      //  println subscribedTopicList
-        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList]
+        List trendingTopicList = TrendingTopicsService.trendingTopicsList(user)
+
+        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList]
 
         render(view:"dashboard", model: loadMap)
 

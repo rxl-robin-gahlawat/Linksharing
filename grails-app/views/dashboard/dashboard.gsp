@@ -53,8 +53,8 @@
                                     <p class="col-sm-5">topics</p>
                                 </div>
                                 <div class="card-block d-flex">
-                                    <a href="#" class="card-link col-sm-7">${subsMap["subsCount"]}</a>
-                                    <a href="#" class="card-link col-sm-5">${subsMap["topicsCount"]}</a>
+                                    <a href="#" class="card-link col-sm-7" style="text-decoration: none">${subsMap["subsCount"]}</a>
+                                    <a href="#" class="card-link col-sm-5" style="text-decoration: none">${subsMap["topicsCount"]}</a>
                                 </div>
                             </div>
 
@@ -62,94 +62,17 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!-- Subscriptions -->
-
 
 
                 <g:render template="/template/subscriptionList" />
-
-
-
-
-                <!-- Trending topics -->
-
-
-
-
-                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Trending Topics</h5>
-                    <p class="col-sm-3"></p>
-                    <a class="col-sm-3"> View All</a>
-                </div>
-                <div class="card p-1 bg-opacity-50">
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-2 ">
-                                <img class="card-img-top userImageSmall" src="${resource(dir:'images',file:'user.svg')}" alt="Card image cap">
-                            </div>
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-8">
-                                <div class="card-block">
-                                    <h4 class="card-title">User Name</h4>
-                                </div>
-                                <div class="card-block d-flex">
-                                    <p class="col-sm-4">@Name</p>
-                                    <p class="col-sm-6"> subscriptions</p>
-                                    <p class="col-sm-2">topics</p>
-                                </div>
-                                <div class="card-block d-flex">
-                                    <a href="#" class="card-link col-sm-6">Unsuscribe</a>
-                                    <a href="#" class="card-link col-sm-3">no</a>
-                                    <a href="#" class="card-link col-sm-3">no</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="d-inline-flex justify-content-end">
-
-                                <select class="selectpicker show-menu-arrow col-sm-3 me-2">
-                                    <option>Serious</option>
-                                    <option>Non-serious</option>
-                                    <option>Casual</option>
-                                </select>
-
-                                <select class="selectpicker show-menu-arrow col-sm-3 me-2">
-                                    <option>Private</option>
-                                    <option>Public</option>
-                                </select>
-
-                                <a class=""><img src="${resource(dir: "images", file: "sendInvite.svg")}"/></a>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
+                <g:render template="/template/trendingTopicsList" />
 
             </div>
-
-
 
             <div class="container col-sm-1">
-
-
             </div>
-
             <div class="container col-sm-5">
-
                 <h2>Inbox</h2>
-
-
             </div>
 
 

@@ -45,7 +45,7 @@ class SubscriptionListService {
             sub_topic_map.put(sub.topic.id, sub.id)
         }
 
-        Map topicMapwithResourceLastUpdated = [:]
+        Map topicMapWithResourceLastUpdated = [:]
         tempSubList.each{ sub->
             def res = Resourcedetail.createCriteria().list{
                 projections {
@@ -57,13 +57,13 @@ class SubscriptionListService {
             if(!res[0]){
                 Date defaultDate = new Date()
                 defaultDate.setMonth(1)
-                topicMapwithResourceLastUpdated.put(sub.topic.id,defaultDate)
+                topicMapWithResourceLastUpdated.put(sub.topic.id,defaultDate)
             }
             else{
-                topicMapwithResourceLastUpdated.put(sub.topic.id,res[0])
+                topicMapWithResourceLastUpdated.put(sub.topic.id,res[0])
             }
         }
-        Map sortedTopics = sortByDateAsValue(topicMapwithResourceLastUpdated)
+        Map sortedTopics = sortByDateAsValue(topicMapWithResourceLastUpdated)
 
         List finalSubList = []
         sortedTopics.each{topicID,topicLastUpdated->
@@ -81,6 +81,7 @@ class SubscriptionListService {
 
         }
 
+        // Everything done above is to get a list of rows of Subscription table.
 
         List subsList = []
         int i = 0;
