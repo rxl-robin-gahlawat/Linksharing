@@ -4,7 +4,9 @@ class UpdatedashboardController {
 
     def UpdatedashboardService
 
-    def index() { }
+    def index() {
+        render "you can update dashboard from this API"
+    }
 
     def updateSubscriptionsSeriousness(){
         boolean result = UpdatedashboardService.updateSeriousness(params)
@@ -25,5 +27,23 @@ class UpdatedashboardController {
         boolean result = UpdatedashboardService.deleteTopic(params)
         render result
     }
+
+    def subscribeTopic(){
+        boolean result = UpdatedashboardService.subscribeTopic(params, session.LOGGED_IN_USER_ID)
+        if(result)
+            redirect(url:"/dashboard")
+        else
+            render "Error in Subscribing topic"
+    }
+
+    def unsubscribeTopic(){
+        boolean result = UpdatedashboardService.unsubscribeTopic(params, session.LOGGED_IN_USER_ID)
+        if(result)
+            redirect(url:"/dashboard")
+        else
+            render "Error in Subscribing topic"
+    }
+
+
 
 }

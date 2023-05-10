@@ -12,7 +12,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-2 ">
-                    <g:img dir="images" file="${subscribedTopic["user"].photo.substring(25)}" height = "56" width="60" class="centered" />
+                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" />
                 </div>
 
                 <div class="col-sm-1"></div>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="card-block d-flex">
-                        <p class="col-sm-4">@${subscribedTopic["user"].username}</p>
+                        <p class="col-sm-4">@${subscribedTopic["topic"].createdBy.username}</p>
 
                         <p class="col-sm-6">Subscriptions</p>
 
@@ -33,7 +33,21 @@
                     </div>
 
                     <div class="card-block d-flex">
-                        <a href="#" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
+
+
+
+                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
+                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
+
+                        </g:if>
+
+                        <g:else>
+                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
+
+                        </g:else>
+
+
+
                         <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>
                         <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["postCount"]}</a>
                     </div>

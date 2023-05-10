@@ -36,7 +36,6 @@ class CreateTopicService {
         Subscription sub = new Subscription();
         sub.user = user;
         sub.topic = topic;
-        //sub.seriousness = "VERY_SERIOUS"
         sub.seriousness = SeriousnessEnum.VERY_SERIOUS
         sub.save(flush: true, failOnError:true)
 

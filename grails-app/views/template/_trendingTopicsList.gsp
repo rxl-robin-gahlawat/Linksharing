@@ -12,20 +12,20 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-2 ">
-                    <g:img dir="images" file="${subscribedTopic["user"].photo.substring(25)}" height = "56" width="60" class="centered" />
+                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" />
                 </div>
 
                 <div class="col-sm-1"></div>
 
                 <div class="col-sm-8">
                     <div class="card-block">
-                        <a href="#" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none" >${subscribedTopic["topic"].name}</a>
-                        <button id="save-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonSubList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
-                        <button id="cancel-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonSubList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
+                        <a href="#" id="topicnameTrending-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none" >${subscribedTopic["topic"].name}</a>
+                        <button id="saveTrending-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonTrendingList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
+                        <button id="cancelTrending-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonTrendingList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
                     </div>
 
                     <div class="card-block d-flex">
-                        <p class="col-sm-4">@${subscribedTopic["user"].username}</p>
+                        <p class="col-sm-4">@${subscribedTopic["topic"].createdBy.username}</p>
 
                         <p class="col-sm-6">Subscriptions</p>
 
@@ -34,15 +34,19 @@
 
                     <div class="card-block d-flex">
 
-                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
-                            <a href="#" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
+                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
+                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
 
                         </g:if>
 
-                        <g:else>
-                            <a href="#" class="card-link col-sm-6" style="text-decoration: none">Subscribe</a>
-                        </g:else>
+                        <g:elseif test="${subscribedTopic["isSubscribed"] && !(subscribedTopic["topic"].createdBy==user)  }">
+                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
 
+                        </g:elseif>
+
+                        <g:else>
+                            <a href="/updatedashboard/subscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Subscribe</a>
+                        </g:else>
 
                         <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>
                         <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["postCount"]}</a>
@@ -73,7 +77,7 @@
 
                     <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
 
-                        <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >
+                        <button type="button" id="editTrending-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtnTrending" >
                             <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>
                         </button>
 
@@ -126,11 +130,12 @@
 
     // AJAX to edit button in subscription list
     $(document).ready(function(){
-        $(".subscriptionEditBtn").click(function(){
-
-            let tag = document.querySelector('#topicname-' + this.id.substring(5));
-            let saveBtn = document.querySelector('#save-'+this.id.substring(5));
-            let cancelBtn = document.querySelector('#cancel-'+this.id.substring(5));
+        $(".subscriptionEditBtnTrending").click(function(){
+            let id = this.id.substring(13);
+            console.log(id)
+            let tag = document.querySelector('#topicnameTrending-' + id);
+            let saveBtn = document.querySelector('#saveTrending-'+ id);
+            let cancelBtn = document.querySelector('#cancelTrending-'+ id);
 
             tag.contentEditable = true;
             tag.focus()
@@ -141,7 +146,7 @@
         });
     });
 
-    // AJAX to delete button in subscription list
+    // AJAX to delete button in Trending list
     $(document).ready(function(){
         $(".subscriptionDeleteBtn").click(function(){
 
@@ -153,13 +158,13 @@
     });
 
 
-    // AJAX to cancel button in subscription list
-    function cancelButtonSubList(){
-
-        let id = event.target.id.substring(7)
-        let tag = document.querySelector('#topicname-' + id);
-        let saveBtn = document.querySelector('#save-'+ id);
-        let cancelBtn = document.querySelector('#cancel-'+ id);
+    // AJAX to cancel button in Trending list
+    function cancelButtonTrendingList(){
+        // did some changes,review them
+        let id = event.target.id.substring(15)
+        let tag = document.querySelector('#topicnameTrending-' + id);
+        let saveBtn = document.querySelector('#saveTrending-'+ id);
+        let cancelBtn = document.querySelector('#cancelTrending-'+ id);
 
         saveBtn.style.display = "none"
         cancelBtn.style.display = "none"
@@ -167,13 +172,13 @@
 
     }
 
-    // AJAX to save button in subscription list
-    function saveButtonSubList(){
+    // AJAX to save button in Trending list
+    function saveButtonTrendingList(){
 
-        let id = event.target.id.substring(5)
-        let tag = document.querySelector('#topicname-' + id);
-        let saveBtn = document.querySelector('#save-'+ id);
-        let cancelBtn = document.querySelector('#cancel-'+ id);
+        let id = event.target.id.substring(13)
+        let tag = document.querySelector('#topicnameTrending-' + id);
+        let saveBtn = document.querySelector('#saveTrending-'+ id);
+        let cancelBtn = document.querySelector('#cancelTrending-'+ id);
 
         let topicName = tag.text
 

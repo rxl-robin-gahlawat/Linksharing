@@ -70,4 +70,38 @@ class UpdatedashboardService {
 
     }
 
+    boolean subscribeTopic(Map params, Long userID){
+        try{
+
+            Userdetail user = Userdetail.findById(userID)
+            Topic topic = Topic.findById(params.topicID)
+            Subscription sub = new Subscription();
+            sub.user = user;
+            sub.topic = topic;
+            sub.seriousness = SeriousnessEnum.CASUAL
+            sub.save(flush: true, failOnError:true)
+            return true
+
+        }
+        catch (Exception e){
+            return false
+        }
+    }
+
+
+    boolean unsubscribeTopic(Map params, Long userID){
+        try{
+
+            Userdetail user = Userdetail.findById(userID)
+            Topic topic = Topic.findById(params.topicID)
+            def sub = Subscription.findByTopicAndUser(topic,user)
+            sub.delete()
+            return true
+
+        }
+        catch (Exception e){
+            return false
+        }
+    }
+
 }

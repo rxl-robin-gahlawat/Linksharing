@@ -61,9 +61,21 @@ class TrendingTopicsService {
         int i = 0;
         subscriptionList.each{it->
             Map result = [:]
+            boolean isSubscribed
             int subsCount = Subscription.countByTopic(it.topic)
             int postCount = Resourcedetail.countByTopic(it.topic)
-            boolean isSubscribed,isCreator;
+            Topic tempTopic = it.topic
+            def res = Subscription.createCriteria().count{
+                eq("topic", tempTopic)
+                eq("user", user)
+            }
+            if(res){
+                result.put("isSubscribed",true)
+            }
+            else{
+                result.put("isSubscribed",false)
+            }
+
 //            isSubscribed = it.user == user
             result.put("subID", it.id)
             result.put("user",it.user)
