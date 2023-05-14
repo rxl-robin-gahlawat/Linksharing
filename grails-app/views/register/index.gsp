@@ -3,235 +3,262 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+    <title>Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
 
 
-    header {
-        background-color: #06064b;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    .search-box {
-        display: flex;
-        align-items: center;
-    }
-
-    .search-box input[type="text"] {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-right: 10px;
-    }
-
-    .search-box button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        background-color: #0077b6;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    main {
-        display: flex;
-        margin: 20px;
-    }
-
-    .sidebar-left {
-        flex: 1;
-        margin-right: 20px;
-    }
-
-    .sidebar-left h2 {
-        margin-bottom: 10px;
-    }
-
-    .status-container {
-        background-color: #eee;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .top-posts {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .post {
-        background-color: #eee;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-
-    .post h3 {
-        margin-top: 0;
-    }
-
-    .sidebar-right {
-        flex: 1;
-        margin-left: 20px;
-    }
-
-    .login-form, .register-form {
-        background-color: #eee;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    .login-form h2, .register-form h2 {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-
-    .login-form form, .register-form form {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .login-form label, .register-form label {
-        margin-bottom: 5px;
-    }
-
-    .login-form input[type="text"], .login-form input[type="password"], .register-form input[type="text"], .register-form input[type="password"], .register-form input[type="email"], .register-form input[type="file"] {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-bottom: 10px;
-    }
-
-    .login-form .form-links {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .login-form .form-links a {
-        color: #0077b6;
-        text-decoration: none;
-    }
-
-    .login-form .form-links a:hover {
-        text-decoration: underline;
-    }
-
-    .login-form input[type="submit"], .register-form input[type="submit"] {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        background-color: #0077b6;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    .register-form input[type="file"] {
-        padding: 5px 0;
-        margin-bottom: 0;
-    }
-
-
-    </style>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
-<head>
-    <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>
+
 <body>
-<header>
 
-    <h1>Linksharing</h1>
-    <div class="search-box">
-        <input type="text" placeholder="Search...">
-        <button>Search</button>
+
+
+<g:if test="${flash.message}">
+
+    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: red;">
+        <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <strong class="me-auto">${flash.message}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
     </div>
-</header>
-<main>
-
-    <div class="sidebar-left">
-        <h2>Recent Shares</h2>
-        <div class="status-container">
-            <p>Example status update</p>
-            <p>Another example status update</p>
-        </div>
-        <h2>Top Posts</h2>
-        <div class="top-posts">
-            <div class="post">
-                <h3>Example post title</h3>
-                <p>Example post content</p>
-            </div>
-            <div class="post">
-                <h3>Another example post title</h3>
-                <p>Another example post content</p>
-            </div>
-        </div>
     </div>
 
 
-    <div class="sidebar-right">
-        <div class="login-form">
-            <h2>Login</h2>
-            <g:form controller="login" action="loginUser">
-                <label for="email">Email/Username:</label>
-                <input type="text" id="email_login" name="email">
-                <label for="password">Password:</label>
-                <input type="password" id="password_login" name="password">
-                <div class="form-links">
-                    <a href="#">Forgot password?</a>
-                    <input type="submit" value="Login">
+</g:if>
+
+
+<div class="bg-img height: 100vh;">
+
+    <nav class="navbar navbar-expand-lg navbar-light"
+         style="background-color: #06064b; padding: 20px 10px; height: 15vh; border-radius: 3px">
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#"><h1 style="color: white;">Linksharing</h1></a>
+
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse offset-2 justify-content-end" id="navbarNav">
+                <form class="d-flex " role="search">
+                    <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-info" type="submit">Search</button>
+                </form>
+
+            </div>
+
+        </div>
+    </nav>
+
+</div>
+
+
+<div>
+
+
+
+
+    <div class="container-fluid p-5">
+
+        <div class="row">
+
+            <div class="container col-sm-6 mb-2">
+
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Recent Shares</h5>
+
+                    <p class="col-sm-3"></p>
+                    <a class="col-sm-3" style="text-decoration: none">View All</a>
                 </div>
-            </g:form>
+
+
+                <div class="card p-2" style="background-color: #eee">
+                    <div class="container-fluid">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-4 ">
+                                <p>a</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p>b</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-4 ">
+                                <p>c</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p>d</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Top Posts</h5>
+
+                    <p class="col-sm-3"></p>
+                    <a class="col-sm-3" style="text-decoration: none">View All</a>
+                </div>
+
+                <div class="card p-2" style="background-color: #eee">
+                    <div class="container-fluid">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-4 ">
+                                <p>a</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p>b</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-4 ">
+                                <p>c</p>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <p>d</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!------------------------------------------------------------------------------->
+
+
+            <div class="container col-sm-1">
+            </div>
+
+            <!--------------------------------------------------------------------------------->
+            <div class="container col-sm-5">
+
+                <div class="card" style="background-color:#eee ">
+                    <div class="card-header">
+                        <h2>Login</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <g:form controller="login" action="loginUser">
+                            <div class="form-group">
+                                <label for="email_login">Email/Username</label>
+                                <input type="text" class="form-control" id="email_login" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
+                            <div class="mt-3">
+                                <a href="#" class="float-right" style="text-decoration: none">Forgot password?</a>
+                                <button type="submit" class="btn btn-primary offset-6">Login</button>
+                            </div>
+                        </g:form>
+                    </div>
+                </div>
+                <br>
+                <div class="card" style="background-color:#eee ">
+                    <div class="card-header">
+                        <h2>Register</h2>
+                    </div>
+
+                    <div class="card-body">
+
+                        <g:uploadForm controller="register" action="registerUser">
+
+
+                            <div class="form-group">
+                                <label for="firstname">First Name:</label>
+                                <input type="text" class="form-control" id="firstname" name="firstname"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname">Last Name:</label>
+                                <input type="text" class="form-control" id="lastname" name="lastname"/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="Register_password" name="password" required/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" class="form-control" id="confirm-password" name="confirm-password" required/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="photo">Photo:</label>
+                                <input type="file" class="form-control" id="photo" name="photo">
+                            </div>
+
+                            <div class="mt-3">
+                                <input type="submit" class="btn btn-primary offset-9" value="Register">
+                            </div>
+
+
+
+                        </g:uploadForm>
+
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-
-
-        <div class="register-form">
-
-            <h2>Register</h2>
-
-            <g:uploadForm controller="register" action="registerUser">
-                <label for="firstname">First Name:</label>
-                <input type="text" id="firstname" name="firstname"/>
-                <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname"/>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username"/>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"/>
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password"/>
-                <label for="photo">Photo:</label>
-                <input type="file" id="photo" name="photo">
-                <input type="submit" value="Register">
-            </g:uploadForm>
-
-
-
-        </div>
-
-
-
-
 
     </div>
-</main>
+
+</div>
+
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
 
 

@@ -12,7 +12,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-2 ">
-                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" />
+                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderTrendingList-${subscribedTopic["topic"].id}" name="imgHolderTrendingList-${subscribedTopic["topic"].id}"/>
                 </div>
 
                 <div class="col-sm-1"></div>

@@ -9,15 +9,17 @@ class LoginService {
 
     }
 
-    def checkUserExistence(String userInput){
-        
-        if(userInput.contains("@")){
-            Userdetail userByEmail = Userdetail.findByEmail(userInput)
-            return userByEmail
+    def userCredentialsValidation(String userInput, password){
+
+        def res = Userdetail.createCriteria().get{
+            or{
+                eq("email", userInput)
+                eq("username",userInput)
+            }
+            eq("password", password)
         }
 
-        Userdetail userByUsername = Userdetail.findByUsername(userInput)
-        return userByUsername
+        return res
 
     }
 }

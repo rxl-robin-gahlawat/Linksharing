@@ -5,7 +5,8 @@ class ValidateInterceptor {
 
     ValidateInterceptor(){
         match(controller:"dashboard", action: "*")
-
+        match(controller:"admin", action: "*")
+        match(controller:"profile", action: "*")
     }
 
     boolean before() {

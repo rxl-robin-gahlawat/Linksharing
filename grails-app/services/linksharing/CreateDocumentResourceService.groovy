@@ -5,6 +5,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CreateDocumentResourceService {
 
+    def CreateLinkResourceService
+
     def serviceMethod() {
 
     }
@@ -15,31 +17,6 @@ class CreateDocumentResourceService {
 
     def createDocumentResource(Map params, Long userID){
 
-//        Userdetail user = Userdetail.findById(userID)
-//
-//        LinkResource linkResource = new LinkResource()
-//        linkResource.topic = Topic.findById(Integer.parseInt(params.availableTopic))
-//        linkResource.createdBy = user
-//        linkResource.description = params.resourceDescription
-//        linkResource.url = params.resourceLink
-//        if (linkResource.validate()){
-//            linkResource.save(flush:true, failOnError: true)
-//            return true;
-//        }
-//        return false;
-
-
-//        if(params.photo){
-//            def multipartFile = params.photo
-//            def photoExtension = multipartFile.getOriginalFilename().tokenize('.')[-1]
-//            def bytes = multipartFile.getBytes()
-//            def url = "grails-app/assets/images/profilePicture/${params.username}.${photoExtension}"
-//            def newFile = new File("${url}")
-//            newFile.createNewFile()
-//            newFile.append(bytes)
-//            params.photo = url
-//            user.photo = params.photo
-//        }
 
         Userdetail user = Userdetail.findById(userID)
         DocumentResource docResource = new DocumentResource()
@@ -60,7 +37,15 @@ class CreateDocumentResourceService {
         }
 
         if (docResource.validate()){
-            docResource.save(flush:true, failOnError: true)
+            try{
+                docResource.save(flush:true, failOnError: true)
+                CreateLinkResourceService.createReadingFlagForSubscribers(docResource.topic, docResource)
+
+            }
+            catch (Exception err ){
+                println "Error in Adding Document Resource ---------------->" + err
+                return false;
+            }
             return true;
         }
         return false;

@@ -12,7 +12,7 @@
 
             <div class="row d-flex align-items-center">
                 <div class="col-sm-2 ">
-                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" />
+                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderSubList-${subscribedTopic["topic"].id}" name="imgHolderSubList-${subscribedTopic["topic"].id}" />
                 </div>
 
                 <div class="col-sm-1"></div>
@@ -113,8 +113,6 @@
     // AJAX to change visibility in subscribed topics
     $(document).ready(function(){
         $(".subscriptionsVisibilityPicker").click(function(){
-            console.log(this.id)
-            console.log(this.value)
 
             $.ajax({url: "/updatedashboard/updateSubscriptionsVisibility?topicid="+this.id+"&visibility="+this.value, success: function(result){
                     window.location.reload();

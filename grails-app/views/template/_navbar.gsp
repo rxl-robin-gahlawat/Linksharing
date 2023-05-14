@@ -23,6 +23,45 @@
 </head>
 
 <body>
+
+<g:if test="${flash.successMessage}">
+
+    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: #41e30a;">
+        <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <strong class="me-auto">${flash.successMessage}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+    </div>
+
+</g:if>
+
+<g:if test="${flash.failMessage}">
+
+    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: red;">
+        <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <strong class="me-auto">${flash.failMessage}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+    </div>
+
+</g:if>
+
+<g:if test="${flash.message}">
+
+    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: #838386;">
+        <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <strong class="me-auto">${flash.message}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+    </div>
+
+</g:if>
+
+
+
 <div class="bg-img height: 100vh;">
 
     <!--Navigation bar-->
@@ -30,7 +69,7 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #06064b; padding: 20px 10px; height: 15vh; border-radius: 3px">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="#"><h1 style="color: white;">Linksharing</h1></a>
+            <a class="navbar-brand" href="/dashboard"><h1 style="color: white;">Linksharing</h1></a>
 
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -93,13 +132,7 @@
                     </li>
 
 
-
-
-
-
                     <!-- Create Link Resource Modal -->
-
-
                     <li class="nav-item">
                         <!-- Button to trigger modal id="createLinkResourceModalDropdownButton"-->
                         <button type="button" id="createLinkResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
@@ -159,9 +192,7 @@
                     </li>
 
 
-
-
-
+                    <!-- Create Document Resource Modal -->
                     <li class="nav-item">
                         <!-- Button to trigger modal id="createDocumentResourceModalDropdownButton"-->
                         <button type="button" id="createDocumentResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
@@ -218,11 +249,6 @@
                     </li>
 
 
-
-
-
-
-
                     <!-- Send Invitation Modal -->
                     <li class="nav-item">
                         <!-- Button to trigger modal -->
@@ -271,7 +297,7 @@
                     </li>
 
 
-
+                    <!-- Username dropdown -->
                     <li class="nav-item">
 
                         <div class="btn-group offset-1">
@@ -279,9 +305,18 @@
                                 ${user.username}
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another</a></li>
-                                <li><a class="dropdown-item" href="#">else </a></li>
+                                <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
+
+                                <g:if test="${user.admin}">
+                                    <li><a class="dropdown-item" href="/admin/users">Users</a></li>
+                                    <li><a class="dropdown-item" href="#">Topics</a></li>
+                                    <li><a class="dropdown-item" href="#">Posts</a></li>
+
+                                </g:if>
+
+
+
+
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/logout">Logout</a></li>
                             </ul>
@@ -290,8 +325,8 @@
                     </li>
 
 
+                    <!-- User profile section -->
                     <li class="nav-item">
-                        <!-- User profile section -->
                         <div class="userProfilePhoto mt-3 offset-10">
                             <label  class="form-label mt-1">
                                 <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
@@ -306,7 +341,12 @@
     </nav>
 
 
+
 </div>
+
+
+
+
 
 
 </body>
@@ -330,11 +370,14 @@
         });
     });
 
+
+
     $(document).ready(function(){
         $("#createDocumentResourceModalDropdownButton").click(function(){
 
             var selectElement = document.getElementById("availableTopicDoc")
             selectElement.options.length = 0;
+
             $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
                     for(let i =0; i< result.key.length; ++i){
                         var option = document.createElement("option");

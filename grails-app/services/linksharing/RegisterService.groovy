@@ -9,6 +9,10 @@ class RegisterService {
 
     }
 
+    int generateRandomNumber(){
+        return Math.round(Math.random() * 1e6)
+    }
+
     def registerUser(Map params){
 
         Userdetail user = new Userdetail();
@@ -23,7 +27,8 @@ class RegisterService {
                 def multipartFile = params.photo
                 def photoExtension = multipartFile.getOriginalFilename().tokenize('.')[-1]
                 def bytes = multipartFile.getBytes()
-                def url = "grails-app/assets/images/profilePicture/${params.username}.${photoExtension}"
+                int num = generateRandomNumber()
+                def url = "grails-app/assets/images/profilePicture/${num}.${photoExtension}"
                 def newFile = new File("${url}")
                 newFile.createNewFile()
                 newFile.append(bytes)
@@ -41,11 +46,15 @@ class RegisterService {
             return false;
         }
         else{
-            user.save(flush: true, failOnError: true)
+            try{
+                user.save(flush: true, failOnError: true)
+            }
+            catch (Exception err){
+                println "Error in Registering user ----------> " + err
+                return false
+            }
             return true
         }
-
-
 
 
     }

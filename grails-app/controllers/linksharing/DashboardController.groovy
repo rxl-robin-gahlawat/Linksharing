@@ -15,13 +15,15 @@ class DashboardController {
 
     def index() {
 
+        // do below operation in a service, get let that service return user and then use user wherever needed.
+        Long userID = session.LOGGED_IN_USER_ID
         Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
 
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)
         List trendingTopicList = TrendingTopicsService.trendingTopicsList(user)
-
-        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList]
+        List inboxResourceList = CreateLinkResourceService.loadInboxList(userID)
+        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList, "inboxResourceList":inboxResourceList]
 
         render(view:"dashboard", model: loadMap)
 
