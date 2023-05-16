@@ -30,13 +30,16 @@
                 <g:render template="/template/user_card" />
 
 
-                %{--                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">--}%
-%{--                    <h5 class="col-sm-6 text-white">Recent Shares</h5>--}%
 
-%{--                    <p class="col-sm-3"></p>--}%
-%{--                    <a class="col-sm-3" style="text-decoration: none">View All</a>--}%
-%{--                </div>--}%
-%{--                --}%
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Topics</h5>
+
+                    <p class="col-sm-3"></p>
+                </div>
+
+                <g:render template="/template/topic" />
+
+
 %{--                <div class="card p-2" style="background-color: #eee">--}%
 %{--                    <div class="container-fluid">--}%
 %{--                        <div class="row d-flex align-items-center">--}%
@@ -63,39 +66,6 @@
 %{--                    </div>--}%
 %{--                </div>--}%
 
-
-                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Top Posts</h5>
-
-                    <p class="col-sm-3"></p>
-                    <a class="col-sm-3" style="text-decoration: none">View All</a>
-                </div>
-
-                <div class="card p-2" style="background-color: #eee">
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>a</p>
-                            </div>
-
-                            <div class="col-sm-7">
-                                <p>b</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>c</p>
-                            </div>
-
-                            <div class="col-sm-7">
-                                <p>d</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 

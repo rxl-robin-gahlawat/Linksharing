@@ -1,12 +1,7 @@
-<div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-    <h5 class="col-sm-6 text-white">Subscriptions</h5>
-
-    <p class="col-sm-3"></p>
-    <a class="col-sm-3" style="text-decoration: none">View All</a>
-</div>
 
 
-<g:each in="${subscribedTopicList}" var="subscribedTopic">
+<g:each in="${topicList}" var="subscribedTopic">
+
 
     <div class="card p-1 bg-opacity-50" style="background-color: white">
         <div class="container-fluid">
@@ -43,6 +38,7 @@
                         </g:if>
 
                         <g:else>
+
                             <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
 
                         </g:else>
@@ -57,38 +53,38 @@
 
             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
 
-                    <div class=" col-sm-7 mt-3">
-                        <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
-                                  noSelection="${['':subscribedTopic["seriousness"]]}" />
+                <div class=" col-sm-7 mt-3">
+                    <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
+                              noSelection="${['':subscribedTopic["seriousness"]]}" />
 
 
-                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
-                                <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"
+                    <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
+                        <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"
                                   noSelection="${['':subscribedTopic["topic"].visibility]}" />
-                        </g:if>
+                    </g:if>
 
-                    </div>
+                </div>
 
-                    <div class=" col-sm-5">
+                <div class=" col-sm-5">
 
 
-                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
+                    <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
 
-                            <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >
-                                <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>
-                            </button>
-
-                            <button type="button" id="del-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionDeleteBtn" >
-                                <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>
-                            </button>
-
-                        </g:if>
-
-                        <button type="button" class="btn btn-sm chat-icon mt-2" >
-                            <g:img dir="images" file="Icons/invite.png" height = "24" width="24" style="border-radius: 3px;"/>
+                        <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >
+                            <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>
                         </button>
 
-                    </div>
+                        <button type="button" id="del-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionDeleteBtn" >
+                            <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>
+                        </button>
+
+                    </g:if>
+
+                    <button type="button" class="btn btn-sm chat-icon mt-2" >
+                        <g:img dir="images" file="Icons/invite.png" height = "24" width="24" style="border-radius: 3px;"/>
+                    </button>
+
+                </div>
 
             </div>
 
@@ -97,7 +93,13 @@
     </div>
     <br>
 
+
+
+
+
 </g:each>
+
+
 
 
 <script>
@@ -107,7 +109,7 @@
         $(".subscriptionsSeriousnessPicker").click(function(){
             $.ajax({url: "/updatedashboard/updateSubscriptionsSeriousness?subid="+this.id+"&seriousness="+this.value, success: function(result){
                     window.location.reload();
-            }});
+                }});
         });
     });
 
@@ -117,7 +119,7 @@
 
             $.ajax({url: "/updatedashboard/updateSubscriptionsVisibility?topicid="+this.id+"&visibility="+this.value, success: function(result){
                     window.location.reload();
-            }});
+                }});
 
         });
     });
@@ -181,17 +183,14 @@
 
         $.ajax({url: "/updatedashboard/updateSubscriptionsTopicName?topicid="+id+"&topicname="+topicName, success: function(result){
                 window.location.reload();
-        }});
+            }});
 
     }
 
 
 
-
-
-
-
 </script>
+
 
 
 

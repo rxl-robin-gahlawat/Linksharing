@@ -66,7 +66,7 @@
                 <div class=" col-sm-6 mt-3">
 
                     <a href="/updatedashboard" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>
-                    <a href="/updatedashboard" class="card-link col-sm-6" style="text-decoration: none">View Post</a>
+                    <a href="/post?postId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">View Post</a>
 
 
                 </div>

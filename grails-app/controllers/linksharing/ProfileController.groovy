@@ -11,14 +11,22 @@ class ProfileController {
 
 
     def edit(){
+
         Userdetail user = ProfileService.getUser(session.LOGGED_IN_USER_ID)
 
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
-        println "----------------->"+subsAndTopicCountMap
+        List topicList = ProfileService.userTopicList(user)
 
-        Map loadMap = ["user": user,"subsMap":subsAndTopicCountMap]
+        Map loadMap = ["user": user,"subsMap":subsAndTopicCountMap, "topicList": topicList]
         render (view: "edit_profile",model: loadMap)
     }
+
+    def user(){
+        render "this is user profile"
+    }
+
+
+
 
     def updatePassword(){
         if(params.password != params.confirmpassword){

@@ -12,12 +12,13 @@ class DashboardController {
     def FindUserSubscriptionAndTopicsService
     def SubscriptionListService
     def TrendingTopicsService
+    def AdminService
 
     def index() {
 
-        // do below operation in a service, get let that service return user and then use user wherever needed.
         Long userID = session.LOGGED_IN_USER_ID
-        Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
+        Userdetail user = AdminService.getUser(userID)
+
 
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)

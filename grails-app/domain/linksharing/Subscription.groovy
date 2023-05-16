@@ -4,7 +4,6 @@ import Enum.SeriousnessEnum
 
 class Subscription {
 
-
     Userdetail user
     Topic topic
     SeriousnessEnum seriousness
