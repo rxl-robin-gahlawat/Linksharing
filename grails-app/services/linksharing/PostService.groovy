@@ -13,6 +13,13 @@ class PostService {
         return Resourcedetail.findById(resourceId)
     }
 
+    def getPostRaters(Resourcedetail resource){
+        def res = ResourceRating.createCriteria().count{
+            eq("resource", resource)
+        }
+        return res
+    }
+
     String getResourceRating(Userdetail user, Resourcedetail resource){
 
         ResourceRating userRating = ResourceRating.createCriteria().get {

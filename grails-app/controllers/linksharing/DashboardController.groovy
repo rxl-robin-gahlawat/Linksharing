@@ -3,7 +3,6 @@ package linksharing
 import Enum.VisibilityEnum
 import grails.converters.JSON
 
-
 class DashboardController {
 
     def CreateTopicService
@@ -24,7 +23,12 @@ class DashboardController {
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)
         List trendingTopicList = TrendingTopicsService.trendingTopicsList(user)
         List inboxResourceList = CreateLinkResourceService.loadInboxList(userID)
-        Map loadMap = ["user": user, "subsMap":subsAndTopicCountMap, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList, "inboxResourceList":inboxResourceList]
+
+        Map userInfo = ["user":user, "subsMap":subsAndTopicCountMap]
+        List userInfoList = []
+        userInfoList.add(userInfo)
+        Map loadMap = ["user": user,"subsInfoList": userInfoList, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList, "inboxResourceList":inboxResourceList]
+
 
         render(view:"dashboard", model: loadMap)
 

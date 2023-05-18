@@ -97,17 +97,10 @@
                                     <label for="star1" title="1 star"></label>
                                 </div>
 
-
-
-
+                                <p class="mt-2 offset-3">${postRatingCount} </p>
+                                <p class="mt-2">ratings</p>
 
                             </div>
-
-
-%{--                            <div class="card-block d-flex">--}%
-%{--                                <a href="#" class="card-link col-sm-7" style="text-decoration: none">aa</a>--}%
-%{--                                <a href="#" class="card-link col-sm-5" style="text-decoration: none">bb</a>--}%
-%{--                            </div>--}%
 
 
                         </div>
@@ -136,9 +129,6 @@
                         </div>
 
 
-
-
-
                     </div>
 
 
@@ -156,8 +146,7 @@
 
         <div class="container col-sm-5">
 
-                <p>trending topics will be here</p>
-%{--            <g:render template="/template/trendingTopicsList" />--}%
+            <g:render template="/template/trendingTopicsList" />
 
 
         </div>

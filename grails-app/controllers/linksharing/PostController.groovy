@@ -6,6 +6,7 @@ class PostController {
 
     def AdminService
     def PostService
+    def TrendingTopicsService
 
 
     def index() {
@@ -14,10 +15,11 @@ class PostController {
         Userdetail user = AdminService.getUser(userID)
 
         Resourcedetail resource = PostService.getResource(Long.parseLong(params.postId))
-
         String resourceRating = PostService.getResourceRating(user,resource)
+        List trendingTopicList = TrendingTopicsService.trendingTopicsList(user)
+        Long postRatingCount = PostService.getPostRaters(resource)
 
-        Map loadMap = ["user": user, "resource":resource, "resourceRating": resourceRating]
+        Map loadMap = ["user": user, "resource":resource, "resourceRating": resourceRating, "trendingTopicList": trendingTopicList, "postRatingCount": postRatingCount]
         render(view:"post", model: loadMap)
 
     }

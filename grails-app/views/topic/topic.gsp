@@ -10,19 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linksharing</title>
 
-
-
-</head>
-
-<head>
-    <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
 
 <g:render template="/template/navbar" />
-
 
 <main>
 
@@ -32,20 +24,28 @@
         <div class="row">
             <div class="container col-sm-6 mb-2">
 
-                <g:render template="/template/user_card" />
-
+                <!-- Topic Details Card -->
 
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Subscriptions</h5>
-
-                    <p class="col-sm-3"></p>
-                    <a class="col-sm-3" style="text-decoration: none">View All</a>
+                    <h5 class="col-sm-6 text-white">Topic : "${subscribedTopicList[0].topic.name}"</h5>
                 </div>
 
-
-
                 <g:render template="/template/subscriptionList" />
-                <g:render template="/template/trendingTopicsList" />
+
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Users : "${subscribedTopicList[0].topic.name}"</h5>
+                </div>
+
+%{--                <g:each in="${subsInfoList}" var="userInfo">--}%
+
+%{--                    <p>${userInfo["user"].username}</p>--}%
+
+                    <g:render template="/template/user_card" />
+
+%{--                </g:each>--}%
+
+
+
 
             </div>
 
@@ -56,7 +56,7 @@
             <div class="container col-sm-5">
 
 
-                <g:render template="/template/inbox" />
+%{--                <g:render template="/template/inbox" />--}%
 
 
             </div>
@@ -69,5 +69,14 @@
 
 
 </main>
+
+
+
+
 </body>
+
+
+
+
+
 </html>

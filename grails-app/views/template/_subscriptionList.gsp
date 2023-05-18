@@ -1,12 +1,13 @@
-<div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-    <h5 class="col-sm-6 text-white">Subscriptions</h5>
+%{--<div class=" border mt-2 border bg-secondary rounded d-flex p-1">--}%
+%{--    <h5 class="col-sm-6 text-white">Subscriptions</h5>--}%
 
-    <p class="col-sm-3"></p>
-    <a class="col-sm-3" style="text-decoration: none">View All</a>
-</div>
+%{--    <p class="col-sm-3"></p>--}%
+%{--    <a class="col-sm-3" style="text-decoration: none">View All</a>--}%
+%{--</div>--}%
 
 
 <g:each in="${subscribedTopicList}" var="subscribedTopic">
+
 
     <div class="card p-1 bg-opacity-50" style="background-color: white">
         <div class="container-fluid">
@@ -20,7 +21,7 @@
 
                 <div class="col-sm-8">
                     <div class="card-block">
-                        <a href="#" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none">${subscribedTopic["topic"].name}</a>
+                        <a href="/topic?topicId=${subscribedTopic["topic"].id}" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none">${subscribedTopic["topic"].name}</a>
                         <button id="save-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonSubList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
                         <button id="cancel-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonSubList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
                     </div>
@@ -35,17 +36,32 @@
 
                     <div class="card-block d-flex">
 
-
-
-                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
-                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
-
+                        <g:if test="${(subscribedTopic["isSubscribed"]=="No")  }">
+                            <a href="/updatedashboard/subscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none;">Subscribe</a>
                         </g:if>
 
                         <g:else>
-                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
 
+                            <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
+                                <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
+                            </g:if>
+                            <g:else>
+                                <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
+                            </g:else>
                         </g:else>
+
+
+
+                        <!-- Old Logic for unsubscribe button -->
+
+%{--                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">--}%
+%{--                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>--}%
+
+%{--                        </g:if>--}%
+
+%{--                        <g:else>--}%
+%{--                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>--}%
+%{--                        </g:else>--}%
 
 
 
@@ -58,9 +74,11 @@
             <div class="row" style="margin-top: 10px; margin-bottom: 10px">
 
                     <div class=" col-sm-7 mt-3">
-                        <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
-                                  noSelection="${['':subscribedTopic["seriousness"]]}" />
 
+                        <g:if test="${subscribedTopic["isSubscribed"]=="Yes"}">
+                            <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
+                                      noSelection="${['':subscribedTopic["seriousness"]]}" />
+                        </g:if>
 
                         <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
                                 <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"
@@ -144,7 +162,9 @@
         $(".subscriptionDeleteBtn").click(function(){
 
             $.ajax({url: "/updatedashboard/deleteTopic?topicid="+this.id.substring(4), success: function(result){
-                    window.location.reload();
+                    // window.location.reload();
+                    window.location.replace("/dashboard");
+
                 }});
 
         });
@@ -184,11 +204,6 @@
         }});
 
     }
-
-
-
-
-
 
 
 </script>

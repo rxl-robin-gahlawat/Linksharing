@@ -95,6 +95,7 @@ class SubscriptionListService {
             result.put("seriousness",it.seriousness)
             result.put("subsCount",subsCount)
             result.put("postCount",postCount)
+            result.put("isSubscribed","Yes")
             subsList.add(result)
         }
         return subsList

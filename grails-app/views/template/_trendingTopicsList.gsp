@@ -19,7 +19,7 @@
 
                 <div class="col-sm-8">
                     <div class="card-block">
-                        <a href="#" id="topicnameTrending-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none" >${subscribedTopic["topic"].name}</a>
+                        <a href="/topic?topicId=${subscribedTopic["topic"].id}" id="topicnameTrending-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none" >${subscribedTopic["topic"].name}</a>
                         <button id="saveTrending-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonTrendingList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
                         <button id="cancelTrending-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonTrendingList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
                     </div>
