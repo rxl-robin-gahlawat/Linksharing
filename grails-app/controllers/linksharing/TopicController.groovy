@@ -4,7 +4,6 @@ class TopicController {
 
     def AdminService
     def TopicService
-    def SubscriptionListService
 
 
     def index() {
@@ -16,7 +15,11 @@ class TopicController {
         def resultTopic = TopicService.getResultTopic(user, topic)
         def subsInfoList = TopicService.getTopicSubscribersList(topic)
 
-        Map loadMap = ["user": user, "subscribedTopicList": resultTopic, "subsInfoList": subsInfoList]
+        def postList = TopicService.postList(topic)
+
+        Map loadMap = ["user": user, "subscribedTopicList": resultTopic, "subsInfoList": subsInfoList, "postList": postList]
+
+
         render(view:"topic", model: loadMap)
 
 

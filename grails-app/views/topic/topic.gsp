@@ -56,7 +56,7 @@
             <div class="container col-sm-5">
 
 
-%{--                <g:render template="/template/inbox" />--}%
+                <g:render template="/template/all_posts" />
 
 
             </div>

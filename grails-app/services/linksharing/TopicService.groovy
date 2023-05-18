@@ -2,6 +2,8 @@ package linksharing
 
 import grails.gorm.transactions.Transactional
 
+import javax.annotation.Resource
+
 @Transactional
 class TopicService {
 
@@ -38,7 +40,6 @@ class TopicService {
         }
         return subsInfoList
     }
-
 
 
     def getResultTopic(Userdetail user, Topic topic){
@@ -85,10 +86,24 @@ class TopicService {
 
         }
 
+    }
 
 
+    List postList(Topic topic){
 
+        List posts = Resourcedetail.createCriteria().list{
+            eq("topic", topic)
+        }
+        return posts
 
+//        posts.each{it->
+//            println it.class
+//            if(it.class as String == "class linksharing.LinkResource")
+//                println it.url
+//            println it.description
+//
+//
+//        }
 
     }
 
