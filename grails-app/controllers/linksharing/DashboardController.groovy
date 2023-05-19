@@ -12,6 +12,7 @@ class DashboardController {
     def SubscriptionListService
     def TrendingTopicsService
     def AdminService
+    def UpdatedashboardService
 
     def index() {
 
@@ -31,8 +32,6 @@ class DashboardController {
 
 
         render(view:"dashboard", model: loadMap)
-
-
 
     }
 
@@ -64,13 +63,39 @@ class DashboardController {
             render "couldn't add document resource"
     }
 
+    def sendInvitation(){
+        Long userID = session.LOGGED_IN_USER_ID
+        Userdetail user = AdminService.getUser(userID)
+
+        String subject = "${user.firstName} invited you to join a topic."
+        String link = "http://localhost:9090/dashboard/invited?topicId=${params.invitationTopic}"
+        String message = "Here's the topic link\n ${link} "
+        String email = params.inviteEmail
+
+        boolean result = UpdatedashboardService.sendInviteMail(subject, message, email)
+
+        if(result){
+            flash.successMessage = "Invitation Sent"
+            redirect(controller: "dashboard",model: [msg:flash.successMessage])
+        }
+        else{
+            flash.failMessage = "Error in sending Invitation"
+            redirect(controller: "dashboard",model: [msg:flash.failMessage])
+        }
+
+    }
+
+    def sendSubInvitation(){
+        render params
+    }
+
     def loadSubscribedTopics(){
 
-        // there is an issue here, this also select topics which are private, to solve
-        // this, need to change below query(but should subscribed privated topics be allowed
-        // to add new resources by anyone other than creator of topic?
+        // do below in a service.
 
-        Userdetail user = Userdetail.findById(session.LOGGED_IN_USER_ID)
+        Long userID = session.LOGGED_IN_USER_ID
+        Userdetail user = AdminService.getUser(userID)
+
         def result = Subscription.createCriteria().list{
             projections{
                 topic{
@@ -86,6 +111,27 @@ class DashboardController {
         render subscribersMap as JSON
 
     }
+
+    def invited(){
+
+        Long userID = session.LOGGED_IN_USER_ID
+        Userdetail user = AdminService.getUser(userID)
+
+        boolean result = UpdatedashboardService.subscribeInvitedTopic(user, Long.parseLong(params.topicId))
+
+        if(result){
+            flash.successMessage = "You have been subscribed to topic"
+            redirect(controller: "dashboard",model: [msg:flash.successMessage])
+        }
+        else{
+            flash.failMessage = "Couldn't subscribe to topic"
+            redirect(controller: "dashboard",model: [msg:flash.failMessage])
+        }
+
+
+    }
+
+
 
 
 

@@ -8,6 +8,16 @@ grails:
             # Whether to translate GORM events into Reactor events
             # Disabled by default for performance reasons
             events: false
+    mail:
+        host: 'smtp.office365.com'
+        port: 587
+        username: 'robinlinksharing11@outlook.com'
+        password: 'Robin@123'
+        props:
+            mail:
+                smtp:
+                    starttls:
+                        enable: true
 info:
     app:
         name: '@info.app.name@'

@@ -14,6 +14,7 @@ class CreateLinkResourceService {
 
         List res = ReadingItem.createCriteria().list{
             eq("user", user)
+            eq("isRead", false)
             order("dateCreated", "desc")
         }
         return res

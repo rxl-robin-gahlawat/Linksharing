@@ -94,7 +94,7 @@
                                 data-bs-target="#createTopicModal">
                             <g:img dir="images" file="Icons/topic_icon.png" height = "34" width="40"/>
                         </button>
-                        <!-- Create Topic Modal -->
+                        <!-- Modal functionality -->
                         <div class="modal fade" id="createTopicModal" tabindex="-1"
                              aria-labelledby="createTopicModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -249,52 +249,55 @@
                     </li>
 
 
+
                     <!-- Send Invitation Modal -->
                     <li class="nav-item">
                         <!-- Button to trigger modal -->
-                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                        <button type="button" id="sendInvitationModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
                                 data-bs-target="#sendInvitationModal">
-                            <g:img dir="images" file="Icons/invite.png" height = "34" width="40" style="border-radius: 3px;"/>
+                            <g:img dir="images" file="Icons/invite.png" height = "34" width="40"/>
                         </button>
-
-                        <!-- Modal -->
+                        <!-- Modal functionality -->
                         <div class="modal fade" id="sendInvitationModal" tabindex="-1"
                              aria-labelledby="sendInvitationModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    <!-- Modal Header -->
+                                    <!-- modal content -->
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="sendInvitationModalLabel">Send Invitation</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                     </div>
-                                    <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form>
+                                        <g:form controller="dashboard" action="sendInvitation">
                                             <div class="mb-3">
-                                                <label for="userEmail" class="form-label">Email*:</label>
-                                                <input type="text" class="form-control" id="userEmail">
+                                                <label for="inviteEmail" class="form-label">Email*</label>
+                                                <input type="text" class="form-control" id="inviteEmail" name="inviteEmail" required>
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="shareTopic" class="form-label">Topic*:</label>
-                                                <select class="form-select" id="shareTopic">
-                                                    <option><a href="#">Topic1</a></option>
-                                                    <option><a href="#">Topic2</a></option>
-                                                </select>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Invite</button>
 
+
+                                            <div class="mb-3">
+                                                <label for="sendInvitationModal" class="form-label">Topic</label>
+
+                                                <select class="form-select" id="invitationTopic" name="invitationTopic">
+                                                </select>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Invite</button>
+                                            </div>
+
+                                        </g:form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </li>
+
+
 
 
                     <!-- Username dropdown -->
@@ -353,7 +356,7 @@
 
 <script>
 
-    // AJAX to load subscribed topics while creating new resources.
+    // AJAX to load subscribed topics while creating new link resources.
     $(document).ready(function(){
         $("#createLinkResourceModalDropdownButton").click(function(){
 
@@ -371,13 +374,30 @@
     });
 
 
-
+    // AJAX to load subscribed topics while creating new document resources.
     $(document).ready(function(){
         $("#createDocumentResourceModalDropdownButton").click(function(){
 
             var selectElement = document.getElementById("availableTopicDoc")
             selectElement.options.length = 0;
+            $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
+                    for(let i =0; i< result.key.length; ++i){
+                        var option = document.createElement("option");
+                        option.text = result.key[i][1];
+                        option.value = result.key[i][0];
+                        selectElement.add(option);
+                    }
+                }});
+        });
+    });
 
+
+    // AJAX to load subscribed topics while creating new document resources.
+    $(document).ready(function(){
+        $("#sendInvitationModalDropdownButton").click(function(){
+
+            var selectElement = document.getElementById("invitationTopic")
+            selectElement.options.length = 0;
             $.ajax({url: "/dashboard/loadSubscribedTopics", success: function(result){
                     for(let i =0; i< result.key.length; ++i){
                         var option = document.createElement("option");

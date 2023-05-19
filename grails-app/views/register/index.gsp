@@ -25,7 +25,6 @@
 <body>
 
 
-
 <g:if test="${flash.message}">
 
     <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: red;">
@@ -176,7 +175,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <a href="#" class="float-right" style="text-decoration: none">Forgot password?</a>
+                                <a href="/login/forgotPassword" class="float-right" style="text-decoration: none">Forgot password?</a>
                                 <button type="submit" class="btn btn-primary offset-6">Login</button>
                             </div>
                         </g:form>
@@ -203,26 +202,33 @@
                                 <input type="text" class="form-control" id="lastname" name="lastname"/>
                             </div>
 
+                            <div style="color: red" id="emailmsg"></div>
+
 
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
 
+                            <div style="color: red" id="usernamemsg"></div>
+
+
                             <div class="form-group">
-                                <label for="username">Username:</label>
+                                <label for="username" >Username:</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="Register_password" name="password" required/>
+                                <input type="password" class="form-control" id="register_password" name="password" required/>
                             </div>
 
                             <div class="form-group">
-                                <label for="confirm-password">Confirm Password:</label>
-                                <input type="password" class="form-control" id="confirm-password" name="confirm-password" required/>
+                                <label for="confirm_password">Confirm Password:</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required/>
                             </div>
+
+                            <div style="color: red" id="message"></div>
 
                             <div class="form-group">
                                 <label for="photo">Photo:</label>
@@ -230,7 +236,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <input type="submit" class="btn btn-primary offset-9" value="Register">
+                                <input type="submit" id="registerBtn" class="btn btn-primary offset-9" value="Register">
                             </div>
 
 
@@ -249,6 +255,113 @@
 </div>
 
 </body>
+
+
+<script>
+
+
+
+
+    // AJAX to check email existence
+    $(document).ready(function() {
+        var delay = 10; // Delay in milliseconds
+        var timer;
+
+        $('#email').on('keyup', function() {
+            console.log("started...")
+            clearTimeout(timer);
+
+            timer = setTimeout(function() {
+                var email = $('#email').val().trim();
+
+                $.ajax({url: "/register/checkUniqueEmail?email="+email, success: function(result){
+                        console.log(result)
+
+                        if (result=="false") {
+                            $('#emailmsg').text('');
+                            document.getElementById("registerBtn").disabled = false;
+                        }
+                        else {
+                            $('#emailmsg').text('* Email already in use.');
+                            document.getElementById("registerBtn").disabled = true;
+                        }
+                    }});
+
+            }, delay);
+        });
+    });
+
+
+
+    // AJAX to check user existence
+    $(document).ready(function() {
+        var delay = 10; // Delay in milliseconds
+        var timer;
+
+        $('#username').on('keyup', function() {
+            console.log("started...")
+            clearTimeout(timer);
+
+            timer = setTimeout(function() {
+                var username = $('#username').val().trim();
+
+                $.ajax({url: "/register/checkUniqueUsername?username="+username, success: function(result){
+                        console.log(result)
+
+                        if (result=="false") {
+                            $('#usernamemsg').text('');
+                            document.getElementById("registerBtn").disabled = false;
+                        }
+                        else {
+                            $('#usernamemsg').text('* Username already exists.');
+                            document.getElementById("registerBtn").disabled = true;
+                        }
+                }});
+
+
+
+            }, delay);
+        });
+    });
+
+
+    // AJAX to check if password and confirm-password are correct.
+    $(document).ready(function() {
+        var delay = 100; // Delay in milliseconds
+        var timer;
+
+        $('#confirm_password').on('keyup', function() {
+            clearTimeout(timer);
+
+            timer = setTimeout(function() {
+                var password = $('#register_password').val();
+                var confirmPassword = $('#confirm_password').val();
+
+                if (password !== confirmPassword) {
+                    $('#message').text('* Password and Confirm Password do not match.');
+                    document.getElementById("registerBtn").disabled = true;
+
+                }
+                else {
+                    $('#message').text('');
+                    document.getElementById("registerBtn").disabled = false;
+                }
+            }, delay);
+        });
+    });
+
+
+    $(document).ready(function() {
+
+
+
+
+    });
+
+
+
+
+</script>
 
 </html>
 

@@ -13,6 +13,19 @@ class RegisterService {
         return Math.round(Math.random() * 1e6)
     }
 
+
+    boolean checkUniqueEmail(Map params){
+        int result = Userdetail.countByEmail(params.email)
+        if(result == 0) return false
+        else return true
+    }
+
+    boolean checkUniqueUsername(Map params){
+        int result = Userdetail.countByUsername(params.username)
+        if(result == 0) return false
+        else return true
+    }
+
     def registerUser(Map params){
 
         Userdetail user = new Userdetail();
@@ -55,7 +68,6 @@ class RegisterService {
             }
             return true
         }
-
 
     }
 }

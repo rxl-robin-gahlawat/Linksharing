@@ -6,6 +6,7 @@ class LoginController {
 
 
     def LoginService
+    def UpdatedashboardService
 
     def index() {
 
@@ -16,6 +17,14 @@ class LoginController {
         render(view: "/register/index")
 
 
+    }
+
+    def forgotPassword(){
+        String email = "gahlawatrobin30@gmail.com"
+
+          UpdatedashboardService.sendMail()
+
+        render "mail sent"
     }
 
     def loginUser(){

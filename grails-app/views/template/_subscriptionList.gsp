@@ -8,7 +8,6 @@
 
 <g:each in="${subscribedTopicList}" var="subscribedTopic">
 
-
     <div class="card p-1 bg-opacity-50" style="background-color: white">
         <div class="container-fluid">
 
@@ -52,17 +51,6 @@
 
 
 
-                        <!-- Old Logic for unsubscribe button -->
-
-%{--                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">--}%
-%{--                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>--}%
-
-%{--                        </g:if>--}%
-
-%{--                        <g:else>--}%
-%{--                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>--}%
-%{--                        </g:else>--}%
-
 
 
                         <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>
@@ -102,9 +90,54 @@
 
                         </g:if>
 
-                        <button type="button" class="btn btn-sm chat-icon mt-2" >
-                            <g:img dir="images" file="Icons/invite.png" height = "24" width="24" style="border-radius: 3px;"/>
-                        </button>
+
+                        <label class="nav-item">
+                            <!-- Button to trigger modal -->
+                            <button type="button" id="ModalBtn-${subscribedTopic["topic"].id}" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#sub-${subscribedTopic["topic"].id}">
+                                <g:img dir="images" file="Icons/invite.png" height = "24" width="24"/>
+                            </button>
+                            <!-- Modal functionality -->
+                            <div class="modal fade" id="sub-${subscribedTopic["topic"].id}" tabindex="-1"
+                                 aria-labelledby="subLabel-${subscribedTopic["topic"].id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- modal content -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="subNameLabel-${subscribedTopic["topic"].id}">Send Topic Invitation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <g:form controller="dashboard" action="sendInvitation">
+                                                <div class="mb-3">
+                                                    <label for="sub-${subscribedTopic["topic"].id}" class="form-label">Email*</label>
+                                                    <input type="text" class="form-control" id="sub-${subscribedTopic["topic"].id}" name="inviteEmail" required>
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label  class="form-label">Topic</label>
+
+                                                    <select class="form-select" id="invite-${subscribedTopic["topic"].id}" name="invitationTopic">
+                                                        <option value="${subscribedTopic["topic"].id}" selected>${subscribedTopic["topic"].name}</option>
+                                                    </select>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Invite</button>
+                                                </div>
+
+                                            </g:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
 
                     </div>
 

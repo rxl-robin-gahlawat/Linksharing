@@ -56,7 +56,7 @@
                     </g:if>
 
                     <g:else>
-                        <a href="/download?path=${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">Download</a>
+                        <a href="${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">Download</a>
 
                     </g:else>
 
@@ -65,7 +65,7 @@
 
                 <div class=" col-sm-6 mt-3">
 
-                    <a href="/updatedashboard" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>
+                    <a href="/updatedashboard/markAsRead?resourceId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>
                     <a href="/post?postId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">View Post</a>
 
 

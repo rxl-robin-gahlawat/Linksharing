@@ -17,8 +17,6 @@ class RegisterController {
 
     def registerUser(){
 
-
-
         boolean isRegistered = RegisterService.registerUser(params)
         if(isRegistered){
             redirect(url: "/login")
@@ -29,7 +27,19 @@ class RegisterController {
             // show error message
         }
 
-
     }
+
+    def checkUniqueEmail(){
+        boolean result = RegisterService.checkUniqueEmail(params)
+        render result
+    }
+
+
+    def checkUniqueUsername(){
+        boolean result = RegisterService.checkUniqueUsername(params)
+        render result
+    }
+
+
 
 }

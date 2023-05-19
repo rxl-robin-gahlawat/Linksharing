@@ -85,9 +85,62 @@
                             <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>
                         </button>
 
-                        <button type="button" class="btn btn-sm chat-icon mt-2" >
-                            <g:img dir="images" file="Icons/invite.png" height = "24" width="24" style="border-radius: 3px;"/>
-                        </button>
+
+
+                    </g:if>
+
+                    <g:if test="${subscribedTopic["isSubscribed"]==true}">
+
+
+                        <label class="nav-item">
+                            <!-- Button to trigger modal -->
+                            <button type="button" id="ModalTrendBtn-${subscribedTopic["topic"].id}" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#trend-${subscribedTopic["topic"].id}">
+                                <g:img dir="images" file="Icons/invite.png" height = "24" width="24"/>
+                            </button>
+                            <!-- Modal functionality -->
+                            <div class="modal fade" id="trend-${subscribedTopic["topic"].id}" tabindex="-1"
+                                 aria-labelledby="trendLabel-${subscribedTopic["topic"].id}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- modal content -->
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="trendNameLabel-${subscribedTopic["topic"].id}">Send Topic Invitation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <g:form controller="dashboard" action="sendInvitation">
+                                                <div class="mb-3">
+                                                    <label for="trend-${subscribedTopic["topic"].id}" class="form-label">Email*</label>
+                                                    <input type="text" class="form-control" id="sub-${subscribedTopic["topic"].id}" name="inviteEmail" required>
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label  class="form-label">Topic</label>
+
+                                                    <select class="form-select" id="inviteTrend-${subscribedTopic["topic"].id}" name="invitationTopic">
+                                                        <option value="${subscribedTopic["topic"].id}" selected>${subscribedTopic["topic"].name}</option>
+                                                    </select>
+
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Invite</button>
+                                                </div>
+
+                                            </g:form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+
+
+
 
                     </g:if>
 

@@ -7,6 +7,10 @@ class ValidateInterceptor {
         match(controller:"dashboard", action: "*")
         match(controller:"admin", action: "*")
         match(controller:"profile", action: "*")
+        match(controller:"updatedashboard", action: "*")
+        match(controller:"topic", action: "*")
+        match(controller:"post", action: "*")
+
     }
 
     boolean before() {

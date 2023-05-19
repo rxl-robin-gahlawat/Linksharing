@@ -1,6 +1,7 @@
 package linksharing
 
 import Enum.SeriousnessEnum
+import Enum.VisibilityEnum
 import grails.gorm.transactions.Transactional
 import org.apache.catalina.User
 
@@ -38,7 +39,11 @@ class TrendingTopicsService {
     List trendingTopicsList(Userdetail user){
 
 
-        List topicsList = Topic.findAll()
+        List topicsList = Topic.createCriteria().list{
+            eq("visibility",VisibilityEnum.PUBLIC)
+        }
+
+
         Map topicWithPostsMap = [:]
         topicsList.each{topic->
             int res = Resourcedetail.countByTopic(topic)

@@ -26,8 +26,6 @@ class ProfileController {
     }
 
 
-
-
     def updatePassword(){
         if(params.password != params.confirmpassword){
             flash.failMessage = "Password and Confirm Password mismatch"

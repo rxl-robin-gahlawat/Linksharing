@@ -4,12 +4,48 @@ import Enum.SeriousnessEnum
 import Enum.VisibilityEnum
 import grails.gorm.transactions.Transactional
 
+// imports for mail sender
+import org.springframework.mail.MailSender
+import org.springframework.mail.SimpleMailMessage
+
 @Transactional
 class UpdatedashboardService {
+
+    MailSender mailSender
 
     def serviceMethod() {
 
     }
+
+
+    boolean sendMail(){
+
+            def msg = new SimpleMailMessage();
+            msg.setFrom("robinlinksharing11@outlook.com")
+            msg.setTo("gahlawatrobin30@gmail.com")
+            msg.setSubject("Checking for mail service")
+            msg.setText("hey, is this working???")
+            mailSender.send(msg)
+    }
+
+    def sendInviteMail(String subject, String message, String email){
+
+        try{
+            def msg = new SimpleMailMessage();
+            msg.setFrom("robinlinksharing11@outlook.com")
+            msg.setTo(email)
+            msg.setSubject(subject)
+            msg.setText(message)
+            mailSender.send(msg)
+            return true
+        }
+        catch (Exception err){
+            println err
+            return false
+        }
+
+    }
+
 
     boolean updateSeriousness(Map params){
 
@@ -100,6 +136,35 @@ class UpdatedashboardService {
 
         }
         catch (Exception e){
+            return false
+        }
+    }
+
+    boolean markAsRead(Userdetail user, Resourcedetail resource){
+        ReadingItem item = ReadingItem.createCriteria().get{
+            eq("user", user)
+            eq("resource", resource)
+        }
+        if(item){
+            item.isRead = true
+            return true
+        }
+        return false
+    }
+
+    boolean subscribeInvitedTopic(Userdetail user, Long topicId){
+
+        Topic topic = Topic.findById(topicId)
+
+        try{
+            Subscription sub = new Subscription();
+            sub.user = user;
+            sub.topic = topic;
+            sub.seriousness = SeriousnessEnum.CASUAL
+            sub.save(flush: true, failOnError:true)
+            return true
+        }
+        catch (Exception err){
             return false
         }
     }
