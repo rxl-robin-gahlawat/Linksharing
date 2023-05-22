@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Login</title>
+    <title> Linksharing</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -16,7 +16,6 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 
 
 
@@ -272,7 +271,7 @@
                                         <g:form controller="dashboard" action="sendInvitation">
                                             <div class="mb-3">
                                                 <label for="inviteEmail" class="form-label">Email*</label>
-                                                <input type="text" class="form-control" id="inviteEmail" name="inviteEmail" required>
+                                                <input type="email" class="form-control" id="inviteEmail" name="inviteEmail" required>
                                             </div>
 
 
@@ -312,12 +311,10 @@
 
                                 <g:if test="${user.admin}">
                                     <li><a class="dropdown-item" href="/admin/users">Users</a></li>
-                                    <li><a class="dropdown-item" href="#">Topics</a></li>
-                                    <li><a class="dropdown-item" href="#">Posts</a></li>
+                                    <li><a class="dropdown-item" href="/adminTopic">Topics</a></li>
+                                    <li><a class="dropdown-item" href="/adminPost">Posts</a></li>
 
                                 </g:if>
-
-
 
 
                                 <li><hr class="dropdown-divider"></li>
@@ -332,7 +329,9 @@
                     <li class="nav-item">
                         <div class="userProfilePhoto mt-3 offset-10">
                             <label  class="form-label mt-1">
-                                <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
+                                <a href="/profile/user">
+                                    <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
+                                </a>
                             </label>
                         </div>
                     </li>

@@ -36,13 +36,8 @@
                     <h5 class="col-sm-6 text-white">Users : "${subscribedTopicList[0].topic.name}"</h5>
                 </div>
 
-%{--                <g:each in="${subsInfoList}" var="userInfo">--}%
+                <g:render template="/template/user_card" />
 
-%{--                    <p>${userInfo["user"].username}</p>--}%
-
-                    <g:render template="/template/user_card" />
-
-%{--                </g:each>--}%
 
 
 
@@ -55,6 +50,9 @@
 
             <div class="container col-sm-5">
 
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Posts : "${subscribedTopicList[0].topic.name}"</h5>
+                </div>
 
                 <g:render template="/template/all_posts" />
 

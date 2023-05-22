@@ -65,5 +65,18 @@ class UpdatedashboardController {
     }
 
 
+    def viewAll(){
+
+        Long userID = session.LOGGED_IN_USER_ID
+        Userdetail user = AdminService.getUser(userID)
+
+        List topicList = UpdatedashboardService.allTopicsAlphabeticalOrder()
+
+        Map loadMap = ["user": user, "trendingTopicList":topicList]
+        render(view:"view_all", model: loadMap)
+
+    }
+
+
 
 }

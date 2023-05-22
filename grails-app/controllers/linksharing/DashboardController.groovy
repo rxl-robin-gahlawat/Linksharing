@@ -28,8 +28,8 @@ class DashboardController {
         Map userInfo = ["user":user, "subsMap":subsAndTopicCountMap]
         List userInfoList = []
         userInfoList.add(userInfo)
-        Map loadMap = ["user": user,"subsInfoList": userInfoList, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList, "inboxResourceList":inboxResourceList]
 
+        Map loadMap = ["user": user,"subsInfoList": userInfoList, "subscribedTopicList": subscribedTopicList, "trendingTopicList": trendingTopicList, "inboxResourceList":inboxResourceList]
 
         render(view:"dashboard", model: loadMap)
 

@@ -4,6 +4,9 @@ class ProfileController {
 
     def ProfileService
     def FindUserSubscriptionAndTopicsService
+    def AdminService
+
+    def TopicService
 
     def index() {
         render "this is profile controller"
@@ -22,7 +25,26 @@ class ProfileController {
     }
 
     def user(){
-        render "this is user profile"
+
+        Long userID = session.LOGGED_IN_USER_ID
+        Userdetail user = AdminService.getUser(userID)
+
+        def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
+        def userPostList = ProfileService.userPostList(user)
+
+        Map userInfo = ["user":user, "subsMap":subsAndTopicCountMap]
+        List userInfoList = []
+        userInfoList.add(userInfo)
+
+        List userTopicList = ProfileService.userTopicList(user)
+        List userSubscriptionList = ProfileService.userSubscriptionList(user)
+
+
+
+
+        Map loadMap = ["user": user,"subsInfoList": userInfoList, "postList": userPostList, "trendingTopicList":userTopicList,"subscribedTopicList":userSubscriptionList]
+        render (view: "user_profile",model: loadMap)
+
     }
 
 

@@ -1,17 +1,10 @@
 
 
-<!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
 
     <g:render template="/template/navbar" />
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linksharing</title>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -25,6 +18,21 @@
     <script>
 
 
+
+        $(document).ready(function() {
+            $('#PostsDataTable').dataTable({
+                "ordering": true,
+                "paging": true,
+                "lengthMenu": [20, 40, 60, 80, 100],
+                "pageLength": 20,
+                "searching": true,
+                "order": [[ 0, "asc" ]],
+
+
+            });
+        });
+
+
         $(document).ready(function() {
             $('#trendingTopicListDataTable').dataTable({
                 "ordering": true,
@@ -33,32 +41,13 @@
                 "pageLength": 5,
                 "searching": true,
                 "order": [[ 0, "asc" ]],
-            });
-        });
 
-        $(document).ready(function() {
-            $('#subscribedTopicListDataTable').dataTable({
-                "ordering": true,
-                "paging": true,
-                "lengthMenu": [5, 10, 15, 20, 25],
-                "pageLength": 5,
-                "searching": true,
-                "order": [[ 0, "asc" ]],
-            });
-        });
 
-        $(document).ready(function() {
-            $('#inboxDataTable').dataTable({
-                "ordering": true,
-                "paging": true,
-                "lengthMenu": [5, 10, 15, 20, 25],
-                "pageLength": 5,
-                "searching": true,
-                "order": [[ 0, "asc" ]],
             });
         });
 
     </script>
+
 
 
 </head>
@@ -66,8 +55,8 @@
 
 <body>
 
-<main>
 
+<main>
 
     <div class="container-fluid p-5">
 
@@ -78,25 +67,16 @@
 
 
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Subscriptions</h5>
-
-                    <p class="col-sm-3"></p>
-                    <a class="col-sm-3" href="/updatedashboard/viewAll" style="text-decoration: none">View All</a>
+                    <h5 class="col-sm-6 text-white">Topics</h5>
                 </div>
-
-
-
-                <g:render template="/template/subscriptionList" />
+                <g:render template="/template/trendingTopicsList" />
 
 
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
-                    <h5 class="col-sm-6 text-white">Trending Topics</h5>
+                    <h5 class="col-sm-6 text-white">Subscriptions</h5>
 
-                    <p class="col-sm-3"></p>
-                    <a class="col-sm-3" href="/updatedashboard/viewAll"  style="text-decoration: none">View All</a>
                 </div>
-
-                <g:render template="/template/trendingTopicsList" />
+                <g:render template="/template/subscriptionList" />
 
             </div>
 
@@ -106,8 +86,11 @@
 
             <div class="container col-sm-5">
 
+                <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
+                    <h5 class="col-sm-6 text-white">Posts</h5>
+                </div>
 
-                <g:render template="/template/inbox" />
+                <g:render template="/template/all_posts" />
 
 
             </div>
@@ -118,7 +101,11 @@
     </div>
 
 
-
 </main>
+
+
+
+
 </body>
 </html>
+

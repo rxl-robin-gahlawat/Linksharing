@@ -96,15 +96,6 @@ class TopicService {
         }
         return posts
 
-//        posts.each{it->
-//            println it.class
-//            if(it.class as String == "class linksharing.LinkResource")
-//                println it.url
-//            println it.description
-//
-//
-//        }
-
     }
 
 

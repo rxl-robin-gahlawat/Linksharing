@@ -5,10 +5,41 @@
 
 <head>
 
+    <g:render template="/template/navbar" />
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linksharing</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+
+    <script>
+
+
+
+        $(document).ready(function() {
+            $('#EditPageTopicsDataTable').dataTable({
+                "ordering": true,
+                "paging": true,
+                "lengthMenu": [10, 20, 30, 40, 100],
+                "pageLength": 10,
+                "searching": true,
+                "order": [[ 0, "asc" ]],
+
+
+            });
+        });
+
+
+    </script>
 
 
 </head>
@@ -16,7 +47,6 @@
 
 <body>
 
-<g:render template="/template/navbar" />
 
 
 <div>
@@ -40,42 +70,13 @@
                 <g:render template="/template/topic" />
 
 
-%{--                <div class="card p-2" style="background-color: #eee">--}%
-%{--                    <div class="container-fluid">--}%
-%{--                        <div class="row d-flex align-items-center">--}%
-%{--                            <div class="col-sm-4 ">--}%
-%{--                                <p>a</p>--}%
-%{--                            </div>--}%
-
-%{--                            <div class="col-sm-7">--}%
-%{--                                <p>b</p>--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
-%{--                    </div>--}%
-
-%{--                    <div class="container-fluid">--}%
-%{--                        <div class="row d-flex align-items-center">--}%
-%{--                            <div class="col-sm-4 ">--}%
-%{--                                <p>c</p>--}%
-%{--                            </div>--}%
-
-%{--                            <div class="col-sm-7">--}%
-%{--                                <p>d</p>--}%
-%{--                            </div>--}%
-%{--                        </div>--}%
-%{--                    </div>--}%
-%{--                </div>--}%
-
-
             </div>
 
-            <!------------------------------------------------------------------------------->
 
 
             <div class="container col-sm-1">
             </div>
 
-            <!--------------------------------------------------------------------------------->
             <div class="container col-sm-5">
 
                 <div class="card" style="background-color:#eee ">

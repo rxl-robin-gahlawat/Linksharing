@@ -3,89 +3,164 @@
 
 </div>
 
-<g:each in="${inboxResourceList}" var="readingItem">
 
 
-%{--    <p> ${readingItem.resource.class as String}</p>--}%
 
-%{--    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">--}%
+%{--<g:each in="${inboxResourceList}" var="readingItem">--}%
 
-%{--            <p>true that</p>--}%
+%{--    <div class="card p-1 bg-opacity-50" style="background-color: white">--}%
+%{--        <div class="container-fluid">--}%
 
+%{--            <div class="row d-flex align-items-center">--}%
+%{--                <div class="col-sm-2 ">--}%
+%{--                    <g:img dir="images" file="${readingItem.resource.createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderInboxList-${readingItem.resource.id}" name="imgHolderInboxList-${readingItem.resource.id}"/>--}%
+%{--                </div>--}%
 
-%{--    </g:if>--}%
-%{--    <g:else>--}%
-%{--        <p>not</p>--}%
-%{--    </g:else>--}%
+%{--                <div class="col-sm-1"></div>--}%
 
-%{--    <p> ${readingItem.resource.createdBy.photo}</p>--}%
+%{--                <div class="col-sm-8">--}%
+%{--                    <div class="card-block">--}%
+%{--                        <p id="resourceCreatorNameInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.createdBy.firstName} ${readingItem.resource.createdBy.lastName}      @${readingItem.resource.createdBy.username}</p>--}%
+%{--                    </div>--}%
+%{--                    <div class="card-block d-flex">--}%
+%{--                        <p id="resourceDescInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.description}</p>--}%
 
+%{--                    </div>--}%
 
-    <div class="card p-1 bg-opacity-50" style="background-color: white">
-        <div class="container-fluid">
+%{--                    <div class="card-block d-flex">--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--            </div>--}%
 
-            <div class="row d-flex align-items-center">
-                <div class="col-sm-2 ">
-                    <g:img dir="images" file="${readingItem.resource.createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderInboxList-${readingItem.resource.id}" name="imgHolderInboxList-${readingItem.resource.id}"/>
-                </div>
+%{--            <div class="row" style="margin-top: 10px; margin-bottom: 10px">--}%
 
-                <div class="col-sm-1"></div>
-
-                <div class="col-sm-8">
-                    <div class="card-block">
-                        <p id="resourceCreatorNameInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.createdBy.firstName} ${readingItem.resource.createdBy.lastName}      @${readingItem.resource.createdBy.username}</p>
-                    </div>
-                    <div class="card-block d-flex">
-                        <p id="resourceDescInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.description}</p>
-
-                    </div>
-
-                    <div class="card-block d-flex">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
-
-                <div class=" col-sm-6 mt-3">
+%{--                <div class=" col-sm-6 mt-3">--}%
 
 %{--                    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">--}%
 
-                    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">
-                        <a href="${readingItem.resource.url}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">View Full Site</a>
-                    </g:if>
+%{--                    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">--}%
+%{--                        <a href="${readingItem.resource.url}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">View Full Site</a>--}%
+%{--                    </g:if>--}%
 
-                    <g:else>
-                        <a href="${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">Download</a>
+%{--                    <g:else>--}%
+%{--                        <a href="${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none" download="">Download</a>--}%
 
-                    </g:else>
+%{--                    </g:else>--}%
 
+
+%{--                </div>--}%
+
+%{--                <div class=" col-sm-6 mt-3">--}%
+
+%{--                    <a href="/updatedashboard/markAsRead?resourceId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>--}%
+%{--                    <a href="/post?postId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">View Post</a>--}%
+
+
+%{--                </div>--}%
+
+%{--            </div>--}%
+
+%{--        </div>--}%
+
+%{--    </div>--}%
+
+
+
+%{--    <br>--}%
+
+
+
+
+
+%{--</g:each>--}%
+
+
+
+<table id="inboxDataTable" class="table" width="100%">
+
+    <thead>
+    <tr>
+        <th class="th-sm">
+        </th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <g:each in="${inboxResourceList}" var="readingItem">
+
+        <tr>
+            <td>
+                <div class="card p-1 bg-opacity-50" style="background-color: white">
+                    <div class="container-fluid">
+
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-2 ">
+                                <g:img dir="images" file="${readingItem.resource.createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderInboxList-${readingItem.resource.id}" name="imgHolderInboxList-${readingItem.resource.id}"/>
+                            </div>
+
+                            <div class="col-sm-1"></div>
+
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <p id="resourceCreatorNameInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.createdBy.firstName} ${readingItem.resource.createdBy.lastName}      @${readingItem.resource.createdBy.username}</p>
+                                </div>
+                                <div class="card-block d-flex">
+                                    <p id="resourceDescInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.description}</p>
+
+                                </div>
+
+                                <div class="card-block d-flex">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+
+                            <div class=" col-sm-6 mt-3">
+
+                            %{--                    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">--}%
+
+                                <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">
+                                    <a href="${readingItem.resource.url}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">View Full Site</a>
+                                </g:if>
+
+                                <g:else>
+                                    <a href="${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none" download="">Download</a>
+
+                                </g:else>
+
+
+                            </div>
+
+                            <div class=" col-sm-6 mt-3">
+
+                                <a href="/updatedashboard/markAsRead?resourceId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>
+                                <a href="/post?postId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">View Post</a>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
+            </td>
+        </tr>
 
-                <div class=" col-sm-6 mt-3">
+    </g:each>
 
-                    <a href="/updatedashboard/markAsRead?resourceId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">Mark as Read</a>
-                    <a href="/post?postId=${readingItem.resource.id}" class="card-link col-sm-6" style="text-decoration: none">View Post</a>
+    </tbody>
 
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <br>
+</table>
 
 
 
 
 
-</g:each>
+
 
 
 

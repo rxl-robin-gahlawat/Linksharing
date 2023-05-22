@@ -12,6 +12,8 @@
 
 <head>
 
+    <g:render template="/template/navbar" />
+
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css">
@@ -30,66 +32,66 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light"
-     style="background-color: #06064b; padding: 20px 10px; height: 15vh; border-radius: 3px">
-    <div class="container-fluid">
+%{--<nav class="navbar navbar-expand-lg navbar-light"--}%
+%{--     style="background-color: #06064b; padding: 20px 10px; height: 15vh; border-radius: 3px">--}%
+%{--    <div class="container-fluid">--}%
 
-        <a class="navbar-brand" href="/dashboard"><h1 style="color: white;">Linksharing</h1></a>
-
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse offset-2 justify-content-end" id="navbarNav">
-            <form class="d-flex " role="search">
-                <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-info" type="submit">Search</button>
-            </form>
-
-        </div>
+%{--        <a class="navbar-brand" href="/dashboard"><h1 style="color: white;">Linksharing</h1></a>--}%
 
 
-        <div class="dropdown">
+%{--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"--}%
+%{--                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">--}%
+%{--            <span class="navbar-toggler-icon"></span>--}%
+%{--        </button>--}%
+
+%{--        <div class="collapse navbar-collapse offset-2 justify-content-end" id="navbarNav">--}%
+%{--            <form class="d-flex " role="search">--}%
+%{--                <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">--}%
+%{--                <button class="btn btn-outline-info" type="submit">Search</button>--}%
+%{--            </form>--}%
+
+%{--        </div>--}%
 
 
-            <button class="btn btn-outline-info dropdown-toggle offset-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ${user.username}
-            </button>
+%{--        <div class="dropdown">--}%
 
 
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-
-                <g:if test="${user.admin}">
-                    <li><a class="dropdown-item" href="/admin/users">Users</a></li>
-                    <li><a class="dropdown-item" href="#">Topics</a></li>
-                    <li><a class="dropdown-item" href="#">Posts</a></li>
-
-                </g:if>
-
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            </ul>
+%{--            <button class="btn btn-outline-info dropdown-toggle offset-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}%
+%{--                ${user.username}--}%
+%{--            </button>--}%
 
 
-            <div class="userProfilePhoto mt-3 offset-10">
-                <label  class="form-label mt-1">
-                    <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
-                </label>
-            </div>
+%{--            <ul class="dropdown-menu">--}%
+%{--                <li><a class="dropdown-item" href="#">Profile</a></li>--}%
+
+%{--                <g:if test="${user.admin}">--}%
+%{--                    <li><a class="dropdown-item" href="/admin/users">Users</a></li>--}%
+%{--                    <li><a class="dropdown-item" href="#">Topics</a></li>--}%
+%{--                    <li><a class="dropdown-item" href="#">Posts</a></li>--}%
+
+%{--                </g:if>--}%
+
+%{--                <li><hr class="dropdown-divider"></li>--}%
+%{--                <li><a class="dropdown-item" href="/logout">Logout</a></li>--}%
+%{--            </ul>--}%
 
 
-        </div>
+%{--            <div class="userProfilePhoto mt-3 offset-10">--}%
+%{--                <label  class="form-label mt-1">--}%
+%{--                    <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>--}%
+%{--                </label>--}%
+%{--            </div>--}%
 
 
+%{--        </div>--}%
 
 
 
 
-    </div>
-</nav>
+
+
+%{--    </div>--}%
+%{--</nav>--}%
 
 
 
@@ -162,10 +164,16 @@
 
 
 <script>
+
+
         $(document).ready(function() {
-            $('#usersTable').DataTable({
-                "lengthMenu": [5, 10, 30],
-                "pageLength": 20
+            $('#usersTable').dataTable({
+                "ordering": true,
+                "paging": true,
+                "lengthMenu": [5, 10, 15, 20, 25],
+                "pageLength": 20,
+                "searching": true,
+                "order": [[ 0, "asc" ]],
             });
         });
 

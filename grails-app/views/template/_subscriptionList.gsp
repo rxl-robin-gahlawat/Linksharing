@@ -1,154 +1,348 @@
-%{--<div class=" border mt-2 border bg-secondary rounded d-flex p-1">--}%
-%{--    <h5 class="col-sm-6 text-white">Subscriptions</h5>--}%
-
-%{--    <p class="col-sm-3"></p>--}%
-%{--    <a class="col-sm-3" style="text-decoration: none">View All</a>--}%
-%{--</div>--}%
 
 
-<g:each in="${subscribedTopicList}" var="subscribedTopic">
+%{--<g:each in="${subscribedTopicList}" var="subscribedTopic">--}%
 
-    <div class="card p-1 bg-opacity-50" style="background-color: white">
-        <div class="container-fluid">
+%{--    <div class="card p-1 bg-opacity-50" style="background-color: white">--}%
+%{--        <div class="container-fluid">--}%
 
-            <div class="row d-flex align-items-center">
-                <div class="col-sm-2 ">
-                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderSubList-${subscribedTopic["topic"].id}" name="imgHolderSubList-${subscribedTopic["topic"].id}" />
-                </div>
+%{--            <div class="row d-flex align-items-center">--}%
+%{--                <div class="col-sm-2 ">--}%
+%{--                    <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderSubList-${subscribedTopic["topic"].id}" name="imgHolderSubList-${subscribedTopic["topic"].id}" />--}%
+%{--                </div>--}%
 
-                <div class="col-sm-1"></div>
+%{--                <div class="col-sm-1"></div>--}%
 
-                <div class="col-sm-8">
-                    <div class="card-block">
-                        <a href="/topic?topicId=${subscribedTopic["topic"].id}" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none">${subscribedTopic["topic"].name}</a>
-                        <button id="save-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonSubList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
-                        <button id="cancel-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonSubList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
-                    </div>
+%{--                <div class="col-sm-8">--}%
+%{--                    <div class="card-block">--}%
+%{--                        <a href="/topic?topicId=${subscribedTopic["topic"].id}" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none">${subscribedTopic["topic"].name}</a>--}%
+%{--                        <button id="save-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonSubList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>--}%
+%{--                        <button id="cancel-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonSubList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>--}%
+%{--                    </div>--}%
 
-                    <div class="card-block d-flex">
-                        <p class="col-sm-4">@${subscribedTopic["topic"].createdBy.username}</p>
+%{--                    <div class="card-block d-flex">--}%
+%{--                        <p class="col-sm-4">@${subscribedTopic["topic"].createdBy.username}</p>--}%
 
-                        <p class="col-sm-6">Subscriptions</p>
+%{--                        <p class="col-sm-6">Subscriptions</p>--}%
 
-                        <p class="col-sm-2">Posts</p>
-                    </div>
+%{--                        <p class="col-sm-2">Posts</p>--}%
+%{--                    </div>--}%
 
-                    <div class="card-block d-flex">
+%{--                    <div class="card-block d-flex">--}%
 
-                        <g:if test="${(subscribedTopic["isSubscribed"]=="No")  }">
-                            <a href="/updatedashboard/subscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none;">Subscribe</a>
-                        </g:if>
+%{--                        <g:if test="${(subscribedTopic["isSubscribed"]=="No")  }">--}%
+%{--                            <a href="/updatedashboard/subscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none;">Subscribe</a>--}%
+%{--                        </g:if>--}%
 
-                        <g:else>
+%{--                        <g:else>--}%
 
-                            <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
-                                <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
-                            </g:if>
-                            <g:else>
-                                <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
-                            </g:else>
-                        </g:else>
+%{--                            <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">--}%
+%{--                                <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>--}%
+%{--                            </g:if>--}%
+%{--                            <g:else>--}%
+%{--                                <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>--}%
+%{--                            </g:else>--}%
+%{--                        </g:else>--}%
 
 
 
 
 
-                        <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>
-                        <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["postCount"]}</a>
-                    </div>
-                </div>
-            </div>
+%{--                        <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>--}%
+%{--                        <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["postCount"]}</a>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
+%{--            </div>--}%
 
-            <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+%{--            <div class="row" style="margin-top: 10px; margin-bottom: 10px">--}%
 
-                    <div class=" col-sm-7 mt-3">
+%{--                    <div class=" col-sm-7 mt-3">--}%
 
-                        <g:if test="${subscribedTopic["isSubscribed"]=="Yes"}">
-                            <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
-                                      noSelection="${['':subscribedTopic["seriousness"]]}" />
-                        </g:if>
+%{--                        <g:if test="${subscribedTopic["isSubscribed"]=="Yes"}">--}%
+%{--                            <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"--}%
+%{--                                      noSelection="${['':subscribedTopic["seriousness"]]}" />--}%
+%{--                        </g:if>--}%
 
-                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
-                                <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"
-                                  noSelection="${['':subscribedTopic["topic"].visibility]}" />
-                        </g:if>
+%{--                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">--}%
+%{--                                <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"--}%
+%{--                                  noSelection="${['':subscribedTopic["topic"].visibility]}" />--}%
+%{--                        </g:if>--}%
 
-                    </div>
+%{--                    </div>--}%
 
-                    <div class=" col-sm-5">
-
-
-                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
-
-                            <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >
-                                <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>
-                            </button>
-
-                            <button type="button" id="del-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionDeleteBtn" >
-                                <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>
-                            </button>
-
-                        </g:if>
+%{--                    <div class=" col-sm-5">--}%
 
 
-                        <label class="nav-item">
-                            <!-- Button to trigger modal -->
-                            <button type="button" id="ModalBtn-${subscribedTopic["topic"].id}" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                    data-bs-target="#sub-${subscribedTopic["topic"].id}">
-                                <g:img dir="images" file="Icons/invite.png" height = "24" width="24"/>
-                            </button>
-                            <!-- Modal functionality -->
-                            <div class="modal fade" id="sub-${subscribedTopic["topic"].id}" tabindex="-1"
-                                 aria-labelledby="subLabel-${subscribedTopic["topic"].id}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <!-- modal content -->
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="subNameLabel-${subscribedTopic["topic"].id}">Send Topic Invitation</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <g:form controller="dashboard" action="sendInvitation">
-                                                <div class="mb-3">
-                                                    <label for="sub-${subscribedTopic["topic"].id}" class="form-label">Email*</label>
-                                                    <input type="text" class="form-control" id="sub-${subscribedTopic["topic"].id}" name="inviteEmail" required>
-                                                </div>
+%{--                        <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">--}%
+
+%{--                            <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >--}%
+%{--                                <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>--}%
+%{--                            </button>--}%
+
+%{--                            <button type="button" id="del-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionDeleteBtn" >--}%
+%{--                                <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>--}%
+%{--                            </button>--}%
+
+%{--                        </g:if>--}%
 
 
-                                                <div class="mb-3">
-                                                    <label  class="form-label">Topic</label>
+%{--                        <label class="nav-item">--}%
+%{--                            <!-- Button to trigger modal -->--}%
+%{--                            <button type="button" id="ModalBtn-${subscribedTopic["topic"].id}" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"--}%
+%{--                                    data-bs-target="#sub-${subscribedTopic["topic"].id}">--}%
+%{--                                <g:img dir="images" file="Icons/invite.png" height = "24" width="24"/>--}%
+%{--                            </button>--}%
+%{--                            <!-- Modal functionality -->--}%
+%{--                            <div class="modal fade" id="sub-${subscribedTopic["topic"].id}" tabindex="-1"--}%
+%{--                                 aria-labelledby="subLabel-${subscribedTopic["topic"].id}" aria-hidden="true">--}%
+%{--                                <div class="modal-dialog">--}%
+%{--                                    <div class="modal-content">--}%
+%{--                                        <!-- modal content -->--}%
+%{--                                        <div class="modal-header">--}%
+%{--                                            <h5 class="modal-title" id="subNameLabel-${subscribedTopic["topic"].id}">Send Topic Invitation</h5>--}%
+%{--                                            <button type="button" class="btn-close" data-bs-dismiss="modal"--}%
+%{--                                                    aria-label="Close"></button>--}%
+%{--                                        </div>--}%
+%{--                                        <div class="modal-body">--}%
+%{--                                            <g:form controller="dashboard" action="sendInvitation">--}%
+%{--                                                <div class="mb-3">--}%
+%{--                                                    <label for="sub-${subscribedTopic["topic"].id}" class="form-label">Email*</label>--}%
+%{--                                                    <input type="text" class="form-control" id="sub-${subscribedTopic["topic"].id}" name="inviteEmail" required>--}%
+%{--                                                </div>--}%
 
-                                                    <select class="form-select" id="invite-${subscribedTopic["topic"].id}" name="invitationTopic">
-                                                        <option value="${subscribedTopic["topic"].id}" selected>${subscribedTopic["topic"].name}</option>
-                                                    </select>
 
-                                                </div>
+%{--                                                <div class="mb-3">--}%
+%{--                                                    <label  class="form-label">Topic</label>--}%
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Invite</button>
-                                                </div>
+%{--                                                    <select class="form-select" id="invite-${subscribedTopic["topic"].id}" name="invitationTopic">--}%
+%{--                                                        <option value="${subscribedTopic["topic"].id}" selected>${subscribedTopic["topic"].name}</option>--}%
+%{--                                                    </select>--}%
 
-                                            </g:form>
-                                        </div>
-                                    </div>
+%{--                                                </div>--}%
+
+%{--                                                <div class="modal-footer">--}%
+%{--                                                    <button type="button" class="btn btn-secondary"--}%
+%{--                                                            data-bs-dismiss="modal">Close</button>--}%
+%{--                                                    <button type="submit" class="btn btn-primary">Invite</button>--}%
+%{--                                                </div>--}%
+
+%{--                                            </g:form>--}%
+%{--                                        </div>--}%
+%{--                                    </div>--}%
+%{--                                </div>--}%
+%{--                            </div>--}%
+%{--                        </label>--}%
+
+
+%{--                    </div>--}%
+
+%{--            </div>--}%
+
+%{--        </div>--}%
+
+%{--    </div>--}%
+%{--    <br>--}%
+
+%{--</g:each>--}%
+
+
+
+
+
+<table id="subscribedTopicListDataTable" class="table" width="100%">
+
+    <thead>
+    <tr>
+        <th class="th-sm">
+        </th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <g:each in="${subscribedTopicList}" var="subscribedTopic">
+
+        <tr>
+            <td>
+                <div class="card p-1 bg-opacity-50" style="background-color: white">
+                    <div class="container-fluid">
+
+                        <div class="row d-flex align-items-center">
+                            <div class="col-sm-2 ">
+                                <g:img dir="images" file="${subscribedTopic["topic"].createdBy.photo.substring(25)}" height = "56" width="60" class="centered" id="imgHolderSubList-${subscribedTopic["topic"].id}" name="imgHolderSubList-${subscribedTopic["topic"].id}" />
+                            </div>
+
+                            <div class="col-sm-1"></div>
+
+                            <div class="col-sm-8">
+                                <div class="card-block">
+                                    <a href="/topic?topicId=${subscribedTopic["topic"].id}" id="topicname-${subscribedTopic["topic"].id}" class="card-link col-sm-6 subscriptionTopicNameTag" style="text-decoration: none">${subscribedTopic["topic"].name}</a>
+                                    <button id="save-${subscribedTopic["topic"].id}" value="saveBtn" name="saveBtn" onclick="saveButtonSubList()"  class="subscriptionSaveBtn offset-1" style="display: none">Save</button>
+                                    <button id="cancel-${subscribedTopic["topic"].id}" value="cancelBtn" name="cancelBtn" onclick="cancelButtonSubList()" class="subscriptionCancelBtn" style="display: none">Cancel</button>
+                                </div>
+
+                                <div class="card-block d-flex">
+                                    <p class="col-sm-4">@${subscribedTopic["topic"].createdBy.username}</p>
+
+                                    <p class="col-sm-6">Subscriptions</p>
+
+                                    <p class="col-sm-2">Posts</p>
+                                </div>
+
+                                <div class="card-block d-flex">
+
+                                    <g:if test="${(subscribedTopic["isSubscribed"]=="No")  }">
+                                        <a href="/updatedashboard/subscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none;">Subscribe</a>
+                                    </g:if>
+
+                                    <g:else>
+
+                                        <g:if test="${(subscribedTopic["topic"].createdBy==user)  }">
+                                            <a href="#" class="card-link col-sm-6" style="text-decoration: none; visibility: hidden">Empty</a>
+                                        </g:if>
+                                        <g:else>
+                                            <a href="/updatedashboard/unsubscribeTopic?topicID=${subscribedTopic["topic"].id}" class="card-link col-sm-6" style="text-decoration: none">Unsubscribe</a>
+                                        </g:else>
+                                    </g:else>
+
+
+
+
+
+                                    <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["subsCount"]}</a>
+                                    <a href="#" class="card-link col-sm-3" style="text-decoration: none">${subscribedTopic["postCount"]}</a>
                                 </div>
                             </div>
-                        </label>
+                        </div>
 
+                        <div class="row" style="margin-top: 10px; margin-bottom: 10px">
+
+                            <div class=" col-sm-7 mt-3">
+
+                                <g:if test="${subscribedTopic["isSubscribed"]=="Yes"}">
+                                    <g:select name="${subscribedTopic["subID"]}" id="${subscribedTopic["subID"]}" class="subscriptionsSeriousnessPicker " from="${['CASUAL','SERIOUS','VERY_SERIOUS'] - ["${subscribedTopic["seriousness"]}"]}" value="${subscribedTopic["seriousness"]}"
+                                              noSelection="${['':subscribedTopic["seriousness"]]}" />
+                                </g:if>
+
+                                <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
+                                    <g:select name="${subscribedTopic["topic"].id}" id="${subscribedTopic["topic"].id}" class="subscriptionsVisibilityPicker" from="${['PUBLIC','PRIVATE'] - ["${subscribedTopic["topic"].visibility}"]}" value="${subscribedTopic["topic"].visibility}"
+                                              noSelection="${['':subscribedTopic["topic"].visibility]}" />
+                                </g:if>
+
+                            </div>
+
+                            <div class=" col-sm-5">
+
+
+                                <g:if test="${subscribedTopic["topic"].createdBy==user || user.admin==true  }">
+
+                                    <button type="button" id="edit-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionEditBtn" >
+                                        <g:img dir="images" file="Icons/edit_icon.jpeg" height = "23" width="23" style="border-radius: 3px;"/>
+                                    </button>
+
+                                    <button type="button" id="del-${subscribedTopic["topic"].id}" class="btn btn-sm chat-icon mt-2 subscriptionDeleteBtn" >
+                                        <g:img dir="images" file="Icons/delete_icon.png" height = "30" width="30" style="border-radius: 3px;"/>
+                                    </button>
+
+                                </g:if>
+
+
+                                <label class="nav-item">
+                                    <!-- Button to trigger modal -->
+                                    <button type="button" id="ModalBtn-${subscribedTopic["topic"].id}" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                            data-bs-target="#sub-${subscribedTopic["topic"].id}">
+                                        <g:img dir="images" file="Icons/invite.png" height = "24" width="24"/>
+                                    </button>
+                                    <!-- Modal functionality -->
+                                    <div class="modal fade" id="sub-${subscribedTopic["topic"].id}" tabindex="-1"
+                                         aria-labelledby="subLabel-${subscribedTopic["topic"].id}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!-- modal content -->
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="subNameLabel-${subscribedTopic["topic"].id}">Send Topic Invitation</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <g:form controller="dashboard" action="sendInvitation">
+                                                        <div class="mb-3">
+                                                            <label for="sub-${subscribedTopic["topic"].id}" class="form-label">Email*</label>
+                                                            <input type="text" class="form-control" id="sub-${subscribedTopic["topic"].id}" name="inviteEmail" required>
+                                                        </div>
+
+
+                                                        <div class="mb-3">
+                                                            <label  class="form-label">Topic</label>
+
+                                                            <select class="form-select" id="invite-${subscribedTopic["topic"].id}" name="invitationTopic">
+                                                                <option value="${subscribedTopic["topic"].id}" selected>${subscribedTopic["topic"].name}</option>
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Invite</button>
+                                                        </div>
+
+                                                    </g:form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-            </div>
+                </div>
 
-        </div>
+            </td>
+        </tr>
 
-    </div>
-    <br>
 
-</g:each>
+    </g:each>
+
+
+
+
+    </tbody>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <script>

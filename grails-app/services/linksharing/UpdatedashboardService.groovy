@@ -167,6 +167,37 @@ class UpdatedashboardService {
         catch (Exception err){
             return false
         }
+
+    }
+
+    List allTopicsAlphabeticalOrder(){
+
+
+        List reqList = Subscription.createCriteria().listDistinct{
+            topic{
+                order("name", "asc")
+            }
+        }
+
+
+        List topicList = []
+        int i = 0;
+        reqList.each{it->
+            Map result = [:]
+            int subsCount = Subscription.countByTopic(it.topic)
+            int postCount = Resourcedetail.countByTopic(it.topic)
+            result.put("subID", it.id)
+            result.put("user",it.user)
+            result.put("topic",it.topic)
+            result.put("seriousness",it.seriousness)
+            result.put("subsCount",subsCount)
+            result.put("postCount",postCount)
+            topicList.add(result)
+        }
+
+        return topicList;
+
+
     }
 
 }
