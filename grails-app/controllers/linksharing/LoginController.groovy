@@ -7,6 +7,7 @@ class LoginController {
 
     def LoginService
     def UpdatedashboardService
+    def SearchService
 
     def index() {
 
@@ -14,8 +15,12 @@ class LoginController {
             redirect(url: "/dashboard")
             return
         }
-        render(view: "/register/index")
 
+        List topPosts = SearchService.topPostList()
+        List recentPosts = SearchService.recentPostList()
+
+        Map loadMap = ["topPosts": topPosts, "recentPosts": recentPosts]
+        render(view: "/register/index", model: loadMap)
 
     }
 

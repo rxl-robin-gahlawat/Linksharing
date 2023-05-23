@@ -45,7 +45,7 @@
          style="background-color: #06064b; padding: 20px 10px; height: 15vh; border-radius: 3px">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="#"><h1 style="color: white;">Linksharing</h1></a>
+            <a class="navbar-brand" href="/login"><h1 style="color: white;">Linksharing</h1></a>
 
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -53,13 +53,13 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse offset-2 justify-content-end" id="navbarNav">
-                <form class="d-flex " role="search">
-                    <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info" type="submit">Search</button>
-                </form>
+%{--            <div class="collapse navbar-collapse offset-2 justify-content-end" id="navbarNav">--}%
+%{--                <form class="d-flex " role="search">--}%
+%{--                    <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">--}%
+%{--                    <button class="btn btn-outline-info" type="submit">Search</button>--}%
+%{--                </form>--}%
 
-            </div>
+%{--            </div>--}%
 
         </div>
     </nav>
@@ -86,31 +86,7 @@
                 </div>
 
 
-                <div class="card p-2" style="background-color: #eee">
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>a</p>
-                            </div>
-
-                            <div class="col-sm-7">
-                                <p>b</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>c</p>
-                            </div>
-
-                            <div class="col-sm-7">
-                                <p>d</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <g:render template="/template/recent_posts" />
 
 
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
@@ -120,31 +96,37 @@
                     <a class="col-sm-3" style="text-decoration: none">View All</a>
                 </div>
 
-                <div class="card p-2" style="background-color: #eee">
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>a</p>
-                            </div>
 
-                            <div class="col-sm-7">
-                                <p>b</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="container-fluid">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-4 ">
-                                <p>c</p>
-                            </div>
 
-                            <div class="col-sm-7">
-                                <p>d</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <g:render template="/template/top_posts" />
+
+
+%{--                <div class="card p-2" style="background-color: #eee">--}%
+%{--                    <div class="container-fluid">--}%
+%{--                        <div class="row d-flex align-items-center">--}%
+%{--                            <div class="col-sm-4 ">--}%
+%{--                                <p>a</p>--}%
+%{--                            </div>--}%
+
+%{--                            <div class="col-sm-7">--}%
+%{--                                <p>b</p>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+
+%{--                    <div class="container-fluid">--}%
+%{--                        <div class="row d-flex align-items-center">--}%
+%{--                            <div class="col-sm-4 ">--}%
+%{--                                <p>c</p>--}%
+%{--                            </div>--}%
+
+%{--                            <div class="col-sm-7">--}%
+%{--                                <p>d</p>--}%
+%{--                            </div>--}%
+%{--                        </div>--}%
+%{--                    </div>--}%
+%{--                </div>--}%
 
             </div>
 

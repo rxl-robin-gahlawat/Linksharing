@@ -78,10 +78,10 @@
 
             <div class="collapse navbar-collapse offset-2" id="navbarNav">
 
-                <form class="d-flex " role="search">
-                    <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
+                <g:form controller="search" class="d-flex " role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="searchInput">
                     <button class="btn btn-outline-info" type="submit">Search</button>
-                </form>
+                </g:form>
 
 
                 <ul class="navbar-nav ">

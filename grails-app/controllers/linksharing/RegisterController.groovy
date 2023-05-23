@@ -2,7 +2,6 @@ package linksharing
 
 class RegisterController {
 
-    //static defaultAction = "register"
 
     def RegisterService
 
