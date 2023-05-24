@@ -120,17 +120,14 @@
 
                             <div class=" col-sm-6 mt-3">
 
-                            %{--                    <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">--}%
-
                                 <g:if test="${readingItem.resource.class as String == 'class linksharing.LinkResource'}">
                                     <a href="${readingItem.resource.url}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">View Full Site</a>
                                 </g:if>
 
                                 <g:else>
-                                    <a href="${readingItem.resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none" download="">Download</a>
+                                    <a href="${readingItem.resource.filePath}" style="text-decoration: none" class="card-link col-sm-6" download>Download</a>
 
                                 </g:else>
-
 
                             </div>
 

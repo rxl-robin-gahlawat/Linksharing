@@ -25,7 +25,7 @@
 
 <g:if test="${flash.successMessage}">
 
-    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: #41e30a;">
+    <div id="success-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: #41e30a;">
         <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <strong class="me-auto">${flash.successMessage}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
@@ -37,7 +37,7 @@
 
 <g:if test="${flash.failMessage}">
 
-    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: red;">
+    <div id="fail-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: red;">
         <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <strong class="me-auto">${flash.failMessage}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
@@ -49,7 +49,7 @@
 
 <g:if test="${flash.message}">
 
-    <div class="toast show position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999; background-color: #838386;">
+    <div id="message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: #838386;">
         <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <strong class="me-auto">${flash.message}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
@@ -70,275 +70,281 @@
 
             <a class="navbar-brand" href="/dashboard"><h1 style="color: white;">Linksharing</h1></a>
 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <g:if test="${user}">
 
-            <div class="collapse navbar-collapse offset-2" id="navbarNav">
+                    <div class="collapse navbar-collapse offset-2" id="navbarNav">
 
-                <g:form controller="search" class="d-flex " role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="searchInput">
-                    <button class="btn btn-outline-info" type="submit">Search</button>
-                </g:form>
+                        <g:form controller="search" class="d-flex " role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" name="searchInput">
+                            <button class="btn btn-outline-info" type="submit">Search</button>
+                        </g:form>
 
 
-                <ul class="navbar-nav ">
+                        <ul class="navbar-nav ">
 
-                    <!-- Create topic Modal -->
-                    <li class="nav-item">
-                        <!-- Button to trigger modal -->
-                        <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#createTopicModal">
-                            <g:img dir="images" file="Icons/topic_icon.png" height = "34" width="40"/>
-                        </button>
-                        <!-- Modal functionality -->
-                        <div class="modal fade" id="createTopicModal" tabindex="-1"
-                             aria-labelledby="createTopicModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- modal content -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="createTopicModalLabel">Create Topic</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                        <div class="modal-body">
-                                            <g:form controller="dashboard" action="createTopic">
-                                                <div class="mb-3">
-                                                    <label for="topicName" class="form-label">Name*</label>
-                                                    <input type="text" class="form-control" id="topicName" name="topicName" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="visibility" class="form-label">Visibility</label>
-                                                    <select class="form-select" id="visibility" name="visibility">
-                                                        <option value="public">Public</option>
-                                                        <option value="private">Private</option>
-                                                    </select>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Create</button>
-                                                </div>
+                            <!-- Create topic Modal -->
+                            <li class="nav-item">
+                                <!-- Button to trigger modal -->
+                                <button type="button" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#createTopicModal">
+                                    <g:img dir="images" file="Icons/topic_icon.png" height = "34" width="40"/>
+                                </button>
+                                <!-- Modal functionality -->
+                                <div class="modal fade" id="createTopicModal" tabindex="-1"
+                                     aria-labelledby="createTopicModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- modal content -->
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createTopicModalLabel">Create Topic</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <g:form controller="dashboard" action="createTopic">
+                                                    <div class="mb-3">
+                                                        <label for="topicName" class="form-label">Name*</label>
+                                                        <input type="text" class="form-control" id="topicName" name="topicName" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="visibility" class="form-label">Visibility</label>
+                                                        <select class="form-select" id="visibility" name="visibility">
+                                                            <option value="public">Public</option>
+                                                            <option value="private">Private</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Create</button>
+                                                    </div>
 
-                                            </g:form>
+                                                </g:form>
+                                            </div>
                                         </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-
-                    <!-- Create Link Resource Modal -->
-                    <li class="nav-item">
-                        <!-- Button to trigger modal id="createLinkResourceModalDropdownButton"-->
-                        <button type="button" id="createLinkResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#linkResourceModal">
-                            <g:img dir="images" file="Icons/link_icon.png" height = "34" width="40"/>
-                        </button>
-
-                        <!-- Link Resource Modal -->
-                        <div class="modal fade" id="linkResourceModal" tabindex="-1"
-                             aria-labelledby="createTopicModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- modal content -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="linkResourceModalLabel">Share Link Resource</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <g:form controller="dashboard" action="createLinkResource">
-
-                                            <div class="mb-3">
-                                                <label for="linkResourceModal" class="form-label">Link*</label>
-                                                <input type="text" class="form-control" id="resourceLink" name="resourceLink" required>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="linkResourceModal" class="form-label">Description*</label>
-%{--                                                <input type="textarea" height="20" class="form-control" id="linkResourceDescription" name="linkResourceDescription">--}%
-                                                <textarea id="w3review" name="resourceDescription" rows="4" cols="44" required></textarea>
-
-                                            </div>
-
-
-
-                                            <div class="mb-3">
-                                                <label for="linkResourceModal" class="form-label">Topic</label>
-
-                                                <select class="form-select" id="availableTopics" name="availableTopic">
-                                                </select>
-
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button id = "closeLinkResourceButton" type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Share</button>
-                                            </div>
-
-                                        </g:form>
-
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
+                            </li>
 
 
-                    <!-- Create Document Resource Modal -->
-                    <li class="nav-item">
-                        <!-- Button to trigger modal id="createDocumentResourceModalDropdownButton"-->
-                        <button type="button" id="createDocumentResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#documentResourceModal">
-                            <g:img dir="images" file="Icons/doc_icon.png" height = "34" width="40"/>
-                        </button>
+                            <!-- Create Link Resource Modal -->
+                            <li class="nav-item">
+                                <!-- Button to trigger modal id="createLinkResourceModalDropdownButton"-->
+                                <button type="button" id="createLinkResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#linkResourceModal">
+                                    <g:img dir="images" file="Icons/link_icon.png" height = "34" width="40"/>
+                                </button>
 
-                        <!-- Create Document Document Modal -->
-                        <div class="modal fade" id="documentResourceModal" tabindex="-1"
-                             aria-labelledby="documentResourceModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- modal content -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="documentResourceModalLabel">Share Document Resource</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <g:uploadForm controller="dashboard" action="createDocumentResource">
-
-                                            <div class="mb-3">
-                                                <label for="linkResourceModal" class="form-label">Document*</label>
-                                                <input type="file" class="form-control" id="resourceDocument" name="resourceDocument" required>
+                                <!-- Link Resource Modal -->
+                                <div class="modal fade" id="linkResourceModal" tabindex="-1"
+                                     aria-labelledby="createTopicModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- modal content -->
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="linkResourceModalLabel">Share Link Resource</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
+                                            <div class="modal-body">
 
-                                            <div class="mb-3">
-                                                <label for="documentResourceModal" class="form-label">Description*</label>
-                                                <textarea id="resourceDescription"  name="resourceDescription" rows="4" cols="44" required></textarea>
+                                                <g:form controller="dashboard" action="createLinkResource">
 
-                                            </div>
+                                                    <div class="mb-3">
+                                                        <label for="linkResourceModal" class="form-label">Link*</label>
+                                                        <input type="url" class="form-control" id="resourceLink" name="resourceLink" required>
+                                                    </div>
 
+                                                    <div class="mb-3">
+                                                        <label for="linkResourceModal" class="form-label">Description*</label>
+                                                        %{--                                                <input type="textarea" height="20" class="form-control" id="linkResourceDescription" name="linkResourceDescription">--}%
+                                                        <textarea id="w3review" name="resourceDescription" rows="4" cols="44" required></textarea>
 
-                                            <div class="mb-3">
-                                                <label for="documentResourceModal" class="form-label">Topic</label>
-                                                <select class="form-select" id="availableTopicDoc" name="availableTopicDoc">
-                                                </select>
-
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button id = "closeDocumentResourceButton" type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Share</button>
-                                            </div>
-
-                                        </g:uploadForm>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                                                    </div>
 
 
 
-                    <!-- Send Invitation Modal -->
-                    <li class="nav-item">
-                        <!-- Button to trigger modal -->
-                        <button type="button" id="sendInvitationModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
-                                data-bs-target="#sendInvitationModal">
-                            <g:img dir="images" file="Icons/invite.png" height = "34" width="40"/>
-                        </button>
-                        <!-- Modal functionality -->
-                        <div class="modal fade" id="sendInvitationModal" tabindex="-1"
-                             aria-labelledby="sendInvitationModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- modal content -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="sendInvitationModalLabel">Send Invitation</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <g:form controller="dashboard" action="sendInvitation">
-                                            <div class="mb-3">
-                                                <label for="inviteEmail" class="form-label">Email*</label>
-                                                <input type="email" class="form-control" id="inviteEmail" name="inviteEmail" required>
-                                            </div>
+                                                    <div class="mb-3">
+                                                        <label for="linkResourceModal" class="form-label">Topic</label>
 
+                                                        <select class="form-select" id="availableTopics" name="availableTopic">
+                                                        </select>
 
-                                            <div class="mb-3">
-                                                <label for="sendInvitationModal" class="form-label">Topic</label>
+                                                    </div>
 
-                                                <select class="form-select" id="invitationTopic" name="invitationTopic">
-                                                </select>
+                                                    <div class="modal-footer">
+                                                        <button id = "closeLinkResourceButton" type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Share</button>
+                                                    </div>
+
+                                                </g:form>
 
                                             </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Invite</button>
-                                            </div>
-
-                                        </g:form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
+                            </li>
+
+
+                            <!-- Create Document Resource Modal -->
+                            <li class="nav-item">
+                                <!-- Button to trigger modal id="createDocumentResourceModalDropdownButton"-->
+                                <button type="button" id="createDocumentResourceModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#documentResourceModal">
+                                    <g:img dir="images" file="Icons/doc_icon.png" height = "34" width="40"/>
+                                </button>
+
+                                <!-- Create Document Document Modal -->
+                                <div class="modal fade" id="documentResourceModal" tabindex="-1"
+                                     aria-labelledby="documentResourceModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- modal content -->
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="documentResourceModalLabel">Share Document Resource</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <g:uploadForm controller="dashboard" action="createDocumentResource">
+
+                                                    <div class="mb-3">
+                                                        <label for="linkResourceModal" class="form-label">Document*</label>
+                                                        <input type="file" class="form-control" id="resourceDocument" name="resourceDocument" required>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="documentResourceModal" class="form-label">Description*</label>
+                                                        <textarea id="resourceDescription"  name="resourceDescription" rows="4" cols="44" required></textarea>
+
+                                                    </div>
+
+
+                                                    <div class="mb-3">
+                                                        <label for="documentResourceModal" class="form-label">Topic</label>
+                                                        <select class="form-select" id="availableTopicDoc" name="availableTopicDoc">
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button id = "closeDocumentResourceButton" type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Share</button>
+                                                    </div>
+
+                                                </g:uploadForm>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                            <!-- Send Invitation Modal -->
+                            <li class="nav-item">
+                                <!-- Button to trigger modal -->
+                                <button type="button" id="sendInvitationModalDropdownButton" class="btn btn-link chat-icon mt-2" data-bs-toggle="modal"
+                                        data-bs-target="#sendInvitationModal">
+                                    <g:img dir="images" file="Icons/invite.png" height = "34" width="40"/>
+                                </button>
+                                <!-- Modal functionality -->
+                                <div class="modal fade" id="sendInvitationModal" tabindex="-1"
+                                     aria-labelledby="sendInvitationModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- modal content -->
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="sendInvitationModalLabel">Send Invitation</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <g:form controller="dashboard" action="sendInvitation">
+                                                    <div class="mb-3">
+                                                        <label for="inviteEmail" class="form-label">Email*</label>
+                                                        <input type="email" class="form-control" id="inviteEmail" name="inviteEmail" required>
+                                                    </div>
+
+
+                                                    <div class="mb-3">
+                                                        <label for="sendInvitationModal" class="form-label">Topic</label>
+
+                                                        <select class="form-select" id="invitationTopic" name="invitationTopic">
+                                                        </select>
+
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Invite</button>
+                                                    </div>
+
+                                                </g:form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
 
 
 
 
-                    <!-- Username dropdown -->
-                    <li class="nav-item">
+                            <!-- Username dropdown -->
+                            <li class="nav-item">
 
-                        <div class="btn-group offset-1">
-                            <button type="button" class="btn btn-outline-info  mt-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
-                                ${user.username}
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
+                                <div class="btn-group offset-1">
+                                    <button type="button" class="btn btn-outline-info  mt-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
+                                        ${user.username}
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/profile/edit">Profile</a></li>
 
-                                <g:if test="${user.admin}">
-                                    <li><a class="dropdown-item" href="/admin/users">Users</a></li>
-                                    <li><a class="dropdown-item" href="/adminTopic">Topics</a></li>
-                                    <li><a class="dropdown-item" href="/adminPost">Posts</a></li>
+                                        <g:if test="${user.admin}">
+                                            <li><a class="dropdown-item" href="/admin/users">Users</a></li>
+                                            <li><a class="dropdown-item" href="/adminTopic">Topics</a></li>
+                                            <li><a class="dropdown-item" href="/adminPost">Posts</a></li>
 
-                                </g:if>
-
-
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                            </ul>
-                        </div>
-
-                    </li>
+                                        </g:if>
 
 
-                    <!-- User profile section -->
-                    <li class="nav-item">
-                        <div class="userProfilePhoto mt-3 offset-10">
-                            <label  class="form-label mt-1">
-                                <a href="/profile/user">
-                                    <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
-                                </a>
-                            </label>
-                        </div>
-                    </li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                    </ul>
+                                </div>
 
-                </ul>
+                            </li>
 
-            </div>
+
+                            <!-- User profile section -->
+                            <li class="nav-item">
+                                <div class="userProfilePhoto mt-3 offset-10">
+                                    <label  class="form-label mt-1">
+                                        <a href="/profile/user">
+                                            <g:img dir="images" file="${user.photo.substring(25)}" height = "36" width="40" style="border-radius: 40%;"/>
+                                        </a>
+                                    </label>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+                </g:if>
+
+
         </div>
     </nav>
 
@@ -407,6 +413,22 @@
                 }});
         });
     });
+
+    setTimeout(function() {
+        var failMessage = document.getElementById("fail-message");
+        failMessage.style.display = "none";
+
+    }, 3000);
+    setTimeout(function() {
+        var successMessage = document.getElementById("success-message");
+        successMessage.style.display = "none";
+
+    }, 3000);
+    setTimeout(function() {
+        var message = document.getElementById("message");
+        message.style.display = "none";
+
+    }, 3000);
 
 
 </script>

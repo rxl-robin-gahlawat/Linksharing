@@ -53,6 +53,10 @@ class ProfileController {
             flash.failMessage = "Password and Confirm Password mismatch"
             redirect(controller: "profile",action:"edit" ,model: [msg:flash.failMessage])
         }
+        else if(params.password.trim().length() > 30){
+            flash.failMessage = "Password length should be less than 30"
+            redirect(controller: "profile",action:"edit" ,model: [msg:flash.failMessage])
+        }
          else if(params.password.trim()==""){
             flash.failMessage = "Blank Password not allowed"
             redirect(controller: "profile",action:"edit" ,model: [msg:flash.failMessage])

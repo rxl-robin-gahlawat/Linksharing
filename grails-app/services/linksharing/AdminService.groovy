@@ -24,6 +24,7 @@ class AdminService {
     List users(){
         List userList = Userdetail.createCriteria().list{
             eq("admin", false)
+            order("username", "desc")
         }
         return userList
     }

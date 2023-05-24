@@ -8,8 +8,10 @@ class ValidateInterceptor {
         match(controller:"admin", action: "*")
         match(controller:"profile", action: "*")
         match(controller:"updatedashboard", action: "*")
-        match(controller:"topic", action: "*")
-        match(controller:"post", action: "*")
+//        match(controller:"topic", action: "*")
+//        match(controller:"post", action: "*")
+        match(controller:"search", action: "*")
+
 
     }
 

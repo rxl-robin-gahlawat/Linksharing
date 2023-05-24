@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,40 +101,45 @@
                                     <h5 class="card-title">${resource.createdBy.firstName} ${resource.createdBy.lastName} </h5>
                                 </label>
                                 <label class="offset-2">
-                                    <a href="#" style="text-decoration: none;" >${resource.topic.name} </a>
+                                    <a href="/topic?topicId=${resource.topic.id}" style="text-decoration: none;" >${resource.topic.name} </a>
                                 </label>
 
                             </div>
                             <div class="card-block">
                                 <label>@${resource.createdBy.username}</label>
-                                <label class="offset-3">${resource.dateCreated}</label>
+                                <label id="postDate" class="offset-3">${resource.dateCreated}</label>
                             </div>
 
                             <div class="card-block d-flex mt-2">
 
-                                <div hidden="true" id="${resourceRating}" class="resourceRatingdiv">i</div>
+                                <g:if test="${user && isSubscribed}">
 
-                                <div class="rating" id="${resource.id}">
-                                    <input type="radio" id="star5" name="rating" value="5" />
-                                    <label for="star5" title="5 stars"></label>
-                                    <input type="radio" id="star4" name="rating" value="4" />
-                                    <label for="star4" title="4 stars"></label>
-                                    <input type="radio" id="star3" name="rating" value="3" />
-                                    <label for="star3" title="3 stars"></label>
-                                    <input type="radio" id="star2" name="rating" value="2" />
-                                    <label for="star2" title="2 stars"></label>
-                                    <input type="radio" id="star1" name="rating" value="1" />
-                                    <label for="star1" title="1 star"></label>
-                                </div>
+                                    <div hidden="true" id="${resourceRating}" class="resourceRatingdiv">i</div>
 
-                                <p class="mt-2 offset-3">${postRatingCount} </p>
-                                <p class="mt-2">ratings</p>
+                                    <div class="rating" id="${resource.id}">
+                                        <input type="radio" id="star5" name="rating" value="5" />
+                                        <label for="star5" title="5 stars"></label>
+                                        <input type="radio" id="star4" name="rating" value="4" />
+                                        <label for="star4" title="4 stars"></label>
+                                        <input type="radio" id="star3" name="rating" value="3" />
+                                        <label for="star3" title="3 stars"></label>
+                                        <input type="radio" id="star2" name="rating" value="2" />
+                                        <label for="star2" title="2 stars"></label>
+                                        <input type="radio" id="star1" name="rating" value="1" />
+                                        <label for="star1" title="1 star"></label>
+                                    </div>
+
+                                </g:if>
+
+                                <div id="showRatingDiv" class="mt-2 offset-sm-1">Average Rating : ${avgPostRating} (${postRatingCount})</div>
+
+
+%{--                                <div class="mt-2">Ratings : </div>--}%
+%{--                                <div id="postRatingCountDiv" class="mt-2 "> ${postRatingCount} </div>--}%
 
                             </div>
 
-
                         </div>
-
 
                     </div>
 
@@ -141,29 +147,171 @@
                         <p>${resource.description}</p>
                     </div>
 
-                    <div class="row d-flex align-items-center">
+                    <div class="row align-items-center justify-content-end">
 
-                        <div class="col-sm-auto">
-                            <a href="/post/deletePost?postId=${resource.id}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">Delete</a>
-                        </div>
+                        <div class="col-sm-5"></div>
 
-                        <div class="col-sm-auto">
+                        <g:if test="${  user &&  ( user == resource.createdBy || user.admin == true )    }">
+
+                            <div class="col-sm-2 justify-content-end">
+                                <a href="/post/deletePost?postId=${resource.id}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">Delete</a>
+                            </div>
+
+
+                            <!-- Edit modal for resources ---->
+
+                            <g:if test="user">
+
+                                <g:if test="${resource.class as String == 'class linksharing.LinkResource'}">
+                                    <div class="col-sm-2">
+                                        <!-- Button to trigger modal id="createLinkResourceModalDropdownButton"-->
+
+                                        <a  style="text-decoration: none" id="EditLinkResourceDropdownButton" class="btn btn-link chat-icon" data-bs-toggle="modal"
+                                            data-bs-target="#editLinkResourceModal">
+                                            Edit
+                                        </a>
+
+                                        <!-- Link Resource Modal -->
+                                        <div class="modal fade" id="editLinkResourceModal" tabindex="-1"
+                                             aria-labelledby="editLinkResourceModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- modal content -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editLinkResourceModalLabel">Share Link Resource</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <g:form controller="post" action="editLinkResource">
+
+                                                            <textarea rows="1" cols="5" name="postId" hidden>${resource.id}</textarea>
+
+                                                            <div class="mb-3">
+                                                                <label for="editLinkResourceModal" class="form-label">Link</label>
+                                                                <input type="url" class="form-control" id="resourceLink" name="resourceLink" placeholder="${resource.url}" >
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="editLinkResourceModal" class="form-label">Description</label>
+                                                                <textarea id="w3review" name="resourceDescription" rows="4" cols="44" placeholder="${resource.description}"></textarea>
+
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="editLinkResourceModal" class="form-label">Topic</label>
+
+                                                                <select class="form-select" id="availableTopics" name="availableTopic" disabled>
+                                                                    <option>${resource.topic.name}</option>
+                                                                </select>
+
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button id = "closeEditLinkResourceButton" type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                                            </div>
+
+                                                        </g:form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </g:if>
+
+                                <g:else>
+                                    <div class="col-sm-2">
+                                        <!-- Button to trigger modal id="createLinkResourceModalDropdownButton"-->
+
+                                        <a  style="text-decoration: none" id="EditDocumentResourceDropdownButton" class="btn btn-link chat-icon" data-bs-toggle="modal"
+                                            data-bs-target="#editDocumentResourceModal">
+                                            Edit
+                                        </a>
+
+                                        <!-- Link Resource Modal -->
+                                        <div class="modal fade" id="editDocumentResourceModal" tabindex="-1"
+                                             aria-labelledby="editDocumentResourceModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- modal content -->
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="editDocumentResourceModalLabel">Share Document Resource</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <g:uploadForm controller="post" action="editDocumentResource">
+
+                                                            <textarea rows="1" cols="5" name="postId" hidden>${resource.id}</textarea>
+
+                                                            <div class="mb-3">
+                                                                <label for="editDocumentResourceModal" class="form-label">Document</label>
+                                                                <input type="file" class="form-control" id="resourceDocument" name="resourceDoc">
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="editDocumentResourceModal" class="form-label">Description</label>
+                                                                <textarea id="w3review1" name="resourceDescription" rows="4" cols="44" placeholder="${resource.description}"></textarea>
+
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label for="editDocumentResourceModal" class="form-label">Topic</label>
+
+                                                                <select class="form-select" id="availableTopics1" name="availableTopic" disabled>
+                                                                    <option>${resource.topic.name}</option>
+                                                                </select>
+
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button id = "closeDocumentLinkResourceButton" type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Edit</button>
+                                                            </div>
+
+                                                        </g:uploadForm>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </g:else>
+
+                            </g:if>
+
+
+
+
+                        </g:if>
+
+                        <div class="col-sm-3">
                             <g:if test="${resource.class as String == 'class linksharing.LinkResource'}">
                                 <a href="${resource.url}" target="_blank" class="card-link col-sm-6" style="text-decoration: none">View Full Site</a>
                             </g:if>
 
                             <g:else>
-                                <a href="/download?path=${resource.filePath}" target="_blank" class="card-link col-sm-6" style="text-decoration: none" download>Download</a>
-                            </g:else>
-                        </div>
 
+                                <a href="${resource.filePath}" style="text-decoration: none" class="card-link col-sm-6" download>Download</a>
+
+                            </g:else>
+
+
+                        </div>
 
                     </div>
 
 
                 </div>
             </div>
-
 
 
 
@@ -196,6 +344,51 @@
 </body>
 
 <script>
+
+    %{--function formatDateTime(dateString) {--}%
+    %{--    const date = new Date(dateString);--}%
+    %{--    const options = {hour: 'numeric', minute: 'numeric', hour12: true};--}%
+    %{--    const time = date.toLocaleString('en-US', options);--}%
+    %{--    const formattedDate = date.toLocaleString('en-US', {--}%
+    %{--        day: 'numeric',--}%
+    %{--        month: 'short',--}%
+    %{--        year: 'numeric'--}%
+    %{--    });--}%
+    %{--    return `${time} ${formattedDate}`;--}%
+    %{--}--}%
+
+
+    function formatDateTime(dateString) {
+        const date = new Date(dateString);
+
+        // Format the time component
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        const time = hours + ':' + minutes + ' ' + ampm;
+
+        // Format the date component
+        const day = date.getDate();
+        const month = date.toLocaleString('en-US', { month: 'short' });
+        const year = date.getFullYear();
+        const formattedDate = day + ' ' + month + ' ' + year;
+
+        return time + " " + formattedDate;
+    }
+
+
+
+    $(document).ready(function(){
+
+        const dateDiv = document.querySelector('#postDate')
+        dateDiv.innerHTML = formatDateTime(dateDiv.innerHTML)
+
+
+    });
+
+
     const ratingInputs = document.querySelectorAll('input[name="rating"]');
     let selectedRating = null;
 
@@ -204,6 +397,8 @@
             selectedRating = input.value;
             const ratingDiv = document.querySelector('.rating')
             $.ajax({url: "/post/rating?rating="+selectedRating+"&postId="+ratingDiv.id, success: function(result){
+                document.querySelector("#showRatingDiv").innerHTML = "Average Rating : " + parseFloat(result[1]).toFixed(1) + " (" + result[0] + ")"
+
                 }});
 
         });
@@ -242,8 +437,6 @@
 
 
 </script>
-
-
 
 
 </html>

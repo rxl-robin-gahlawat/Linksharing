@@ -67,7 +67,7 @@
         <table id="AdminTopicDataTable" class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>Id</th>
+%{--                <th>Id</th>--}%
                 <th>Name</th>
                 <th>CreatedBy</th>
                 <th>Date Created</th>
@@ -79,7 +79,7 @@
 
             <g:each in="${topicList}" var="item">
                 <tr >
-                    <td>${item.id}</td>
+%{--                    <td>${item.id}</td>--}%
                     <td>
 
                         <a href="/topic?topicId=${item.id}" style="text-decoration: none" >${item.name}</a>

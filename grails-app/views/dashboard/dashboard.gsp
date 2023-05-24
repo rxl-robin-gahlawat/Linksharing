@@ -76,15 +76,12 @@
 
                 <g:render template="/template/user_card" />
 
-
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
                     <h5 class="col-sm-6 text-white">Subscriptions</h5>
 
                     <p class="col-sm-3"></p>
                     <a class="col-sm-3" href="/updatedashboard/viewAll" style="text-decoration: none">View All</a>
                 </div>
-
-
 
                 <g:render template="/template/subscriptionList" />
 

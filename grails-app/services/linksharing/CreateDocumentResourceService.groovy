@@ -17,7 +17,6 @@ class CreateDocumentResourceService {
 
     def createDocumentResource(Map params, Long userID){
 
-
         Userdetail user = Userdetail.findById(userID)
         DocumentResource docResource = new DocumentResource()
         docResource.topic = Topic.findById(Integer.parseInt(params.availableTopicDoc))
@@ -29,11 +28,11 @@ class CreateDocumentResourceService {
             def docExtension = multipartFile.getOriginalFilename().tokenize('.')[-1]
             def bytes = multipartFile.getBytes()
             int num = generateRandomNumber()
-            def url = "grails-app/assets/images/docResource/${num}.${docExtension}"
+            def url = "grails-app/assets/document/${num}.${docExtension}"
             def newFile = new File("${url}")
             newFile.createNewFile()
             newFile.append(bytes)
-            docResource.filePath = url
+            docResource.filePath = "/assets/${num}.${docExtension}"
         }
 
         if (docResource.validate()){

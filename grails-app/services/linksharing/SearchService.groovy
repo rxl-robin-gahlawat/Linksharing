@@ -1,23 +1,59 @@
 package linksharing
 
+import Enum.VisibilityEnum
 import grails.gorm.transactions.Transactional
+import java.util.Calendar
+
 
 @Transactional
 class SearchService {
 
+
     def serviceMethod() {
     }
+    
 
-    List topPostList(){
+    List topPostList(String timeFrame){
+
+        def calendar = Calendar.getInstance()
+        def startDate
+
+        switch (timeFrame) {
+            case "Today":
+                startDate = calendar.clearTime()
+                break
+            case "1 Week":
+                calendar.add(Calendar.DAY_OF_MONTH, -7)
+                startDate = calendar.clearTime()
+                break
+            case "1 Month":
+                calendar.add(Calendar.MONTH, -1)
+                startDate = calendar.clearTime()
+                break
+            case "1 Year":
+                calendar.add(Calendar.YEAR, -1)
+                startDate = calendar.clearTime()
+                break
+            default:
+                startDate = calendar.clearTime()
+        }
+
 
         List posts = ResourceRating.createCriteria().list{
             projections{
                 groupProperty('resource')
                 avg('score', 'avg_score')
             }
+            resource{
+                topic{
+                    eq("visibility", VisibilityEnum.PUBLIC)
+                }
+                ge("dateCreated", startDate.time)
+            }
             order('avg_score','desc')
             maxResults 5
         }
+
         List topPosts = []
         posts.each{item->
             topPosts.add(item[0])
@@ -29,6 +65,9 @@ class SearchService {
     List recentPostList(){
 
         List posts = Resourcedetail.createCriteria().list{
+            topic{
+                eq("visibility", VisibilityEnum.PUBLIC)
+            }
             order('lastUpdated','desc')
             maxResults 5
         }
@@ -43,7 +82,7 @@ class SearchService {
             return Resourcedetail.list()
         }
         else{
-            return Resourcedetail.createCriteria().list{
+            return Resourcedetail.createCriteria().listDistinct{
                 createAlias('topic', 't')
                 or{
                     ilike('t.name', "%${params.searchInput}%")

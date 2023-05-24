@@ -18,12 +18,13 @@ class RegisterController {
 
         boolean isRegistered = RegisterService.registerUser(params)
         if(isRegistered){
-            redirect(url: "/login")
-            // show message and after clicking ok on msg redirect.
+            flash.successMessage = "User Registered Successfully"
+            redirect(controller: "login",model: [msg:flash.successMessage])
         }
         else{
             render "validation error"
-            // show error message
+            flash.message = "Couldn't Register User"
+            redirect(controller: "login",model: [msg:flash.message])
         }
 
     }

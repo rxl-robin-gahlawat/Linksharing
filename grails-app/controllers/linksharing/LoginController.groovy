@@ -4,7 +4,6 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator
 
 class LoginController {
 
-
     def LoginService
     def UpdatedashboardService
     def SearchService
@@ -16,20 +15,38 @@ class LoginController {
             return
         }
 
-        List topPosts = SearchService.topPostList()
+        String timeFrame = params.timeFrame
+
+        if(timeFrame == null){
+            timeFrame = "Today"
+        }
+
+        List topPosts = SearchService.topPostList(timeFrame)
         List recentPosts = SearchService.recentPostList()
 
-        Map loadMap = ["topPosts": topPosts, "recentPosts": recentPosts]
+        Map loadMap = ["topPosts": topPosts, "recentPosts": recentPosts, "timeFrame": timeFrame]
         render(view: "/register/index", model: loadMap)
+
 
     }
 
-    def forgotPassword(){
-        String email = "gahlawatrobin30@gmail.com"
 
-          UpdatedashboardService.sendMail()
 
-        render "mail sent"
+    def sendForgotPasswordMail(){
+
+        String email = params.forgotPasswordEmail
+        String result = UpdatedashboardService.sendForgotPasswordEmail(email)
+
+        if(result=="SUCCESS"){
+            flash.successMessage = "New Default Password has been sent to your mail."
+            redirect(controller: "login", model: [msg:flash.successsMessage])
+        }
+        else{
+            flash.message = result
+            redirect(controller: "login", model: [msg:flash.message])
+        }
+
+
     }
 
     def loginUser(){

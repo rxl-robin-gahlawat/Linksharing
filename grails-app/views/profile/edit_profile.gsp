@@ -73,7 +73,6 @@
             </div>
 
 
-
             <div class="container col-sm-1">
             </div>
 
@@ -88,39 +87,35 @@
 
                         <g:uploadForm controller="profile" action="updateUserDetails">
 
+                            <div style="color: red" id="generalmsg"></div>
 
                             <div class="form-group">
                                 <label for="firstname">First Name:</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" />
+                                <input type="text" class="form-control enableUpdateBtn" id="firstname" name="firstname" placeholder="${user.firstName}"/>
                             </div>
 
                             <div class="form-group">
                                 <label for="lastname">Last Name:</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" />
+                                <input type="text" class="form-control enableUpdateBtn" id="lastname" name="lastname" placeholder="${user.lastName}" />
                             </div>
 
+                            <div style="color: red" id="usernamemsg"></div>
 
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" >
+                                <input type="text" class="form-control enableUpdateBtn" id="username" name="username" placeholder="${user.username}" >
                             </div>
-
-
 
                             <div class="form-group">
                                 <label for="photo">Photo:</label>
-                                <input type="file" class="form-control" id="photo" name="photo">
+                                <input type="file" class="form-control enableUpdateBtnFile" id="photo" name="photo" accept=".png, .jpg, .jpeg">
                             </div>
 
                             <div class="mt-3">
-                                <input type="submit" class="btn btn-primary offset-9" value="Update">
+                                <input type="submit" class="btn btn-primary offset-9" value="Update" id="updateDetailsBtn" disabled>
                             </div>
 
-
-
                         </g:uploadForm>
-
-
 
                     </div>
                 </div>
@@ -144,7 +139,7 @@
                             </div>
 
                             <div class="mt-3">
-                                <input type="submit" class="btn btn-primary offset-9" value="Update">
+                                <input type="submit" class="btn btn-primary offset-9" value="Update" id="passwordUpdateBtn">
                             </div>
 
                         </g:form>
@@ -159,10 +154,96 @@
 
     </div>
 
-
-
-
 </div>
 
 </body>
+
+<script>
+
+    // AJAX for unique username
+    $(document).ready(function() {
+        var delay = 10; // Delay in milliseconds
+        var timer;
+
+        $('#username').on('keyup', function() {
+            clearTimeout(timer);
+
+            timer = setTimeout(function() {
+                var username = $('#username').val().trim();
+
+                $.ajax({url: "/register/checkUniqueUsername?username="+username, success: function(result){
+                        console.log(result)
+
+                        if (result=="false") {
+                            $('#usernamemsg').text('');
+                        }
+                        else {
+                            $('#usernamemsg').text('* Username already exists.');
+                            document.getElementById("updateDetailsBtn").disabled = true;
+
+                        }
+                    }});
+
+            }, delay);
+        });
+    });
+
+
+    // Jquery to disable update button if input fields are emtpy
+    $(document).ready(function() {
+        const inputs = document.querySelectorAll('.enableUpdateBtn');
+        inputs.forEach(input => {
+            input.addEventListener('keyup', () => {
+                const fname = document.getElementById("firstname")
+                const lname = document.getElementById("lastname")
+                const uname = document.getElementById("username")
+                if(fname.value.trim() == '' && lname.value.trim() == '' && uname.value.trim() == '')
+                    document.getElementById("updateDetailsBtn").disabled = true;
+                else
+                    document.getElementById("updateDetailsBtn").disabled = false;
+            });
+        });
+        const fileInput = document.querySelector('.enableUpdateBtnFile');
+        fileInput.addEventListener('change', () => {
+            if(fileInput.value=='')
+                document.getElementById("updateDetailsBtn").disabled = true;
+            else
+                document.getElementById("updateDetailsBtn").disabled = false;
+        });
+    });
+
+
+    // JQuery to handle input length
+    $(document).ready(function() {
+
+        const inputs = document.querySelectorAll('#firstname, #lastname, #username');
+        inputs.forEach(input => {
+            input.addEventListener('keyup', () => {
+                const fname = document.getElementById("firstname")
+                const lname = document.getElementById("lastname")
+                const uname = document.getElementById("username")
+
+                if(fname.value.trim().length>50 || lname.value.trim().length>50 || uname.value.trim().length>50){
+                    document.getElementById("updateDetailsBtn").disabled = true;
+                    $('#generalmsg').text('* Size in input should be less than 50 alphabets');
+                }
+                else{
+                    $('#generalmsg').text('');
+                }
+            });
+        });
+
+    });
+
+
+
+
+
+
+
+
+
+</script>
+
+
 </html>

@@ -47,20 +47,30 @@ class DashboardController {
 
     def createLinkResource(){
 
-        boolean isSuccessful =  CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
-        if(isSuccessful)
-            redirect(url:"/dashboard")
-        else
-            render "couldn't add link resource"
+        try{
+            CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
+            flash.successMessage = "Link Resource Added"
+            redirect(controller: "dashboard", model: [msg:flash.successsMessage])
 
+        }
+        catch(Exception e){
+            flash.failMessage = "Error in adding resource"
+            redirect(controller: "dashboard", model: [msg:flash.failMessage])
+        }
     }
 
     def createDocumentResource(){
-        boolean isSuccessful = CreateDocumentResourceService.createDocumentResource(params,session.LOGGED_IN_USER_ID)
-        if(isSuccessful)
-            redirect(url:"/dashboard")
-        else
-            render "couldn't add document resource"
+        try{
+            CreateDocumentResourceService.createDocumentResource(params,session.LOGGED_IN_USER_ID)
+            flash.successMessage = "Document Resource Added"
+            redirect(controller: "dashboard", model: [msg:flash.successsMessage])
+
+        }
+        catch(Exception e){
+            flash.failMessage = "Error in adding resource"
+            redirect(controller: "dashboard", model: [msg:flash.failMessage])
+        }
+
     }
 
     def sendInvitation(){

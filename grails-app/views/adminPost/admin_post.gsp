@@ -67,7 +67,7 @@
         <table id="AdminPostDataTable" class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>Id</th>
+%{--                <th>Id</th>--}%
                 <th>Post</th>
                 <th>Topic</th>
                 <th>CreatedBy</th>
@@ -80,7 +80,7 @@
 
             <g:each in="${postList}" var="item">
                 <tr >
-                    <td>${item.id}</td>
+%{--                    <td>${item.id}</td>--}%
 
                     <td>
                         <a href="/post?postId=${item.id}" style="text-decoration: none" >View Post</a>

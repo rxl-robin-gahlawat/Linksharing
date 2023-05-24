@@ -7,6 +7,11 @@ import grails.gorm.transactions.Transactional
 // imports for mail sender
 import org.springframework.mail.MailSender
 import org.springframework.mail.SimpleMailMessage
+import org.springframework.mail.javamail.MimeMessageHelper
+
+import javax.mail.internet.MimeMessage
+import java.security.SecureRandom
+import java.util.Random
 
 @Transactional
 class UpdatedashboardService {
@@ -28,11 +33,63 @@ class UpdatedashboardService {
             mailSender.send(msg)
     }
 
+    String randomPasswordGenerator(){
+
+        String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@!#%^&*"
+        int PASSWORD_LENGTH = 10
+
+        Random random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            password.append(randomChar);
+        }
+
+        return password.toString();
+
+    }
+
+    String sendForgotPasswordEmail(String email){
+
+
+        Userdetail usr = Userdetail.findByEmail(email)
+        if(!usr){
+            return "User doesn't exist in database."
+        }
+
+        try{
+            String subject = "Default password for your Linksharing account"
+            String defaultPassword = randomPasswordGenerator()
+//            String mailText = "Your default Login password is : ${defaultPassword}. Please update your password as soon as you login."
+
+            String htmlMsg = "<a href='google.com'>hey</a> "
+
+            def msg = new SimpleMailMessage();
+            msg.setFrom("ankitmishra0402@outlook.com")
+            msg.setTo(email)
+            msg.setSubject(subject)
+            msg.setText(htmlMsg)
+            mailSender.send(msg)
+
+            Userdetail user = Userdetail.findByEmail(email)
+            user.password = defaultPassword
+            user.save(flush:true, failOnError:true)
+            return "SUCCESS"
+        }
+        catch (Exception  e){
+            return "Error in sending mail. Please enter your email id carefully."
+        }
+
+
+    }
+
     def sendInviteMail(String subject, String message, String email){
 
         try{
             def msg = new SimpleMailMessage();
-            msg.setFrom("robinlinksharing11@outlook.com")
+            msg.setFrom("ankitmishra0402@outlook.com")
             msg.setTo(email)
             msg.setSubject(subject)
             msg.setText(message)
@@ -43,6 +100,7 @@ class UpdatedashboardService {
             println err
             return false
         }
+
 
     }
 
