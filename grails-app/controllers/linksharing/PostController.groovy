@@ -60,48 +60,62 @@ class PostController {
 
     def editLinkResource(){
 
-        println params
-
-        if(params.resourceLink.trim() == '' && params.resourceDescription.trim() == ''){
-            flash.failMessage = "Please enter valid data"
+        if(params.resourceDescription.length() > 200){
+            flash.failMessage = "Maximum size allowed is 200 characters"
             redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
         }
         else{
-            String result = PostService.editLinkResource(params)
 
-            if(result == "SUCCESS"){
-                flash.successMessage = "Post Edited Successfully"
-                redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.successMessage])
-            }
-            else {
-                flash.failMessage = result
+            if(params.resourceLink.trim() == '' && params.resourceDescription.trim() == ''){
+                flash.failMessage = "Please enter valid data"
                 redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
             }
+            else{
+                String result = PostService.editLinkResource(params)
+
+                if(result == "SUCCESS"){
+                    flash.successMessage = "Post Edited Successfully"
+                    redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.successMessage])
+                }
+                else {
+                    flash.failMessage = result
+                    redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
+                }
+            }
+
         }
 
     }
 
     def editDocumentResource(){
 
-        println params
-
-        if(params.resourceDoc.isEmpty() == true && params.resourceDescription.trim() == ''){
-            flash.failMessage = "Please enter valid data"
+        if(params.resourceDescription.length() > 200){
+            flash.failMessage = "Maximum size allowed is 200 characters"
             redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
         }
-
         else{
-            String result = PostService.editDocumentResource(params)
 
-            if(result == "SUCCESS"){
-                flash.successMessage = "Post Edited Successfully"
-                redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.successMessage])
-            }
-            else {
-                flash.failMessage = result
+            if(params.resourceDoc.isEmpty() == true && params.resourceDescription.trim() == ''){
+                flash.failMessage = "Please enter valid data"
                 redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
             }
+
+            else{
+                String result = PostService.editDocumentResource(params)
+
+                if(result == "SUCCESS"){
+                    flash.successMessage = "Post Edited Successfully"
+                    redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.successMessage])
+                }
+                else {
+                    flash.failMessage = result
+                    redirect(controller: "post", params:[postId:params.postId] ,model: [msg:flash.failMessage])
+                }
+            }
+
+
         }
+
 
 
 

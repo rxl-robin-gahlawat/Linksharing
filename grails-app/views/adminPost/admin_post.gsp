@@ -93,7 +93,7 @@
 
                     <td>${item.createdBy.firstName} ${item.createdBy.lastName}</td>
 
-                    <td>${item.description}</td>
+                    <td class="resourceDescAdminPost">${item.description}</td>
 
                     <td>${item.dateCreated}</td>
 
@@ -125,7 +125,22 @@
 
 <script>
 
+    $(document).ready(function(){
+
+        const paragraphs = document.querySelectorAll('.resourceDescAdminPost');
+        paragraphs.forEach(paragraph => {
+            const text = paragraph.innerHTML
+            if (text.length > 60) {
+                const truncatedText = text.substring(0, 60) + '...';
+                paragraph.innerHTML = truncatedText;
+            }
+
+        })
+
+    });
+
 </script>
+
 
 
 

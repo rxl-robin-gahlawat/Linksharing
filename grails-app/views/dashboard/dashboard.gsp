@@ -25,38 +25,41 @@
     <script>
 
 
-        // $(document).ready(function() {
-        //     $('#trendingTopicListDataTable').dataTable({
-        //         "ordering": true,
-        //         "paging": true,
-        //         "lengthMenu": [5, 10, 15, 20, 25],
-        //         "pageLength": 5,
-        //         "searching": true,
-        //         "order": [[ 0, "asc" ]],
-        //     });
-        // });
-        //
-        // $(document).ready(function() {
-        //     $('#subscribedTopicListDataTable').dataTable({
-        //         "ordering": true,
-        //         "paging": true,
-        //         "lengthMenu": [5, 10, 15, 20, 25],
-        //         "pageLength": 5,
-        //         "searching": true,
-        //         "order": [[ 0, "asc" ]],
-        //     });
-        // });
-        //
-        // $(document).ready(function() {
-        //     $('#inboxDataTable').dataTable({
-        //         "ordering": true,
-        //         "paging": true,
-        //         "lengthMenu": [5, 10, 15, 20, 25],
-        //         "pageLength": 5,
-        //         "searching": true,
-        //         "order": [[ 0, "asc" ]],
-        //     });
-        // });
+        $(document).ready(function() {
+            $('#trendingTopicListDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": [[ 0, "asc" ]],
+            });
+        });
+
+        $(document).ready(function() {
+            $('#subscribedTopicListDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": false,
+            });
+        });
+
+        $(document).ready(function() {
+            $('#inboxDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": [[ 0, "asc" ]],
+            });
+        });
 
     </script>
 

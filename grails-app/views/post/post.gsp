@@ -25,18 +25,17 @@
 
     <script>
 
-
         $(document).ready(function() {
             $('#trendingTopicListDataTable').dataTable({
-                "ordering": true,
+                "ordering": false,
+                "bLengthChange": false,
                 "paging": true,
-                "lengthMenu": [5, 10, 15, 20, 25],
-                "pageLength": 5,
-                "searching": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
                 "order": [[ 0, "asc" ]],
             });
         });
-
 
     </script>
 

@@ -23,8 +23,8 @@
             $('#PostsDataTable').dataTable({
                 "ordering": true,
                 "paging": true,
-                "lengthMenu": [20, 40, 60, 80, 100],
-                "pageLength": 20,
+                "lengthMenu": [2, 5, 10, 20, 100],
+                "pageLength": 2,
                 "searching": true,
                 "order": [[ 0, "asc" ]],
 
@@ -35,14 +35,25 @@
 
         $(document).ready(function() {
             $('#trendingTopicListDataTable').dataTable({
-                "ordering": true,
+                "ordering": false,
+                "bLengthChange": false,
                 "paging": true,
-                "lengthMenu": [5, 10, 15, 20, 25],
-                "pageLength": 5,
-                "searching": true,
-                "order": [[ 0, "asc" ]],
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": false,
+            });
+        });
 
-
+        $(document).ready(function() {
+            $('#subscribedTopicListDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": false,
             });
         });
 

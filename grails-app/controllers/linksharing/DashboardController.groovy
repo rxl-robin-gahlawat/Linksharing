@@ -19,7 +19,6 @@ class DashboardController {
         Long userID = session.LOGGED_IN_USER_ID
         Userdetail user = AdminService.getUser(userID)
 
-
         def subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
         List subscribedTopicList = SubscriptionListService.subscriptionList(user)
         List trendingTopicList = TrendingTopicsService.trendingTopicsList(user)
@@ -37,67 +36,102 @@ class DashboardController {
 
     def createTopic(){
 
-        boolean isTopicCreated = CreateTopicService.createTopic(params, session.LOGGED_IN_USER_ID)
-        if(isTopicCreated)
-            redirect(url:"/dashboard")
-        else
-            render "Topic Validation Error"
+        if(params.topicName.length() > 35){
+            flash.failMessage = "Size of topic should be less than 35 alphabets"
+            redirect(controller: "dashboard", model: [msg:flash.failMessage])
+        }
+        else{
+            boolean isTopicCreated = CreateTopicService.createTopic(params, session.LOGGED_IN_USER_ID)
+            if(isTopicCreated)
+                redirect(url:"/dashboard")
+            else{
+                flash.failMessage = "Couldn't Create Topic"
+                redirect(controller: "dashboard", model: [msg:flash.failMessage])
+            }
+        }
 
     }
 
     def createLinkResource(){
 
-        try{
-            CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
-            flash.successMessage = "Link Resource Added"
-            redirect(controller: "dashboard", model: [msg:flash.successsMessage])
-
-        }
-        catch(Exception e){
-            flash.failMessage = "Error in adding resource"
+        if(params.resourceDescription.length() > 250){
+            flash.failMessage = "Size of topic should be less than 250 alphabets"
             redirect(controller: "dashboard", model: [msg:flash.failMessage])
         }
+        else {
+
+            try{
+                CreateLinkResourceService.createLinkResource(params,session.LOGGED_IN_USER_ID)
+                flash.successMessage = "Link Resource Added"
+                redirect(controller: "dashboard", model: [msg:flash.successsMessage])
+
+            }
+            catch(Exception e){
+                flash.failMessage = "Error in adding resource"
+                redirect(controller: "dashboard", model: [msg:flash.failMessage])
+            }
+
+
+        }
+
+
+
     }
 
     def createDocumentResource(){
-        try{
-            CreateDocumentResourceService.createDocumentResource(params,session.LOGGED_IN_USER_ID)
-            flash.successMessage = "Document Resource Added"
-            redirect(controller: "dashboard", model: [msg:flash.successsMessage])
 
-        }
-        catch(Exception e){
-            flash.failMessage = "Error in adding resource"
+        if(params.resourceDescription.length() > 250){
+            flash.failMessage = "Size of topic should be less than 250 characters"
             redirect(controller: "dashboard", model: [msg:flash.failMessage])
+        }
+
+        else{
+            try{
+                CreateDocumentResourceService.createDocumentResource(params,session.LOGGED_IN_USER_ID)
+                flash.successMessage = "Document Resource Added"
+                redirect(controller: "dashboard", model: [msg:flash.successsMessage])
+
+            }
+            catch(Exception e){
+                flash.failMessage = "Error in adding resource"
+                redirect(controller: "dashboard", model: [msg:flash.failMessage])
+            }
         }
 
     }
 
     def sendInvitation(){
-        Long userID = session.LOGGED_IN_USER_ID
-        Userdetail user = AdminService.getUser(userID)
 
-        String subject = "${user.firstName} invited you to join a topic."
-        String link = "http://localhost:9090/dashboard/invited?topicId=${params.invitationTopic}"
-        String message = "Here's the topic link\n ${link} "
-        String email = params.inviteEmail
-
-        boolean result = UpdatedashboardService.sendInviteMail(subject, message, email)
-
-        if(result){
-            flash.successMessage = "Invitation Sent"
-            redirect(controller: "dashboard",model: [msg:flash.successMessage])
-        }
-        else{
-            flash.failMessage = "Error in sending Invitation"
+        if(params.inviteEmail.length() > 200){
+            flash.failMessage = "Maximum size allowed is 200 characters"
             redirect(controller: "dashboard",model: [msg:flash.failMessage])
         }
+        else{
+
+            Long userID = session.LOGGED_IN_USER_ID
+            Userdetail user = AdminService.getUser(userID)
+
+            String subject = "${user.firstName} invited you to join a topic."
+            String link = "http://localhost:9090/dashboard/invited?topicId=${params.invitationTopic}"
+            String message = "Here's the topic link\n ${link} "
+            String email = params.inviteEmail
+
+            boolean result = UpdatedashboardService.sendInviteMail(subject, message, email)
+
+            if(result){
+                flash.successMessage = "Invitation Sent"
+                redirect(controller: "dashboard",model: [msg:flash.successMessage])
+            }
+            else{
+                flash.failMessage = "Error in sending Invitation"
+                redirect(controller: "dashboard",model: [msg:flash.failMessage])
+            }
+
+        }
+
 
     }
 
-    def sendSubInvitation(){
-        render params
-    }
 
     def loadSubscribedTopics(){
 

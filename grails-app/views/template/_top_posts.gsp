@@ -28,7 +28,7 @@
                                 </p>
                                 <label>${resource.createdBy.firstName} ${resource.createdBy.lastName}</label>
                                 <label class="offset-1">@${resource.createdBy.username}</label>
-                                <p>${resource.description}</p>
+                                <p class="resourceDescTopPost"> ${resource.description}</p>
                             </div>
                         </div>
 
@@ -36,8 +36,6 @@
                         <div class="row" style="height: 25px">
 
                         <a href="/post?postId=${resource.id}" class="card-link col-sm-6 offset-9" style="text-decoration: none">View Post</a>
-
-
 
 
 
@@ -55,6 +53,27 @@
     </tbody>
 
 </table>
+
+
+
+
+<script>
+
+    $(document).ready(function(){
+
+        const paragraphs = document.querySelectorAll('.resourceDescTopPost');
+        paragraphs.forEach(paragraph => {
+            const text = paragraph.innerHTML
+            if (text.length > 30) {
+                const truncatedText = text.substring(0, 30) + '...';
+                paragraph.innerHTML = truncatedText;
+            }
+
+        })
+
+    });
+
+</script>
 
 
 

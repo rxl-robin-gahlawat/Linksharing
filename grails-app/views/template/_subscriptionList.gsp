@@ -250,9 +250,7 @@
             $.ajax({url: "/updatedashboard/deleteTopic?topicid="+this.id.substring(4), success: function(result){
                     // window.location.reload();
                     window.location.replace("/dashboard");
-
                 }});
-
         });
     });
 
@@ -268,6 +266,8 @@
         saveBtn.style.display = "none"
         cancelBtn.style.display = "none"
         tag.contentEditable = false;
+
+        window.location.reload()
 
     }
 

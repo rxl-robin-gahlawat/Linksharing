@@ -17,6 +17,42 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
+
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <script>
+
+
+        $(document).ready(function() {
+            $('#PostsDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": [[ 0, "asc" ]],
+            });
+        });
+
+        $(document).ready(function() {
+            $('#RPostsDataTable').dataTable({
+                "ordering": false,
+                "bLengthChange": false,
+                "paging": true,
+                "lengthMenu": false,
+                "pageLength": 2,
+                "searching": false,
+                "order": [[ 0, "asc" ]],
+            });
+        });
+
+
+    </script>
+
+
+
 </head>
 
 <body>
@@ -72,8 +108,6 @@
 
         <div class="row">
             <div class="container col-sm-6 mb-2">
-
-
 
                 <div class=" border mt-2 border bg-secondary rounded d-flex p-1">
                     <h5 class="col-sm-6 text-white">Top Posts</h5>

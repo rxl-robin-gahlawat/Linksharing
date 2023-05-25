@@ -62,15 +62,13 @@ class UpdatedashboardService {
         try{
             String subject = "Default password for your Linksharing account"
             String defaultPassword = randomPasswordGenerator()
-//            String mailText = "Your default Login password is : ${defaultPassword}. Please update your password as soon as you login."
-
-            String htmlMsg = "<a href='google.com'>hey</a> "
+            String mailText = "Your default Login password is : ${defaultPassword}. Please update your password as soon as you login."
 
             def msg = new SimpleMailMessage();
             msg.setFrom("ankitmishra0402@outlook.com")
             msg.setTo(email)
             msg.setSubject(subject)
-            msg.setText(htmlMsg)
+            msg.setText(mailText)
             mailSender.send(msg)
 
             Userdetail user = Userdetail.findByEmail(email)
@@ -233,7 +231,7 @@ class UpdatedashboardService {
 
         List reqList = Subscription.createCriteria().listDistinct{
             topic{
-                order("name", "asc")
+                order("name")
             }
         }
 

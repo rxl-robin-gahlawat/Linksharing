@@ -353,13 +353,19 @@
 </div>
 
 
-
-
-
-
 </body>
 
 <script>
+
+    // $(document).ready(function (){
+    //     const topicNameDiv = document.querySelector('#topicName')
+    //
+    //     topicNameDiv.addEventListener('keyup',()=>{
+    //         console.log('dd')
+    //         console.log(topicNameDiv.innerHTML.length)
+    //     });
+    //
+    // })
 
     // AJAX to load subscribed topics while creating new link resources.
     $(document).ready(function(){

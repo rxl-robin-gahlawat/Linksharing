@@ -107,7 +107,7 @@
                                     <p id="resourceCreatorNameInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.createdBy.firstName} ${readingItem.resource.createdBy.lastName}      @${readingItem.resource.createdBy.username}</p>
                                 </div>
                                 <div class="card-block d-flex">
-                                    <p id="resourceDescInbox-${readingItem.resource.id}" style="text-decoration: none" > ${readingItem.resource.description}</p>
+                                    <p id="resourceDescInbox-${readingItem.resource.id}" class="resourceDescInbox" style="text-decoration: none" > ${readingItem.resource.description}</p>
 
                                 </div>
 
@@ -152,6 +152,27 @@
     </tbody>
 
 </table>
+
+
+
+<script>
+
+    $(document).ready(function(){
+
+        const paragraphs = document.querySelectorAll('.resourceDescInbox');
+        paragraphs.forEach(paragraph => {
+            const text = paragraph.innerHTML
+            if (text.length > 30) {
+                const truncatedText = text.substring(0, 30) + '...';
+                paragraph.innerHTML = truncatedText;
+            }
+
+        })
+
+    });
+
+</script>
+
 
 
 

@@ -262,6 +262,9 @@
         saveBtn.style.display = "none"
         cancelBtn.style.display = "none"
         tag.contentEditable = false;
+        
+        window.location.reload()
+
 
     }
 

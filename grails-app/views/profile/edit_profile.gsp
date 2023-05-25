@@ -29,8 +29,8 @@
             $('#EditPageTopicsDataTable').dataTable({
                 "ordering": true,
                 "paging": true,
-                "lengthMenu": [10, 20, 30, 40, 100],
-                "pageLength": 10,
+                "lengthMenu": [2, 5, 10, 20, 50, 100],
+                "pageLength": 2,
                 "searching": true,
                 "order": [[ 0, "asc" ]],
 

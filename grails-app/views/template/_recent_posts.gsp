@@ -1,6 +1,6 @@
 
 
-<table id="PostsDataTable" class="table" width="100%">
+<table id="RPostsDataTable" class="table" width="100%">
 
     <thead>
     <tr>
@@ -28,7 +28,7 @@
                                 </p>
                                 <label>${resource.createdBy.firstName} ${resource.createdBy.lastName}</label>
                                 <label class="offset-1">@${resource.createdBy.username}</label>
-                                <p>${resource.description}</p>
+                                <p class="resourceDescRecentPost">${resource.description}</p>
                             </div>
                         </div>
 
@@ -55,6 +55,26 @@
     </tbody>
 
 </table>
+
+
+
+<script>
+
+    $(document).ready(function(){
+
+        const paragraphs = document.querySelectorAll('.resourceDescRecentPost');
+        paragraphs.forEach(paragraph => {
+            const text = paragraph.innerHTML
+            if (text.length > 30) {
+                const truncatedText = text.substring(0, 30) + '...';
+                paragraph.innerHTML = truncatedText;
+            }
+
+        })
+
+    });
+
+</script>
 
 
 
