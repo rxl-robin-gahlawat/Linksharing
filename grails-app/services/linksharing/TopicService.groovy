@@ -13,7 +13,7 @@ class TopicService {
 
     }
 
-    def getTopic(Long topicId){
+    Topic getTopic(Long topicId){
         try{
             return Topic.findById(topicId)
         }
@@ -22,68 +22,87 @@ class TopicService {
         }
     }
 
-    def getTopicSubscribersList(Topic topic){
-        def topicSubscribers = Subscription.createCriteria().list{
-            projections{
-                property("user")
+    List getTopicSubscribersList(Topic topic){
+
+        try{
+
+            List topicSubscribers = Subscription.createCriteria().list{
+                projections{
+                    property("user")
+                }
+                eq("topic", topic)
             }
-            eq("topic", topic)
+
+            List subsInfoList = []
+            topicSubscribers.each {user->
+                Map userInfo = [:]
+                Map subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
+                userInfo.put("user", user)
+                userInfo.put("subsMap", subsAndTopicCountMap)
+                subsInfoList.add(userInfo)
+            }
+            return subsInfoList
+
+
+        }
+        catch (Exception e){
+
+            return []
+
         }
 
-        List subsInfoList = []
-        topicSubscribers.each {user->
-            Map userInfo = [:]
-            Map subsAndTopicCountMap = FindUserSubscriptionAndTopicsService.findUserSubscriptionAndTopics(user)
-            userInfo.put("user", user)
-            userInfo.put("subsMap", subsAndTopicCountMap)
-            subsInfoList.add(userInfo)
-        }
-        return subsInfoList
     }
 
 
-    def getResultTopic(Userdetail user, Topic topic){
+    List getResultTopic(Userdetail user, Topic topic){
 
-        def sub = Subscription.createCriteria().get {
-            eq("user", user)
-            eq("topic", topic)
+        try{
+
+
+            def sub = Subscription.createCriteria().get {
+                eq("user", user)
+                eq("topic", topic)
+            }
+
+            if(sub){
+
+                List subsList = []
+                Map result = [:]
+                int subsCount = Subscription.countByTopic(sub.topic)
+                int postCount = Resourcedetail.countByTopic(sub.topic)
+                result.put("subID", sub.id)
+                result.put("user",topic.createdBy)
+                result.put("topic",topic)
+                result.put("seriousness",sub.seriousness)
+                result.put("subsCount",subsCount)
+                result.put("postCount",postCount)
+                result.put("isSubscribed","Yes")
+
+
+                subsList.add(result)
+                return subsList
+            }
+            else{
+
+                List subsList = []
+                Map result = [:]
+                int subsCount = Subscription.countByTopic(topic)
+                int postCount = Resourcedetail.countByTopic(topic)
+                result.put("subID", "No_need")
+                result.put("user",topic.createdBy)
+                result.put("topic",topic)
+                result.put("seriousness","No_need")
+                result.put("subsCount",subsCount)
+                result.put("postCount",postCount)
+                result.put("isSubscribed","No")
+
+                subsList.add(result)
+                return subsList
+
+            }
         }
-
-        if(sub){
-
-            List subsList = []
-            Map result = [:]
-            int subsCount = Subscription.countByTopic(sub.topic)
-            int postCount = Resourcedetail.countByTopic(sub.topic)
-            result.put("subID", sub.id)
-            result.put("user",topic.createdBy)
-            result.put("topic",topic)
-            result.put("seriousness",sub.seriousness)
-            result.put("subsCount",subsCount)
-            result.put("postCount",postCount)
-            result.put("isSubscribed","Yes")
-
-
-            subsList.add(result)
-            return subsList
-        }
-        else{
-
-            List subsList = []
-            Map result = [:]
-            int subsCount = Subscription.countByTopic(topic)
-            int postCount = Resourcedetail.countByTopic(topic)
-            result.put("subID", "No_need")
-            result.put("user",topic.createdBy)
-            result.put("topic",topic)
-            result.put("seriousness","No_need")
-            result.put("subsCount",subsCount)
-            result.put("postCount",postCount)
-            result.put("isSubscribed","No")
-
-            subsList.add(result)
-            return subsList
-
+        catch (Exception e){
+            return []
         }
 
     }
@@ -91,10 +110,16 @@ class TopicService {
 
     List postList(Topic topic){
 
-        List posts = Resourcedetail.createCriteria().list{
-            eq("topic", topic)
+        try{
+            List posts = Resourcedetail.createCriteria().list{
+                eq("topic", topic)
+            }
+            return posts
         }
-        return posts
+        catch (Exception e){
+            return []
+
+        }
 
     }
 

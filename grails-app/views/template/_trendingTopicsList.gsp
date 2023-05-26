@@ -262,7 +262,7 @@
         saveBtn.style.display = "none"
         cancelBtn.style.display = "none"
         tag.contentEditable = false;
-        
+
         window.location.reload()
 
 
@@ -278,13 +278,23 @@
 
         let topicName = tag.text
 
-        saveBtn.style.display = "none"
-        cancelBtn.style.display = "none"
-        tag.contentEditable = false;
+        if(topicName.length> 35){
+            window.location.reload();
+        }
+        else{
 
-        $.ajax({url: "/updatedashboard/updateSubscriptionsTopicName?topicid="+id+"&topicname="+topicName, success: function(result){
-                window.location.reload();
+            saveBtn.style.display = "none"
+            cancelBtn.style.display = "none"
+            tag.contentEditable = false;
+
+            $.ajax({url: "/updatedashboard/updateSubscriptionsTopicName?topicid="+id+"&topicname="+topicName, success: function(result){
+                    window.location.reload();
             }});
+
+
+        }
+
+
 
     }
 

@@ -276,18 +276,28 @@
 
         let id = event.target.id.substring(5)
         let tag = document.querySelector('#topicname-' + id);
+        let tagmsg = document.querySelector('#topicnamemsg-' + id);
         let saveBtn = document.querySelector('#save-'+ id);
         let cancelBtn = document.querySelector('#cancel-'+ id);
 
         let topicName = tag.text
 
-        saveBtn.style.display = "none"
-        cancelBtn.style.display = "none"
-        tag.contentEditable = false;
+        if(topicName.length> 35){
+            window.location.reload();
+        }
+        else{
 
-        $.ajax({url: "/updatedashboard/updateSubscriptionsTopicName?topicid="+id+"&topicname="+topicName, success: function(result){
-                window.location.reload();
-        }});
+            saveBtn.style.display = "none"
+            cancelBtn.style.display = "none"
+            tag.contentEditable = false;
+
+            $.ajax({url: "/updatedashboard/updateSubscriptionsTopicName?topicid="+id+"&topicname="+topicName, success: function(result){
+                    window.location.reload();
+                }});
+
+        }
+
+
 
     }
 

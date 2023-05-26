@@ -16,35 +16,39 @@ class ProfileService {
 
     List userTopicList(Userdetail user){
 
+        try{
 
-        List subscriptionList = Subscription.createCriteria().listDistinct{
-            topic{
-                eq("createdBy", user)
+            List subscriptionList = Subscription.createCriteria().listDistinct{
+                topic{
+                    eq("createdBy", user)
+                }
+                eq("user", user)
+                order("dateCreated","desc")
             }
 
-            eq("user", user)
-            order("dateCreated","desc")
+            List topicList = []
+            int i = 0;
+            subscriptionList.each{it->
+                Map result = [:]
+                int subsCount = Subscription.countByTopic(it.topic)
+                int postCount = Resourcedetail.countByTopic(it.topic)
+                result.put("subID", it.id)
+                result.put("user",it.user)
+                result.put("topic",it.topic)
+                result.put("seriousness",it.seriousness)
+                result.put("subsCount",subsCount)
+                result.put("postCount",postCount)
+                topicList.add(result)
+            }
+            return topicList;
+
 
         }
+        catch (Exception e){
 
+            return []
 
-
-        List topicList = []
-        int i = 0;
-        subscriptionList.each{it->
-            Map result = [:]
-            int subsCount = Subscription.countByTopic(it.topic)
-            int postCount = Resourcedetail.countByTopic(it.topic)
-            result.put("subID", it.id)
-            result.put("user",it.user)
-            result.put("topic",it.topic)
-            result.put("seriousness",it.seriousness)
-            result.put("subsCount",subsCount)
-            result.put("postCount",postCount)
-            topicList.add(result)
         }
-
-        return topicList;
 
     }
 
@@ -110,36 +114,50 @@ class ProfileService {
 
     List userPostList(Userdetail user){
 
-        List posts = Resourcedetail.createCriteria().list{
-            eq("createdBy", user)
+        try{
+            List posts = Resourcedetail.createCriteria().list{
+                eq("createdBy", user)
+            }
+            return posts
         }
-        return posts
+        catch (Exception e){
+            return []
+        }
 
     }
 
     List userSubscriptionList(Userdetail user){
 
-        List subscriptionList = Subscription.createCriteria().listDistinct{
-            eq("user", user)
-            order("dateCreated","desc")
+        try{
+
+            List subscriptionList = Subscription.createCriteria().listDistinct{
+                eq("user", user)
+                order("dateCreated","desc")
+            }
+
+            List topicList = []
+            int i = 0;
+            subscriptionList.each{it->
+                Map result = [:]
+                int subsCount = Subscription.countByTopic(it.topic)
+                int postCount = Resourcedetail.countByTopic(it.topic)
+                result.put("subID", it.id)
+                result.put("user",it.user)
+                result.put("topic",it.topic)
+                result.put("seriousness",it.seriousness)
+                result.put("subsCount",subsCount)
+                result.put("postCount",postCount)
+                topicList.add(result)
+            }
+
+            return topicList;
+
+        }
+        catch (Exception e){
+            return []
         }
 
-        List topicList = []
-        int i = 0;
-        subscriptionList.each{it->
-            Map result = [:]
-            int subsCount = Subscription.countByTopic(it.topic)
-            int postCount = Resourcedetail.countByTopic(it.topic)
-            result.put("subID", it.id)
-            result.put("user",it.user)
-            result.put("topic",it.topic)
-            result.put("seriousness",it.seriousness)
-            result.put("subsCount",subsCount)
-            result.put("postCount",postCount)
-            topicList.add(result)
-        }
 
-        return topicList;
 
     }
 

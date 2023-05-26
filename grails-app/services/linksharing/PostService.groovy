@@ -10,13 +10,21 @@ class PostService {
     }
 
     boolean isSubscribedToTopic(Userdetail user, Topic topic){
-        int count = Subscription.createCriteria().count{
-            eq("user", user)
-            eq("topic", topic)
+
+        try{
+
+            int count = Subscription.createCriteria().count{
+                eq("user", user)
+                eq("topic", topic)
+            }
+            if(count == 0)
+                return false
+            return true
         }
-        if(count == 0)
+        catch (Exception e){
             return false
-        return true
+        }
+
     }
 
     String editLinkResource(Map params){
@@ -92,14 +100,25 @@ class PostService {
 
 
     Resourcedetail getResource(Long resourceId){
-        return Resourcedetail.findById(resourceId)
+        try{
+            return Resourcedetail.findById(resourceId)
+        }
+        catch (Exception e){
+            return new Resourcedetail()
+        }
     }
 
     Long getPostRaters(Resourcedetail resource){
-        def res = ResourceRating.createCriteria().count{
-            eq("resource", resource)
+        try{
+            def res = ResourceRating.createCriteria().count{
+                eq("resource", resource)
+            }
+            return res
         }
-        return res
+        catch (Exception e){
+            return 0
+        }
+
     }
 
     def getAvgPostRating(Resourcedetail resource){
@@ -114,15 +133,22 @@ class PostService {
 
     String getResourceRating(Userdetail user, Resourcedetail resource){
 
-        ResourceRating userRating = ResourceRating.createCriteria().get {
-            eq("user", user)
-            eq("resource", resource)
+        try{
+            ResourceRating userRating = ResourceRating.createCriteria().get {
+                eq("user", user)
+                eq("resource", resource)
+            }
+            if(userRating){
+                return userRating.score as String
+            }
+            else{
+                return "0"
+            }
+
         }
-        if(userRating){
-            return userRating.score as String
-        }
-        else{
+        catch (Exception e){
             return "0"
+
         }
 
     }

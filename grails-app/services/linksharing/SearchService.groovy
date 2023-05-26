@@ -15,7 +15,7 @@ class SearchService {
 
     List topPostList(String timeFrame){
 
-        def calendar = Calendar.getInstance()
+        Calendar calendar = Calendar.getInstance()
         def startDate
 
         switch (timeFrame) {
@@ -76,7 +76,7 @@ class SearchService {
     }
 
 
-    def searchFunction(Map params){
+    List searchFunction(Map params){
 
         if(params.searchInput==''){
             return Resourcedetail.list()

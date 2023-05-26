@@ -9,17 +9,24 @@ class LoginService {
 
     }
 
-    def userCredentialsValidation(String userInput, password){
+    Userdetail userCredentialsValidation(String userInput, password){
 
-        def res = Userdetail.createCriteria().get{
-            or{
-                eq("email", userInput)
-                eq("username",userInput)
+        try{
+            def res = Userdetail.createCriteria().get{
+                or{
+                    eq("email", userInput)
+                    eq("username",userInput)
+                }
+                eq("password", password)
             }
-            eq("password", password)
+
+            return res
+        }
+        catch (Exception e){
+            return new Userdetail()
         }
 
-        return res
+
 
     }
 }

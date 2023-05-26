@@ -135,21 +135,12 @@ class DashboardController {
 
     def loadSubscribedTopics(){
 
-        // do below in a service.
 
         Long userID = session.LOGGED_IN_USER_ID
         Userdetail user = AdminService.getUser(userID)
 
-        def result = Subscription.createCriteria().list{
-            projections{
-                topic{
-                    property("id")
-                    property("name")
-                }
-            }
-            eq("user",user)
+        List result = UpdatedashboardService.loadSubTopics(user)
 
-        }
 
         Map subscribersMap = [key:result]
         render subscribersMap as JSON

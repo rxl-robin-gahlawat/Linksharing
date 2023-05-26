@@ -15,15 +15,28 @@ class RegisterService {
 
 
     boolean checkUniqueEmail(Map params){
-        int result = Userdetail.countByEmail(params.email)
-        if(result == 0) return false
-        else return true
+        try{
+            int result = Userdetail.countByEmail(params.email)
+            if(result == 0) return false
+            else return true
+        }
+        catch (Exception e){
+            println e
+        }
+
     }
 
     boolean checkUniqueUsername(Map params){
-        int result = Userdetail.countByUsername(params.username)
-        if(result == 0) return false
-        else return true
+
+        try{
+            int result = Userdetail.countByUsername(params.username)
+            if(result == 0) return false
+            else return true
+        }
+        catch (Exception e){
+            println e
+        }
+
     }
 
     def registerUser(Map params){

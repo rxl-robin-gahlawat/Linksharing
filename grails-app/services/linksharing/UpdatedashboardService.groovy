@@ -33,6 +33,33 @@ class UpdatedashboardService {
             mailSender.send(msg)
     }
 
+    List loadSubTopics(Userdetail user){
+
+        try{
+
+            List result = Subscription.createCriteria().list{
+                projections{
+                    topic{
+                        property("id")
+                        property("name")
+                    }
+                }
+                eq("user",user)
+
+            }
+            return result
+
+        }
+
+        catch (Exception e){
+            return []
+        }
+
+    }
+
+
+
+
     String randomPasswordGenerator(){
 
         String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@!#%^&*"
@@ -53,19 +80,17 @@ class UpdatedashboardService {
 
     String sendForgotPasswordEmail(String email){
 
-
         Userdetail usr = Userdetail.findByEmail(email)
         if(!usr){
             return "User doesn't exist in database."
         }
-
         try{
             String subject = "Default password for your Linksharing account"
             String defaultPassword = randomPasswordGenerator()
             String mailText = "Your default Login password is : ${defaultPassword}. Please update your password as soon as you login."
 
             def msg = new SimpleMailMessage();
-            msg.setFrom("ankitmishra0402@outlook.com")
+            msg.setFrom("bhau.singh@outlook.com")
             msg.setTo(email)
             msg.setSubject(subject)
             msg.setText(mailText)
@@ -83,11 +108,11 @@ class UpdatedashboardService {
 
     }
 
-    def sendInviteMail(String subject, String message, String email){
+    boolean sendInviteMail(String subject, String message, String email){
 
         try{
             def msg = new SimpleMailMessage();
-            msg.setFrom("ankitmishra0402@outlook.com")
+            msg.setFrom("bhau.singh@outlook.com")
             msg.setTo(email)
             msg.setSubject(subject)
             msg.setText(message)
@@ -197,15 +222,23 @@ class UpdatedashboardService {
     }
 
     boolean markAsRead(Userdetail user, Resourcedetail resource){
-        ReadingItem item = ReadingItem.createCriteria().get{
-            eq("user", user)
-            eq("resource", resource)
+        try{
+            ReadingItem item = ReadingItem.createCriteria().get{
+                eq("user", user)
+                eq("resource", resource)
+            }
+            if(item){
+                item.isRead = true
+                return true
+            }
+            else{
+                return false
+            }
         }
-        if(item){
-            item.isRead = true
-            return true
+        catch (Exception e){
+            return false
         }
-        return false
+
     }
 
     boolean subscribeInvitedTopic(Userdetail user, Long topicId){
@@ -229,29 +262,35 @@ class UpdatedashboardService {
     List allTopicsAlphabeticalOrder(){
 
 
-        List reqList = Subscription.createCriteria().listDistinct{
-            topic{
-                order("name")
+        try{
+
+            List reqList = Subscription.createCriteria().listDistinct{
+                topic{
+                    order("name")
+                }
             }
+
+            List topicList = []
+            int i = 0;
+            reqList.each{it->
+                Map result = [:]
+                int subsCount = Subscription.countByTopic(it.topic)
+                int postCount = Resourcedetail.countByTopic(it.topic)
+                result.put("subID", it.id)
+                result.put("user",it.user)
+                result.put("topic",it.topic)
+                result.put("seriousness",it.seriousness)
+                result.put("subsCount",subsCount)
+                result.put("postCount",postCount)
+                topicList.add(result)
+            }
+            return topicList;
+
+
         }
-
-
-        List topicList = []
-        int i = 0;
-        reqList.each{it->
-            Map result = [:]
-            int subsCount = Subscription.countByTopic(it.topic)
-            int postCount = Resourcedetail.countByTopic(it.topic)
-            result.put("subID", it.id)
-            result.put("user",it.user)
-            result.put("topic",it.topic)
-            result.put("seriousness",it.seriousness)
-            result.put("subsCount",subsCount)
-            result.put("postCount",postCount)
-            topicList.add(result)
+        catch(Exception e){
+            return []
         }
-
-        return topicList;
 
 
     }

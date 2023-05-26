@@ -72,7 +72,7 @@
 
 <g:if test="${flash.successMessage}">
 
-    <div id="success-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: #5ae017;">
+    <div id="success-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: deepskyblue;">
         <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <strong class="me-auto">${flash.successMessage}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>

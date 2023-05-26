@@ -11,8 +11,8 @@ grails:
     mail:
         host: 'smtp.office365.com'
         port: 587
-        username: 'ankitmishra0402@outlook.com'
-        password: 'Ankit0402'
+        username: 'bhau.singh@outlook.com'
+        password: 'Puneet@16'
         props:
             mail:
                 smtp:

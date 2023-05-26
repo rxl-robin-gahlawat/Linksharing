@@ -25,7 +25,7 @@
 
 <g:if test="${flash.successMessage}">
 
-    <div id="success-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: #41e30a;">
+    <div id="success-message" class="toast show position-fixed top-0 start-50 translate-middle-x mt-1" style="z-index: 9999; background-color: deepskyblue;">
         <div class="toast-header" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
             <strong class="me-auto">${flash.successMessage}</strong>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
@@ -163,7 +163,7 @@
                                                     <div class="mb-3">
                                                         <label for="linkResourceModal" class="form-label">Description*</label>
                                                         %{--                                                <input type="textarea" height="20" class="form-control" id="linkResourceDescription" name="linkResourceDescription">--}%
-                                                        <textarea id="w3review" name="resourceDescription" rows="4" cols="44" required></textarea>
+                                                        <textarea id="w3review" name="resourceDescription" rows="4" cols="40" required></textarea>
 
                                                     </div>
 
@@ -222,7 +222,7 @@
 
                                                     <div class="mb-3">
                                                         <label for="documentResourceModal" class="form-label">Description*</label>
-                                                        <textarea id="resourceDescription"  name="resourceDescription" rows="4" cols="44" required></textarea>
+                                                        <textarea id="resourceDescription"  name="resourceDescription" rows="4" cols="40" required></textarea>
 
                                                     </div>
 
