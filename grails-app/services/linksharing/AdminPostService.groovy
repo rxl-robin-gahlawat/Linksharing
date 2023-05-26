@@ -11,8 +11,15 @@ class AdminPostService {
 
     List allPosts(){
 
-        List postList = Resourcedetail.createCriteria().list {}
-        return postList
+        try{
+            List postList = Resourcedetail.createCriteria().list {}
+            return postList
+        }
+        catch (Exception e){
+            return []
+        }
+
+
 
     }
 }

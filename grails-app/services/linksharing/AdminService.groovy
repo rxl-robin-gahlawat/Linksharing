@@ -22,19 +22,33 @@ class AdminService {
     }
 
     List users(){
-        List userList = Userdetail.createCriteria().list{
-            eq("admin", false)
-            order("username", "desc")
+        try{
+            List userList = Userdetail.createCriteria().list{
+                eq("admin", false)
+                order("username", "desc")
+            }
+            return userList
         }
-        return userList
+        catch (Exception e){
+            return []
+        }
+
     }
 
-    def userActivation(def userId){
-        Userdetail usr = Userdetail.get(Integer.parseInt(userId))
-        if(usr.active)
-            usr.active = false
-        else
-            usr.active = true
+    void userActivation(String userId){
+
+        try{
+            Userdetail usr = Userdetail.get(Integer.parseInt(userId))
+            if(usr.active)
+                usr.active = false
+            else
+                usr.active = true
+
+        }
+        catch (Exception e){
+            println e
+        }
+
 
     }
 

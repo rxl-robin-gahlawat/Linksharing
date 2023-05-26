@@ -2,6 +2,8 @@ package linksharing
 
 import grails.gorm.transactions.Transactional
 
+import java.nio.channels.ScatteringByteChannel
+
 @Transactional
 class AdminTopicService {
 
@@ -11,8 +13,13 @@ class AdminTopicService {
 
     List allTopics(){
 
-        List topicList = Topic.createCriteria().list {}
-        return topicList
+        try{
+            List topicList = Topic.createCriteria().list {}
+            return topicList
+        }
+        catch (Exception e){
+            return []
+        }
 
     }
 

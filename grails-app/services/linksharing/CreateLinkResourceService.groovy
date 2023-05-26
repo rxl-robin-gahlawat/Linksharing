@@ -10,26 +10,39 @@ class CreateLinkResourceService {
     }
 
     List loadInboxList(Long userID){
-        Userdetail user = Userdetail.findById(userID)
 
-        List res = ReadingItem.createCriteria().list{
-            eq("user", user)
-            eq("isRead", false)
-            order("dateCreated", "desc")
+        try{
+            Userdetail user = Userdetail.findById(userID)
+            List res = ReadingItem.createCriteria().list{
+                eq("user", user)
+                eq("isRead", false)
+                order("dateCreated", "desc")
+            }
+            return res
+
         }
-        return res
+        catch (Exception e){
+            return []
+        }
+
 
     }
 
-    // sort them
+
     List loadTopicSubscribers(Topic topic){
-        List topicSubscribers = Subscription.createCriteria().listDistinct{
-            projections{
-                property("user")
+        try{
+            List topicSubscribers = Subscription.createCriteria().listDistinct{
+                projections{
+                    property("user")
+                }
+                eq("topic", topic)
             }
-            eq("topic", topic)
+            return topicSubscribers
         }
-        return topicSubscribers
+        catch (Exception e){
+            return []
+        }
+
     }
 
     boolean createReadingFlagForSubscribers(Topic topic, Resourcedetail resource){

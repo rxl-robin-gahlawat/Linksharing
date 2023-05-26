@@ -11,14 +11,14 @@ class CreateTopicService {
 
     }
 
-    def topicValidator(Topic topic, Userdetail user){
+    boolean topicValidator(Topic topic, Userdetail user){
 
         if(!topic.validate()){
             return false
         }
 
         // change below def to List<String>
-        def allTopicNamesByUser = Topic.createCriteria().list{
+        List allTopicNamesByUser = Topic.createCriteria().list{
             projections{
                 property("name")
             }
@@ -31,36 +31,51 @@ class CreateTopicService {
         return true;
     }
 
-    def subscribeTopicCreator(Topic topic, Userdetail user){
+    void subscribeTopicCreator(Topic topic, Userdetail user){
 
-        Subscription sub = new Subscription();
-        sub.user = user;
-        sub.topic = topic;
-        sub.seriousness = SeriousnessEnum.VERY_SERIOUS
-        sub.save(flush: true, failOnError:true)
+        try{
+            Subscription sub = new Subscription();
+            sub.user = user;
+            sub.topic = topic;
+            sub.seriousness = SeriousnessEnum.VERY_SERIOUS
+            sub.save(flush: true, failOnError:true)
+
+        }
+        catch (Exception e){
+            println e
+        }
 
     }
 
-    def createTopic(def params, def USER_ID){
+    boolean createTopic(Map params, Long USER_ID){
 
-        Userdetail user = Userdetail.findById(USER_ID)
+        try{
 
-        Topic topic = new Topic();
-        topic.name = params.topicName;
-        topic.createdBy = user
+            Userdetail user = Userdetail.findById(USER_ID)
 
-        if(params.visibility == "public")
-            topic.visibility = VisibilityEnum.PUBLIC
-        else
-            topic.visibility = VisibilityEnum.PRIVATE
+            Topic topic = new Topic();
+            topic.name = params.topicName;
+            topic.createdBy = user
+
+            if(params.visibility == "public")
+                topic.visibility = VisibilityEnum.PUBLIC
+            else
+                topic.visibility = VisibilityEnum.PRIVATE
 
 
-        if(topicValidator(topic, user)){
-            topic.save(flush:true, failOnError: true)
-            subscribeTopicCreator(topic,user)
-            return true
+            if(topicValidator(topic, user)){
+                topic.save(flush:true, failOnError: true)
+                subscribeTopicCreator(topic,user)
+                return true
+            }
+            return false
+
         }
-        return false
+        catch (Exception e){
+            return false
+        }
+
+
 
 
     }
